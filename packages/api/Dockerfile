@@ -1,18 +1,18 @@
-FROM node:20-alpine
+FROM node:20-slim
 
 WORKDIR /app
 
-# Copy root package
-COPY package.json ./
+# Copy package files
+COPY package*.json ./
 
-# Copy api package
-COPY packages/api/package.json packages/api/
-COPY packages/api/src packages/api/
+# Install dependencies
+RUN npm install --production
 
-# Install
-WORKDIR /app/packages/api
-RUN npm install
+# Copy source
+COPY src ./src
 
+# Expose port
 EXPOSE 3000
 
+# Run
 CMD ["node", "src/index.js"]
