@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/index.js",
     "start": "node src/index.js",
     "test": "echo \"No tests configured\""
   },
@@ -18,5 +17,8 @@
     "axios": "^1.6.0",
     "morgan": "^1.10.0",
     "express-rate-limit": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
