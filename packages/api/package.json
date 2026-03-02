@@ -4,12 +4,10 @@
   "description": "aab.engineering API server",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "node --loader tsx src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest",
-    "deploy:staging": "fly deploy --config fly.staging.toml",
-    "deploy:prod": "fly deploy --config fly.production.toml"
+    "test": "jest"
   },
   "dependencies": {
     "express": "^4.18.2",
