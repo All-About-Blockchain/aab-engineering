@@ -1,17 +1,17 @@
 FROM node:20-alpine
 
-WORKDIR /app
+WORKDIR /app/packages/api
 
 # Copy package files
-COPY package.json ./
-COPY packages/api/package.json ./packages/api/
-COPY packages/api/src ./packages/api/src
+COPY package*.json ./
 
-# Install
-WORKDIR /app/packages/api
+# Install dependencies
 RUN npm install
 
-# Expose
+# Copy source
+COPY src ./src
+
+# Expose port
 EXPOSE 3000
 
 # Run

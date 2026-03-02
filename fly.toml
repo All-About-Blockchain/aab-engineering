@@ -1,6 +1,7 @@
 app = "aab-engineering"
 
 [build]
+  context = "./packages/api"
   dockerfile = "Dockerfile"
 
 [env]
