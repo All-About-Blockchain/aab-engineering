@@ -1,0 +1,19 @@
+app = "aab-api"
+
+[build]
+  builder = "heroku/buildpacks:20"
+  buildpacks = ["https://github.com/heroku/heroku-buildpack-nodejs"]
+
+[[services]]
+  http_checks = []
+  internal_port = 3000
+  processes = ["app"]
+  protocol = "tcp"
+
+[[services.ports]]
+  port = 3000
+  handlers = ["http"]
+
+[env]
+  NODE_ENV = "production"
+  PORT = "3000"
