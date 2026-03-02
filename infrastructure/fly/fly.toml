@@ -1,0 +1,17 @@
+app = "aab-engineering"
+
+[build]
+  image = "node:20-alpine"
+
+[env]
+  PORT = "3000"
+
+[[service]]
+  http_checks = []
+  internal_port = 3000
+  processes = ["app"]
+  protocol = "tcp"
+
+[[statics]]
+  guest_path = "/app"
+  url_prefix = "/"

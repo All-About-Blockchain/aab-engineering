@@ -1,0 +1,34 @@
+app = "aab-engineering"
+
+[build]
+  builder = "heroku/buildpacks:20"
+  buildpacks = ["https://github.com/timraymond/heroku-nodejs.git"]
+
+[env]
+  PORT = "3000"
+  NODE_ENV = "production"
+
+[[services]]
+  http_checks = []
+  internal_port = 3000
+  processes = ["app"]
+  protocol = "tcp"
+  
+  [services.concurrency]
+    type = "requests"
+    hard_limit = 250
+    soft_limit = 200
+
+  [[services.ports]]
+    port = 3000
+    handlers = ["http"]
+
+  [[services.http_checks]]
+    path = "/health"
+    interval = 30
+    timeout = 10
+    grace_period = 5
+
+[metrics]
+  port = 9090
+  path = "/metrics"
