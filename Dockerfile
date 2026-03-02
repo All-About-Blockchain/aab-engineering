@@ -2,21 +2,17 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy root package.json for name
+# Copy package files
 COPY package.json ./
+COPY packages/api/package.json ./packages/api/
+COPY packages/api/src ./packages/api/src
 
-# Copy api package
+# Install
 WORKDIR /app/packages/api
-COPY package*.json ./
-
-# Install deps
 RUN npm install
 
-# Copy API source 
-COPY src ./src
-
-# Expose port
+# Expose
 EXPOSE 3000
 
-# Run with tsx
-CMD ["npx", "tsx", "src/index.ts"]
+# Run
+CMD ["node", "src/index.js"]

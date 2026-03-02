@@ -1,10 +1,9 @@
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import { logger } from './utils/logger.js';
 
 // Routes
 import healthRoutes from './routes/health.js';
@@ -18,7 +17,7 @@ import { authMiddleware } from './middleware/auth.js';
 
 dotenv.config();
 
-const app: Express = express();
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Security & Basic Middleware
@@ -29,8 +28,8 @@ app.use(express.json());
 
 // Rate Limiting
 const limiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 100, // 100 requests per minute
+  windowMs: 60 * 1000,
+  max: 100,
   message: { success: false, error: 'Rate limit exceeded' }
 });
 app.use(limiter);
@@ -43,7 +42,9 @@ app.use('/v1/rates', authMiddleware, ratesRoutes);
 app.use('/v1/chains', authMiddleware, chainsRoutes);
 app.use('/v1/bridge', authMiddleware, bridgeRoutes);
 app.use('/v1/swap', authMiddleware, swapRoutes);
-app.use('/v1', (req: Request, res: Response) => {
+
+// Root
+app.use('/v1', (req, res) => {
   res.json({
     name: 'aab.engineering API',
     version: '1.0.0',
@@ -59,19 +60,17 @@ app.use('/v1', (req: Request, res: Response) => {
 });
 
 // Error handling
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  logger.error(err.stack);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
   res.status(500).json({ success: false, error: 'Internal server error' });
 });
 
-// 404 handler
-app.use((req: Request, res: Response) => {
+app.use((req, res) => {
   res.status(404).json({ success: false, error: 'Not found' });
 });
 
 app.listen(PORT, () => {
-  logger.info(`🚀 aab.engineering API running on port ${PORT}`);
-  logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🚀 aab.engineering API running on port ${PORT}`);
 });
 
 export default app;
