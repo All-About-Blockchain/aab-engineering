@@ -1,8 +1,7 @@
 app = "aab-engineering"
 
 [build]
-  context = "./packages/api"
-  dockerfile = "Dockerfile"
+  dockerfile = "packages/api/Dockerfile"
 
 [env]
   PORT = "3000"
