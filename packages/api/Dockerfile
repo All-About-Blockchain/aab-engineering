@@ -1,18 +1,18 @@
 FROM node:20-alpine
 
+WORKDIR /app
+
+# Copy root package
+COPY package.json ./
+
+# Copy api package
+COPY packages/api/package.json packages/api/
+COPY packages/api/src packages/api/
+
+# Install
 WORKDIR /app/packages/api
-
-# Copy package files
-COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy source
-COPY src ./src
-
-# Expose port
 EXPOSE 3000
 
-# Run
 CMD ["node", "src/index.js"]
