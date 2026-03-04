@@ -1,7 +1,6 @@
 app = "aab-api"
 
 [build]
-  builder = "paketobuildpacks/builder:base"
 
 [env]
   NODE_ENV = "production"
@@ -16,3 +15,9 @@ app = "aab-api"
 [[services.ports]]
   port = 3000
   handlers = ["http"]
+
+[deploy]
+  release_command = "npm run build"
+  
+[processes]
+  app = "node packages/api/src/index.js"
