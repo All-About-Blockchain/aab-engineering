@@ -1,0 +1,451 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Aab.Engineering API",
+    "description": "Building Blocks for Agentic DeFi - APIs for staking, swaps, wallets, and fiat on-ramps",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Aab.Engineering",
+      "url": "https://aab.engineering"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://aab-api.fly.dev/v1",
+      "description": "Production"
+    },
+    {
+      "url": "http://localhost:3000/v1",
+      "description": "Local Development"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": false },
+          "error": { "type": "string" }
+        }
+      },
+      "Wallet": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "address": { "type": "string" },
+          "publicKey": { "type": "string" }
+        }
+      },
+      "StakingAsset": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "symbol": { "type": "string" },
+          "protocol": { "type": "string" },
+          "chain": { "type": "string" },
+          "apy": { "type": "number" },
+          "type": { "type": "string", "enum": ["liquid", "native"] }
+        }
+      },
+      "SwapQuote": {
+        "type": "object",
+        "properties": {
+          "chain": { "type": "string" },
+          "fromToken": { "type": "string" },
+          "toToken": { "type": "string" },
+          "fromAmount": { "type": "string" },
+          "toAmount": { "type": "string" },
+          "priceImpact": { "type": "number" }
+        }
+      }
+    }
+  },
+  "security": [{ "ApiKeyAuth": [] }],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health check",
+        "description": "Check if the API is running (no auth required)",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "API is healthy",
+            "content": {
+              "application/json": {
+                "example": { "status": "ok", "version": "1.0.0" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chains": {
+      "get": {
+        "summary": "Get supported chains",
+        "description": "List all supported blockchain networks",
+        "tags": ["Chains"],
+        "responses": {
+          "200": {
+            "description": "List of chains",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "chains": {
+                    "ethereum": { "name": "Ethereum", "protocols": ["aave_v3", "lido", "rocketpool"] },
+                    "solana": { "name": "Solana", "protocols": ["jito", "marinade"] }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rates": {
+      "get": {
+        "summary": "Get yield rates",
+        "description": "Fetch current yield rates across protocols",
+        "tags": ["Rates"],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by chain (e.g., ethereum, solana)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Yield rates",
+            "content": {
+              "application/json": {
+                "example": { "success": true, "rates": [{ "protocol": "lido", "apy": 4.08, "chain": "ethereum" }] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staking/rates": {
+      "get": {
+        "summary": "Get staking rates",
+        "description": "Get current staking APYs for liquid staking tokens",
+        "tags": ["Staking"],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by chain"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Staking rates",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "count": 5,
+                  "assets": [
+                    { "id": "steth", "name": "Lido Staked ETH", "symbol": "stETH", "protocol": "lido", "chain": "ethereum", "apy": 0.041, "type": "liquid" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staking/deposit": {
+      "post": {
+        "summary": "Get stake deposit transaction",
+        "description": "Generate transaction data for staking",
+        "tags": ["Staking"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["assetId", "amount", "userAddress"],
+                "properties": {
+                  "assetId": { "type": "string", "example": "steth" },
+                  "amount": { "type": "string", "example": "1.0" },
+                  "userAddress": { "type": "string", "example": "0x..." }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deposit transaction data",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "deposit": { "assetId": "steth", "amount": "1.0", "txData": {}, "apy": 0.041 }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/swap/tokens": {
+      "get": {
+        "summary": "Get supported swap tokens",
+        "description": "List tokens available for swapping",
+        "tags": ["Swap"],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Chain name (ethereum, solana, etc.)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token list",
+            "content": {
+              "application/json": {
+                "example": { "success": true, "chain": "ethereum", "tokens": [{ "symbol": "USDC", "address": "0xA0b86a33E6441C4" }] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/swap/quote": {
+      "post": {
+        "summary": "Get swap quote",
+        "description": "Get a quote for swapping tokens",
+        "tags": ["Swap"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["chain", "fromToken", "toToken", "amount"],
+                "properties": {
+                  "chain": { "type": "string", "example": "ethereum" },
+                  "fromToken": { "type": "string", "example": "USDC" },
+                  "toToken": { "type": "string", "example": "ETH" },
+                  "amount": { "type": "string", "example": "1000" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Swap quote",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "quote": { "chain": "ethereum", "fromToken": "USDC", "toToken": "ETH", "fromAmount": "1000", "toAmount": "0.284" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wallet/create": {
+      "post": {
+        "summary": "Create MPC wallet",
+        "description": "Create a new non-custodial MPC wallet (TurnKey)",
+        "tags": ["Wallet"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId"],
+                "properties": {
+                  "userId": { "type": "string", "example": "user-123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Wallet created",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "wallet": { "id": "wallet-abc", "address": "0x...", "publicKey": "0x04..." }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wallet/{walletId}/sign": {
+      "post": {
+        "summary": "Sign transaction",
+        "description": "Request signature for a transaction (user must approve)",
+        "tags": ["Wallet"],
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["to", "value"],
+                "properties": {
+                  "to": { "type": "string", "example": "0x..." },
+                  "value": { "type": "string", "example": "1000000000000000000" },
+                  "data": { "type": "string", "example": "0x" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signature ready",
+            "content": {
+              "application/json": {
+                "example": { "success": true, "signature": { "r": "0x...", "s": "0x...", "v": 27 } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/moonpay/buy-url": {
+      "get": {
+        "summary": "Get MoonPay buy URL",
+        "description": "Get widget URL for buying crypto with fiat",
+        "tags": ["MoonPay"],
+        "parameters": [
+          {
+            "name": "walletAddress",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fiatCurrency",
+            "in": "query",
+            "schema": { "type": "string", "default": "CAD" }
+          },
+          {
+            "name": "cryptoCurrency",
+            "in": "query",
+            "schema": { "type": "string", "default": "ETH" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "MoonPay widget URL",
+            "content": {
+              "application/json": {
+                "example": { "success": true, "url": "https://buy.moonpay.com?apiKey=..." }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/moonpay/quote": {
+      "get": {
+        "summary": "Get MoonPay quote",
+        "description": "Get a quote for buying crypto with fiat",
+        "tags": ["MoonPay"],
+        "parameters": [
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "fiatCurrency",
+            "in": "query",
+            "schema": { "type": "string", "default": "CAD" }
+          },
+          {
+            "name": "cryptoCurrency",
+            "in": "query",
+            "schema": { "type": "string", "default": "ETH" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Buy quote",
+            "content": {
+              "application/json": {
+                "example": { "success": true, "quote": { "youPay": "CAD 100.00", "youGet": "ETH 0.0284" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bridge/config": {
+      "get": {
+        "summary": "Get bridge configuration",
+        "description": "List supported cross-chain bridges",
+        "tags": ["Bridge"],
+        "responses": {
+          "200": {
+            "description": "Bridge options",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "bridges": [
+                    { "name": "LayerZero", "fee": "0.05%", "time": "5-20min" },
+                    { "name": "Stargate", "fee": "0.06%", "time": "10-30min" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    { "name": "Health", "description": "Health and status" },
+    { "name": "Chains", "description": "Supported blockchain networks" },
+    { "name": "Rates", "description": "Yield rate data" },
+    { "name": "Staking", "description": "Liquid staking operations" },
+    { "name": "Swap", "description": "Token swap quotes and execution" },
+    { "name": "Wallet", "description": "MPC wallet operations" },
+    { "name": "MoonPay", "description": "Fiat on-ramp" },
+    { "name": "Bridge", "description": "Cross-chain bridging" }
+  ]
+}

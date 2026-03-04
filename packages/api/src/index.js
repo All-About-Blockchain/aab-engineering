@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Routes
 import healthRoutes from './routes/health.js';
@@ -23,6 +25,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Security & Basic Middleware
 app.use(helmet());
 app.use(cors());
@@ -36,6 +42,17 @@ const limiter = rateLimit({
   message: { success: false, error: 'Rate limit exceeded' }
 });
 app.use(limiter);
+
+// Swagger UI (no auth required)
+app.use('/docs', express.static(path.join(__dirname, 'docs')));
+
+// Redirect / to /docs
+app.use('/', (req, res, next) => {
+  if (req.path === '/' || req.path === '') {
+    return res.redirect('/docs');
+  }
+  next();
+});
 
 // Health check (no auth required)
 app.use('/health', healthRoutes);
