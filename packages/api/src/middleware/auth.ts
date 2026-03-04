@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { logger } from '../utils/logger.js';
 
 const API_KEYS = new Set([
-  process.env.API_KEY || 'trident_cron_key_2026', // Default for backwards compatibility
-  process.env.CRON_KEY || 'trident_cron_key_2026'
+  process.env.API_KEY || 'aab_cron_key_2026', // Default for backwards compatibility
+  process.env.CRON_KEY || 'aab_cron_key_2026'
 ]);
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction): void {

@@ -1,0 +1,14 @@
+{
+  "name": "@aab.engineering/contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for Aab.Engineering",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js"
+  },
+  "dependencies": {
+    "hardhat": "^2.19.0"
+  }
+}

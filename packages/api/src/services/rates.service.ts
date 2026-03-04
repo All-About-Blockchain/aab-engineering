@@ -59,7 +59,7 @@ const CHAINS = {
   }
 };
 
-// Mock rates data (same as current Trident)
+// Mock rates data (same as current AAB)
 const MOCK_RATES: any = {
   USDC: {
     ethereum: {

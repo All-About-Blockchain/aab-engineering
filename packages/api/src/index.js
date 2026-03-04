@@ -11,6 +11,9 @@ import ratesRoutes from './routes/rates.js';
 import chainsRoutes from './routes/chains.js';
 import bridgeRoutes from './routes/bridge.js';
 import swapRoutes from './routes/swap.js';
+import stakingRoutes from './routes/staking.js';
+import walletRoutes from './routes/wallet.js';
+import moonpayRoutes from './routes/moonpay.js';
 
 // Middleware
 import { authMiddleware } from './middleware/auth.js';
@@ -42,6 +45,9 @@ app.use('/v1/rates', authMiddleware, ratesRoutes);
 app.use('/v1/chains', authMiddleware, chainsRoutes);
 app.use('/v1/bridge', authMiddleware, bridgeRoutes);
 app.use('/v1/swap', authMiddleware, swapRoutes);
+app.use('/v1/staking', authMiddleware, stakingRoutes);
+app.use('/v1/wallet', authMiddleware, walletRoutes);
+app.use('/v1/moonpay', moonpayRoutes);
 
 // Root
 app.use('/v1', (req, res) => {
@@ -54,7 +60,10 @@ app.use('/v1', (req, res) => {
       rates: '/v1/rates',
       chains: '/v1/chains',
       bridge: '/v1/bridge',
-      swap: '/v1/swap'
+      swap: '/v1/swap',
+      staking: '/v1/staking',
+      wallet: '/v1/wallet',
+      moonpay: '/v1/moonpay'
     }
   });
 });

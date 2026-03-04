@@ -1,6 +1,6 @@
 const API_KEYS = new Set([
-  process.env.API_KEY || 'trident_cron_key_2026',
-  process.env.CRON_KEY || 'trident_cron_key_2026'
+  process.env.API_KEY || 'aab_cron_key_2026',
+  process.env.CRON_KEY || 'aab_cron_key_2026'
 ]);
 
 export function authMiddleware(req, res, next) {
