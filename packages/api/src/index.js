@@ -18,7 +18,7 @@ import walletRoutes from './routes/wallet.js';
 import moonpayRoutes from './routes/moonpay.js';
 
 // Middleware
-import { authMiddleware } from './middleware/auth.js';
+import { authMiddleware, freeTierLimiter } from './middleware/auth.js';
 
 dotenv.config();
 
@@ -49,15 +49,17 @@ app.use('/docs', express.static(path.join(__dirname, 'docs')));
 // Serve index.html at root
 app.use('/', express.static(path.join(__dirname, 'docs'), { index: 'index.html' }));
 
-// Health check (no auth required)
-app.use('/health', healthRoutes);
+// Health check (no auth required, free tier)
+app.use('/health', freeTierLimiter, healthRoutes);
 
-// API Routes (require auth)
-app.use('/v1/rates', authMiddleware, ratesRoutes);
-app.use('/v1/chains', authMiddleware, chainsRoutes);
-app.use('/v1/bridge', authMiddleware, bridgeRoutes);
-app.use('/v1/swap', authMiddleware, swapRoutes);
-app.use('/v1/staking', authMiddleware, stakingRoutes);
+// API Routes
+// Public endpoints (free tier): /v1/rates, /v1/chains, /v1/bridge/config, /v1/staking/rates, /v1/swap/tokens
+// Protected (auth required): everything else
+app.use('/v1/rates', freeTierLimiter, ratesRoutes);
+app.use('/v1/chains', freeTierLimiter, chainsRoutes);
+app.use('/v1/bridge', freeTierLimiter, authMiddleware, bridgeRoutes);
+app.use('/v1/swap', freeTierLimiter, authMiddleware, swapRoutes);
+app.use('/v1/staking', freeTierLimiter, authMiddleware, stakingRoutes);
 app.use('/v1/wallet', authMiddleware, walletRoutes);
 app.use('/v1/moonpay', moonpayRoutes);
 
