@@ -4,268 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aab.Engineering API</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%99%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
   <style>
     :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #111111;
-      --bg-tertiary: #1a1a1a;
-      --text-primary: #f5f5f5;
-      --text-secondary: #a0a0a0;
-      --text-muted: #666666;
-      --accent: #00d4aa;
-      --accent-dim: #00a88a;
-      --border: #2a2a2a;
-      --success: #22c55e;
-      --error: #ef4444;
-    }
-    
-    * {
-      box-sizing: border-box;
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --text-primary: #c9d1d9;
+      --text-secondary: #8b949e;
+      --accent: #58a6ff;
+      --border: #30363d;
     }
     
     body {
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg-primary);
-      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
     
-    .header {
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--accent), #00ffaa);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: #000;
-    }
-    
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .logo-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    
-    .logo-subtitle {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-    
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-    
-    .hero {
-      background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-      padding: 4rem 2rem;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin: 0 0 1rem;
-      letter-spacing: -0.03em;
-    }
-    
-    .hero h1 span {
-      background: linear-gradient(135deg, var(--accent), #00ffaa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .hero p {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-    }
-    
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 3rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .feature {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s;
-    }
-    
-    .feature:hover {
-      border-color: var(--accent-dim);
-    }
-    
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--bg-tertiary);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-    }
-    
-    .feature h3 {
-      font-size: 1.1rem;
-      margin: 0 0 0.5rem;
-    }
-    
-    .feature p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.5;
-    }
-    
-    .cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--accent);
-      color: #000;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    
-    .cta:hover {
-      background: var(--accent-dim);
-    }
-    
-    /* Swagger UI Customization */
     .swagger-ui {
       background: var(--bg-primary);
     }
     
     .swagger-ui .info {
-      margin: 2rem 0;
+      margin: 20px 0;
     }
     
     .swagger-ui .info .title {
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-primary);
     }
     
     .swagger-ui .info .description {
       color: var(--text-secondary);
-      font-size: 1rem;
-    }
-    
-    .swagger-ui .info .description a {
-      color: var(--accent);
     }
     
     .swagger-ui .topbar {
       display: none;
     }
     
-    .swagger-ui .swagger-container {
-      background: var(--bg-primary);
-    }
-    
-    .swagger-ui .scheme-container {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem;
-    }
-    
     .swagger-ui .opblock {
       background: var(--bg-secondary);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      margin-bottom: 5px;
     }
     
     .swagger-ui .opblock:hover {
-      border-color: var(--accent-dim);
-    }
-    
-    .swagger-ui .opblock .opblock-summary {
-      border-bottom: 1px solid var(--border);
-    }
-    
-    .swagger-ui .opblock .opblock-section {
-      background: var(--bg-tertiary);
+      border-color: var(--accent);
     }
     
     .swagger-ui .opblock-tag {
-      font-size: 1.1rem;
-      font-weight: 600;
       color: var(--text-primary);
-      border-bottom: 1px solid var(--border);
+      font-weight: 600;
     }
     
     .swagger-ui .opblock-tag:hover {
       background: var(--bg-secondary);
     }
     
-    .swagger-ui .endpoint-panel .get {
-      border-left: 3px solid var(--accent);
+    .swagger-ui .endpoint-panel .get { border-left: 3px solid #58a6ff; }
+    .swagger-ui .endpoint-panel .post { border-left: 3px solid #3fb950; }
+    .swagger-ui .endpoint-panel .put { border-left: 3px solid #d29922; }
+    .swagger-ui .endpoint-panel .delete { border-left: 3px solid #f85149; }
+    
+    .swagger-ui .btn {
+      background: var(--accent);
+      border-radius: 4px;
     }
     
-    .swagger-ui .endpoint-panel .post {
-      border-left: 3px solid #22c55e;
-    }
-    
-    .swagger-ui .endpoint-panel .put {
-      border-left: 3px solid #f59e0b;
-    }
-    
-    .swagger-ui .endpoint-panel .delete {
-      border-left: 3px solid var(--error);
+    .swagger-ui .btn:hover {
+      opacity: 0.9;
     }
     
     .swagger-ui .model-box {
@@ -275,119 +85,27 @@
     
     .swagger-ui .parameters-col_description input,
     .swagger-ui .parameters-col_description select {
-      background: var(--bg-tertiary);
+      background: var(--bg-primary);
       border: 1px solid var(--border);
       color: var(--text-primary);
-      border-radius: 4px;
-      padding: 0.5rem;
-    }
-    
-    .swagger-ui .btn {
-      background: var(--accent);
-      color: #000;
-      border-radius: 6px;
-    }
-    
-    .swagger-ui .btn:hover {
-      background: var(--accent-dim);
     }
     
     .swagger-ui .response-col_links {
       color: var(--text-secondary);
     }
-    
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--border);
-      margin-top: 2rem;
-    }
-    
-    .footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="logo">
-      <div class="logo-icon">∫</div>
-      <div class="logo-text">
-        <span class="logo-title">Aab.Engineering</span>
-        <span class="logo-subtitle">Building Blocks for Agentic DeFi</span>
-      </div>
-    </div>
-    <nav class="nav-links">
-      <a href="#overview">Overview</a>
-      <a href="#features">Features</a>
-      <a href="/docs">API Docs</a>
-    </nav>
-  </div>
-  
-  <div class="hero" id="overview">
-    <h1>The <span>Strategy Layer</span> for AI Agents</h1>
-    <p>Programmatic access to DeFi yields, staking, swaps, and fiat on-ramps. Build autonomous DeFi agents with simple API calls.</p>
-    <a href="/docs" class="cta">
-      Explore API →
-    </a>
-  </div>
-  
-  <div class="features" id="features">
-    <div class="feature">
-      <div class="feature-icon">⚡</div>
-      <h3>Staking</h3>
-      <p>Access liquid staking tokens across Ethereum, Solana, and more. stETH, rETH, jitoSOL, mSOL.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">⇄</div>
-      <h3>Swaps</h3>
-      <p>Token swaps via Jupiter (Solana) and 1Inch (EVM). Best rates with simple quotes.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🔐</div>
-      <h3>MPC Wallets</h3>
-      <p>Non-custodial wallets powered by TurnKey. Users control keys, you facilitate transactions.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">💳</div>
-      <h3>Fiat On-Ramp</h3>
-      <p>MoonPay integration for buying crypto with CAD, USD, EUR. KYC handled for you.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🌉</div>
-      <h3>Bridges</h3>
-      <p>Cross-chain bridging via LayerZero, Stargate, Wormhole, Axelar, and more.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">📊</div>
-      <h3>Yield Rates</h3>
-      <p>Real-time yield rates across 10+ chains and 100+ protocols.</p>
-    </div>
-  </div>
-  
   <div id="api-docs"></div>
-  
-  <div class="footer">
-    <p>Built by <a href="https://allaboutblockchain.ca">All About Blockchain</a> • 
-    <a href="https://github.com/All-About-Blockchain/aab-engineering">GitHub</a></p>
-  </div>
   
   <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js" charset="UTF-8"></script>
   <script>
     window.onload = function() {
-      const ui = SwaggerUIBundle({
+      SwaggerUIBundle({
         url: '/docs/openapi.json',
         dom_id: '#api-docs',
         deepLinking: true,
         showExtensions: true,
-        showCommonExtensions: true,
-        syntaxHighlight: {
-          activate: true,
-          theme: 'agate'
-        },
         tryItOutEnabled: true,
         persistAuthorization: true,
         presets: [
@@ -396,8 +114,6 @@
         ],
         layout: 'StandaloneLayout'
       });
-      
-      window.ui = ui;
     };
   </script>
 </body>
