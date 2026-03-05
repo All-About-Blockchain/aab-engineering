@@ -16,211 +16,324 @@
       --accent: #00d4aa;
       --accent-hover: #00f5c4;
       --border: #2a2a2a;
+      --get: #61affe;
+      --post: #49cc90;
+      --put: #fca130;
+      --delete: #f93e3e;
     }
     
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    html, body {
-      margin: 0;
-      padding: 0;
+    body {
       background: var(--bg-primary);
       color: var(--text-primary);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
     }
     
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 260px;
-      height: 100vh;
-      background: var(--bg-secondary);
-      border-right: 1px solid var(--border);
-      padding: 1.5rem;
-      overflow-y: auto;
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
     }
     
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
+      gap: 1rem;
     }
     
     .logo-icon {
-      width: 36px;
-      height: 36px;
+      width: 48px;
+      height: 48px;
       background: linear-gradient(135deg, var(--accent), #00f5c4);
-      border-radius: 8px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.3rem;
       color: #000;
     }
     
-    .logo-text {
-      font-size: 1.1rem;
-      font-weight: 600;
+    .logo-text h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
     
-    .nav-section { margin-bottom: 1.5rem; }
+    .logo-text p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
     
-    .nav-title {
+    .header-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    
+    .header-links a:hover { text-decoration: underline; }
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .section-title span {
+      font-size: 1.2rem;
+    }
+    
+    .endpoint {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    
+    .endpoint:hover { border-color: var(--accent); }
+    
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    
+    .method {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      min-width: 60px;
+      text-align: center;
+    }
+    
+    .method.get { background: var(--get); color: #000; }
+    .method.post { background: var(--post); color: #000; }
+    .method.put { background: var(--put); color: #000; }
+    .method.delete { background: var(--delete); color: #fff; }
+    
+    .method.put { background: var(--put); color: #000; }
+    
+    .endpoint-path {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      flex: 1;
+    }
+    
+    .endpoint-desc {
+      padding: 0 1rem 1rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .endpoint-params {
+      padding: 0 1rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    .tag {
+      display: inline-block;
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-right: 0.5rem;
+    }
+    
+    .auth-badge {
+      display: inline-block;
+      background: #f59e0b20;
+      color: #f59e0b;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
       font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+    }
+    
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
       color: var(--text-muted);
-      margin-bottom: 0.75rem;
+      font-size: 0.85rem;
     }
     
-    .nav-link {
-      display: block;
-      padding: 0.5rem 0.75rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.9rem;
-      border-radius: 6px;
-      transition: all 0.15s;
-    }
-    
-    .nav-link:hover {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-    
-    .nav-link.external { justify-content: space-between; }
-    .nav-link.external::after { content: "↗"; font-size: 0.8rem; opacity: 0.5; }
-    
-    .main {
-      margin-left: 260px;
-      padding: 2rem;
-      min-height: 100vh;
-    }
-    
-    .api-docs { max-width: 1100px; }
-    
-    /* Swagger Overrides */
-    .swagger-ui .info { margin: 0 0 2rem 0 !important; }
-    .swagger-ui .info .title { font-size: 2rem !important; font-weight: 700 !important; }
-    .swagger-ui .info .description { color: var(--text-secondary) !important; }
-    .swagger-ui .topbar { display: none !important; }
-    
-    .swagger-ui .scheme-container {
-      background: var(--bg-secondary) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 8px !important;
-      padding: 1rem !important;
-      margin-bottom: 2rem !important;
-    }
-    
-    .swagger-ui .opblock {
-      background: var(--bg-secondary) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 8px !important;
-      margin-bottom: 0.75rem !important;
-    }
-    
-    .swagger-ui .opblock:hover { border-color: var(--accent) !important; }
-    .swagger-ui .opblock .opblock-summary { padding: 1rem !important; }
-    .swagger-ui .opblock-tag { font-size: 1rem !important; font-weight: 600 !important; }
-    .swagger-ui .endpoint-panel .get .opblock-summary { border-left: 3px solid #61affe; }
-    .swagger-ui .endpoint-panel .post .opblock-summary { border-left: 3px solid #49cc90; }
-    .swagger-ui .endpoint-panel .put .opblock-summary { border-left: 3px solid #fca130; }
-    .swagger-ui .endpoint-panel .delete .opblock-summary { border-left: 3px solid #f93e3e; }
-    
-    .swagger-ui .model-box { background: var(--bg-secondary) !important; border: 1px solid var(--border) !important; }
-    
-    .swagger-ui input, .swagger-ui select, .swagger-ui textarea {
-      background: var(--bg-primary) !important;
-      border: 1px solid var(--border) !important;
-      color: var(--text-primary) !important;
-    }
-    
-    .swagger-ui .btn {
-      background: var(--accent) !important;
-      color: #000 !important;
-      font-weight: 600 !important;
-    }
-    
-    .loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 50vh;
-      color: var(--text-muted);
-    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <div class="logo">
-      <div class="logo-icon">∫</div>
-      <div class="logo-text">Aab.Engineering</div>
-    </div>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">∫</div>
+        <div class="logo-text">
+          <h1>Aab.Engineering API</h1>
+          <p>Building Blocks for Agentic DeFi</p>
+        </div>
+      </div>
+      <div class="header-links">
+        <a href="/docs">Full Docs →</a>
+      </div>
+    </header>
     
-    <div class="nav-section">
-      <div class="nav-title">Getting Started</div>
-      <a href="#introduction" class="nav-link">Introduction</a>
-      <a href="#authentication" class="nav-link">Authentication</a>
-    </div>
+    <!-- Core -->
+    <div class="section-title"><span>📊</span> Core</div>
     
-    <div class="nav-section">
-      <div class="nav-title">Core</div>
-      <a href="#health" class="nav-link">Health</a>
-      <a href="#chains" class="nav-link">Chains</a>
-      <a href="#rates" class="nav-link">Rates</a>
-    </div>
-    
-    <div class="nav-section">
-      <div class="nav-title">DeFi</div>
-      <a href="#staking" class="nav-link">Staking</a>
-      <a href="#swap" class="nav-link">Swap</a>
-      <a href="#bridge" class="nav-link">Bridge</a>
-    </div>
-    
-    <div class="nav-section">
-      <div class="nav-title">Wallet</div>
-      <a href="#wallet" class="nav-link">Wallet</a>
-      <a href="#moonpay" class="nav-link">MoonPay</a>
-    </div>
-    
-    <div class="nav-section">
-      <div class="nav-title">Resources</div>
-      <a href="https://github.com/All-About-Blockchain/aab-engineering" target="_blank" class="nav-link external">GitHub ↗</a>
-      <a href="mailto:hello@aab.engineering" class="nav-link external">Contact ↗</a>
-    </div>
-  </div>
-  
-  <div class="main">
-    <div class="api-docs">
-      <div id="api-docs">
-        <div class="loading">Loading API...</div>
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/rates</span>
+      </div>
+      <div class="endpoint-desc">Returns all available yield rates across supported protocols</div>
+      <div class="endpoint-params">
+        <span class="tag">Query</span> protocol (optional), chain (optional)
       </div>
     </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/rates/etherfi</span>
+      </div>
+      <div class="endpoint-desc">EtherFi specific rates (weETH, weETHs) - cached 1hr</div>
+      <div class="endpoint-params">
+        <span class="tag">Response</span> { weETH: { apy, tvl, supply }, weETHs: { apy, tvl, supply }, ethPrice }
+      </div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/rates/protocols</span>
+      </div>
+      <div class="endpoint-desc">List all supported protocols</div>
+      <div class="endpoint-params">
+        <span class="tag">Response</span> [{ name, chain, apy, tvl, risk }]
+      </div>
+    </div>
+    
+    <!-- Execute -->
+    <div class="section-title"><span>⚡</span> Execute</div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/v1/execute</span>
+        <span class="auth-badge">AUTH</span>
+      </div>
+      <div class="endpoint-desc">Execute a yield transaction (stake, unstake, swap)</div>
+      <div class="endpoint-params">
+        <span class="tag">Headers</span> X-API-Key: your-api-key<br>
+        <span class="tag">Body</span> { action, protocol, amount, token, fromAddress, toAddress }
+      </div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/execute/status/:txId</span>
+      </div>
+      <div class="endpoint-desc">Check transaction status by tx hash</div>
+      <div class="endpoint-params">
+        <span class="tag">Response</span> { status, confirmations, blockNumber, gasUsed }
+      </div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/execute/simulate</span>
+      </div>
+      <div class="endpoint-desc">Simulate a transaction without executing</div>
+      <div class="endpoint-params">
+        <span class="tag">Query</span> action, protocol, amount, token
+      </div>
+    </div>
+    
+    <!-- Analytics -->
+    <div class="section-title"><span>📈</span> Analytics</div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/analytics</span>
+      </div>
+      <div class="endpoint-desc">Usage statistics and volume</div>
+      <div class="endpoint-params">
+        <span class="tag">Response</span> { requests, volumeUsd, uniqueUsers, avgResponseTime }
+      </div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/analytics/history</span>
+      </div>
+      <div class="endpoint-desc">Historical analytics data</div>
+      <div class="endpoint-params">
+        <span class="tag">Query</span> period (1d, 7d, 30d)
+      </div>
+    </div>
+    
+    <!-- Utility -->
+    <div class="section-title"><span>🔧</span> Utility</div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/health</span>
+      </div>
+      <div class="endpoint-desc">Health check endpoint</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/chains</span>
+      </div>
+      <div class="endpoint-desc">List supported chains</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method put">PUT</span>
+        <span class="endpoint-path">/v1/keys</span>
+        <span class="auth-badge">AUTH</span>
+      </div>
+      <div class="endpoint-desc">Generate new API key</div>
+    </div>
+    
+    <footer>
+      <p>Built by <a href="https://allaboutblockchain.ca">All About Blockchain</a> • 
+      <a href="https://github.com/All-About-Blockchain/aab-engineering">GitHub</a> •
+      <a href="mailto:hello@aab.engineering">Contact</a></p>
+    </footer>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.12/swagger-ui-bundle.js" charset="UTF-8"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.12/swagger-ui-standalone-preset.js" charset="UTF-8"></script>
-  <script>
-    window.onload = function() {
-      SwaggerUIBundle({
-        url: '/docs/openapi.json',
-        dom_id: '#api-docs',
-        deepLinking: true,
-        showExtensions: true,
-        tryItOutEnabled: true,
-        persistAuthorization: true,
-        presets: [
-          SwaggerUIBundle.presets.apis,
-          SwaggerUIStandalonePreset
-        ]
-      });
-    };
-  </script>
 </body>
 </html>

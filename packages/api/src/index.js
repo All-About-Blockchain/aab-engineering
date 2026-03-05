@@ -46,13 +46,8 @@ app.use(limiter);
 // Swagger UI (no auth required)
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
-// Redirect / to /docs
-app.use('/', (req, res, next) => {
-  if (req.path === '/' || req.path === '') {
-    return res.redirect('/docs');
-  }
-  next();
-});
+// Serve index.html at root
+app.use('/', express.static(path.join(__dirname, 'docs'), { index: 'index.html' }));
 
 // Health check (no auth required)
 app.use('/health', healthRoutes);
