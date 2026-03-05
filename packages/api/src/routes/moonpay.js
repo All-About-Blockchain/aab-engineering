@@ -27,10 +27,10 @@ router.get('/buy-url', async (req, res) => {
     }
     
     const url = getBuyWidgetURL(
-      walletAddress as string,
-      fiatCurrency as string || 'CAD',
-      cryptoCurrency as string || 'ETH',
-      amount ? parseFloat(amount as string) : undefined
+      walletAddress,
+      fiatCurrency || 'CAD',
+      cryptoCurrency || 'ETH',
+      amount ? parseFloat(amount) : undefined
     );
     
     res.json({
@@ -57,8 +57,8 @@ router.get('/sell-url', async (req, res) => {
     }
     
     const url = getSellWidgetURL(
-      walletAddress as string,
-      cryptoCurrency as string || 'ETH'
+      walletAddress,
+      cryptoCurrency || 'ETH'
     );
     
     res.json({
@@ -85,9 +85,9 @@ router.get('/quote', async (req, res) => {
     }
     
     const quote = await getBuyQuote(
-      parseFloat(amount as string),
-      fiatCurrency as string || 'CAD',
-      cryptoCurrency as string || 'ETH'
+      parseFloat(amount),
+      fiatCurrency || 'CAD',
+      cryptoCurrency || 'ETH'
     );
     
     res.json({
@@ -131,7 +131,7 @@ router.get('/supported/crypto', async (req, res) => {
 // POST /v1/moonpay/webhook - Handle MoonPay callbacks
 router.post('/webhook', async (req, res) => {
   try {
-    const signature = req.headers['moonpay-signature'] as string;
+    const signature = req.headers['moonpay-signature'];
     const webhookSecret = process.env.MOONPAY_WEBHOOK_SECRET;
     
     if (webhookSecret && signature) {
@@ -141,7 +141,7 @@ router.post('/webhook', async (req, res) => {
       }
     }
     
-    const event = req.body as MoonPayTransaction;
+    const event = req.body;
     
     // Handle different event types
     switch (event.type) {

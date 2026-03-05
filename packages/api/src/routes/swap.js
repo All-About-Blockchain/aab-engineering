@@ -137,8 +137,8 @@ router.post('/execute', async (req, res) => {
 });
 
 // Helper: Get chain ID for 1Inch
-function getChainId(chain: string): number {
-  const chainIds: Record<string, number> = {
+function getChainId(chain) {
+  const chainIds = {
     ethereum: 1,
     polygon: 137,
     arbitrum: 42161,

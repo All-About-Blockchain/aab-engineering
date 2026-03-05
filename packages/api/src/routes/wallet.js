@@ -74,7 +74,7 @@ router.get('/:walletId/balance', async (req, res) => {
       return res.status(404).json({ success: false, error: 'Wallet not found' });
     }
     
-    const balance = await getWalletBalance(wallet.address, (chain as any) || 'ethereum');
+    const balance = await getWalletBalance(wallet.address, (chain) || 'ethereum');
     
     res.json({
       success: true,

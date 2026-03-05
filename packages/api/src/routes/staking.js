@@ -12,7 +12,7 @@ router.get('/rates', async (req, res) => {
     
     let assets;
     if (chain) {
-      assets = await getStakingRatesByChain(chain as string);
+      assets = await getStakingRatesByChain(chain);
     } else {
       assets = await getStakingRates();
     }
