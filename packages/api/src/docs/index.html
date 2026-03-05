@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aab.Engineering API</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.12/swagger-ui.css">
   <style>
     :root {
       --bg-primary: #0a0a0a;
@@ -16,17 +16,9 @@
       --accent: #00d4aa;
       --accent-hover: #00f5c4;
       --border: #2a2a2a;
-      --success: #00d4aa;
-      --error: #ff4757;
-      --get: #61affe;
-      --post: #49cc90;
-      --put: #fca130;
-      --delete: #f93e3e;
     }
     
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     
     html, body {
       margin: 0;
@@ -40,7 +32,7 @@
       position: fixed;
       left: 0;
       top: 0;
-      width: 280px;
+      width: 260px;
       height: 100vh;
       background: var(--bg-secondary);
       border-right: 1px solid var(--border);
@@ -73,12 +65,9 @@
     .logo-text {
       font-size: 1.1rem;
       font-weight: 600;
-      letter-spacing: -0.02em;
     }
     
-    .nav-section {
-      margin-bottom: 1.5rem;
-    }
+    .nav-section { margin-bottom: 1.5rem; }
     
     .nav-title {
       font-size: 0.7rem;
@@ -104,52 +93,22 @@
       color: var(--text-primary);
     }
     
-    .nav-link.external {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .nav-link.external::after {
-      content: "↗";
-      font-size: 0.8rem;
-      opacity: 0.5;
-    }
+    .nav-link.external { justify-content: space-between; }
+    .nav-link.external::after { content: "↗"; font-size: 0.8rem; opacity: 0.5; }
     
     .main {
-      margin-left: 280px;
+      margin-left: 260px;
       padding: 2rem;
       min-height: 100vh;
     }
     
-    .api-docs {
-      max-width: 1200px;
-    }
+    .api-docs { max-width: 1100px; }
     
-    /* Swagger UI Overrides */
-    .swagger-ui {
-      background: transparent !important;
-    }
-    
-    .swagger-ui .info {
-      margin: 0 0 2rem 0 !important;
-    }
-    
-    .swagger-ui .info .title {
-      font-size: 2rem !important;
-      font-weight: 700 !important;
-      letter-spacing: -0.03em;
-    }
-    
-    .swagger-ui .info .description {
-      color: var(--text-secondary) !important;
-      font-size: 1rem !important;
-      line-height: 1.6;
-    }
-    
-    .swagger-ui .topbar {
-      display: none !important;
-    }
+    /* Swagger Overrides */
+    .swagger-ui .info { margin: 0 0 2rem 0 !important; }
+    .swagger-ui .info .title { font-size: 2rem !important; font-weight: 700 !important; }
+    .swagger-ui .info .description { color: var(--text-secondary) !important; }
+    .swagger-ui .topbar { display: none !important; }
     
     .swagger-ui .scheme-container {
       background: var(--bg-secondary) !important;
@@ -164,83 +123,30 @@
       border: 1px solid var(--border) !important;
       border-radius: 8px !important;
       margin-bottom: 0.75rem !important;
-      overflow: hidden;
     }
     
-    .swagger-ui .opblock:hover {
-      border-color: var(--accent) !important;
-    }
+    .swagger-ui .opblock:hover { border-color: var(--accent) !important; }
+    .swagger-ui .opblock .opblock-summary { padding: 1rem !important; }
+    .swagger-ui .opblock-tag { font-size: 1rem !important; font-weight: 600 !important; }
+    .swagger-ui .endpoint-panel .get .opblock-summary { border-left: 3px solid #61affe; }
+    .swagger-ui .endpoint-panel .post .opblock-summary { border-left: 3px solid #49cc90; }
+    .swagger-ui .endpoint-panel .put .opblock-summary { border-left: 3px solid #fca130; }
+    .swagger-ui .endpoint-panel .delete .opblock-summary { border-left: 3px solid #f93e3e; }
     
-    .swagger-ui .opblock .opblock-summary {
-      padding: 1rem !important;
-      border-bottom: none !important;
-    }
+    .swagger-ui .model-box { background: var(--bg-secondary) !important; border: 1px solid var(--border) !important; }
     
-    .swagger-ui .opblock-tag {
-      font-size: 1rem !important;
-      font-weight: 600 !important;
-      padding: 1rem !important;
-      border-bottom: 1px solid var(--border) !important;
-    }
-    
-    .swagger-ui .opblock-tag:hover {
-      background: var(--bg-tertiary) !important;
-    }
-    
-    .swagger-ui .endpoint-panel .get .opblock-summary { border-left: 3px solid var(--get); }
-    .swagger-ui .endpoint-panel .post .opblock-summary { border-left: 3px solid var(--post); }
-    .swagger-ui .endpoint-panel .put .opblock-summary { border-left: 3px solid var(--put); }
-    .swagger-ui .endpoint-panel .delete .opblock-summary { border-left: 3px solid var(--delete); }
-    
-    .swagger-ui .opblock .opblock-section {
-      background: var(--bg-tertiary) !important;
-    }
-    
-    .swagger-ui .model-box {
-      background: var(--bg-secondary) !important;
-      border: 1px solid var(--border) !important;
-    }
-    
-    .swagger-ui .parameters-col_description input,
-    .swagger-ui .parameters-col_description select,
-    .swagger-ui .parameters-col_description textarea {
+    .swagger-ui input, .swagger-ui select, .swagger-ui textarea {
       background: var(--bg-primary) !important;
       border: 1px solid var(--border) !important;
       color: var(--text-primary) !important;
-      border-radius: 6px !important;
-      padding: 0.5rem !important;
     }
     
     .swagger-ui .btn {
       background: var(--accent) !important;
       color: #000 !important;
-      border-radius: 6px !important;
       font-weight: 600 !important;
     }
     
-    .swagger-ui .btn:hover {
-      background: var(--accent-hover) !important;
-    }
-    
-    .swagger-ui .response-col_links {
-      color: var(--text-secondary) !important;
-    }
-    
-    .swagger-ui .curl-command {
-      background: var(--bg-tertiary) !important;
-      border-radius: 6px !important;
-      padding: 1rem !important;
-    }
-    
-    .swagger-ui .curl-command code {
-      color: var(--accent) !important;
-    }
-    
-    .swagger-ui input::placeholder {
-      color: var(--text-muted) !important;
-    }
-    
-    /* Loading state */
     .loading {
       display: flex;
       align-items: center;
@@ -261,7 +167,6 @@
       <div class="nav-title">Getting Started</div>
       <a href="#introduction" class="nav-link">Introduction</a>
       <a href="#authentication" class="nav-link">Authentication</a>
-      <a href="#errors" class="nav-link">Errors</a>
     </div>
     
     <div class="nav-section">
@@ -287,19 +192,20 @@
     <div class="nav-section">
       <div class="nav-title">Resources</div>
       <a href="https://github.com/All-About-Blockchain/aab-engineering" target="_blank" class="nav-link external">GitHub ↗</a>
-      <a href="mailto:hello@aab.engineering" target="_blank" class="nav-link external">Contact ↗</a>
+      <a href="mailto:hello@aab.engineering" class="nav-link external">Contact ↗</a>
     </div>
   </div>
   
   <div class="main">
     <div class="api-docs">
       <div id="api-docs">
-        <div class="loading">Loading API documentation...</div>
+        <div class="loading">Loading API...</div>
       </div>
     </div>
   </div>
   
-  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js" charset="UTF-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.12/swagger-ui-bundle.js" charset="UTF-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.12/swagger-ui-standalone-preset.js" charset="UTF-8"></script>
   <script>
     window.onload = function() {
       SwaggerUIBundle({
@@ -307,18 +213,12 @@
         dom_id: '#api-docs',
         deepLinking: true,
         showExtensions: true,
-        showCommonExtensions: true,
-        syntaxHighlight: {
-          activate: true,
-          theme: 'monokai'
-        },
         tryItOutEnabled: true,
         persistAuthorization: true,
         presets: [
           SwaggerUIBundle.presets.apis,
-          SwaggerUIBundle.SwaggerUIStandalonePreset
-        ],
-        layout: 'StandaloneLayout'
+          SwaggerUIStandalonePreset
+        ]
       });
     };
   </script>
