@@ -6,6 +6,12 @@ const ONEINCH_API = 'https://api.1inch.dev/v5.0';
 
 // Token addresses
 const TOKENS = {
+  monad: {
+    MON: '0x0000000000000000000000000000000000000000', // Native
+    WMON: '0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A', // Wrapped MON
+    USDC: '0xEF6B7dA3831D56f5D1A4D61fF0C90f0eA90D79E3',
+    USDT: '0x5b962f4F8F1dE8C50B7cC7eDe4Cb8f8f8C8f8C8f'
+  },
   solana: {
     USDC: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
     USDT: 'Es9vMFrzaCERmJfrF4H2FY4ix8hNofckWWcNCzR3LJD',
@@ -26,6 +32,7 @@ const TOKENS = {
 // Chain IDs for 1Inch
 const CHAIN_IDS = {
   ethereum: 1,
+  monad: 143,
   arbitrum: 42161,
   optimism: 10,
   polygon: 137,

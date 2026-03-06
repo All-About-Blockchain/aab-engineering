@@ -7,7 +7,7 @@ export const BRIDGES = [
     name: 'Stargate',
     fee: '0.06%',
     time: '10-30min',
-    chains: ['ethereum', 'arbitrum', 'optimism', 'base', 'polygon', 'avalanche', 'bsc', 'injective'],
+    chains: ['ethereum', 'arbitrum', 'optimism', 'base', 'polygon', 'avalanche', 'bsc', 'injective', 'monad'],
     url: 'https://stargate.finance',
     type: 'omnichain'
   },
@@ -15,7 +15,7 @@ export const BRIDGES = [
     name: 'LayerZero',
     fee: '0.05%',
     time: '5-20min',
-    chains: ['ethereum', 'arbitrum', 'optimism', 'base', 'polygon', 'avalanche', 'bsc', 'solana', 'injective', 'cosmos'],
+    chains: ['ethereum', 'arbitrum', 'optimism', 'base', 'polygon', 'avalanche', 'bsc', 'solana', 'injective', 'cosmos', 'monad'],
     url: 'https://layerzero.network',
     type: 'messaging'
   },
@@ -57,6 +57,7 @@ export const BRIDGES = [
 export const CHAIN_IDS = {
   // EVM
   ethereum: { id: 1, name: 'Ethereum', color: '#627EEA' },
+  monad: { id: 143, name: 'Monad', color: '#6363FF' },
   arbitrum: { id: 110, name: 'Arbitrum', color: '#28A0F0' },
   optimism: { id: 111, name: 'Optimism', color: '#FF0420' },
   base: { id: 184, name: 'Base', color: '#0052FF' },

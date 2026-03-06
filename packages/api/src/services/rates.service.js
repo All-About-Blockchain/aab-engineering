@@ -37,6 +37,13 @@ const KNOWN_YIELDS = {
     lido: { supply: 4.08, borrow: null },
     rocketpool: { supply: 3.95, borrow: null }
   },
+  // Monad (Mainnet launched Nov 2025)
+  monad: {
+    aave_v3: { supply: 4.5, borrow: 6.5 },
+    sushi: { supply: 3.8, borrow: 5.5 },
+    uniswap_v3: { supply: 2.5, borrow: null },
+    curve: { supply: 3.2, borrow: null }
+  },
   // Solana
   solana: {
     kamino: { supply: 5.2, borrow: 7.8 },
@@ -145,6 +152,7 @@ export async function getRates(chain = null) {
 export function getChains() {
   return [
     { id: 'ethereum', name: 'Ethereum', protocols: ['aave_v3', 'compound', 'morpho', 'lido', 'rocketpool'] },
+    { id: 'monad', name: 'Monad', protocols: ['aave_v3', 'sushi', 'uniswap_v3', 'curve'], rpc: 'https://rpc.monad.xyz', chainId: 143 },
     { id: 'arbitrum', name: 'Arbitrum', protocols: ['aave_v3', 'compound'] },
     { id: 'optimism', name: 'Optimism', protocols: ['aave_v3', 'velodrome'] },
     { id: 'base', name: 'Base', protocols: ['aave_v3', 'morpho'] },
