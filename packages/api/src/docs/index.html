@@ -19,7 +19,6 @@
       --get: #61affe;
       --post: #49cc90;
       --put: #fca130;
-      --delete: #f93e3e;
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -90,13 +89,6 @@
       margin: 2rem 0 1rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .section-title span {
-      font-size: 1.2rem;
     }
     
     .endpoint {
@@ -105,7 +97,6 @@
       border-radius: 8px;
       margin-bottom: 0.75rem;
       overflow: hidden;
-      transition: border-color 0.15s;
     }
     
     .endpoint:hover { border-color: var(--accent); }
@@ -130,9 +121,6 @@
     .method.get { background: var(--get); color: #000; }
     .method.post { background: var(--post); color: #000; }
     .method.put { background: var(--put); color: #000; }
-    .method.delete { background: var(--delete); color: #fff; }
-    
-    .method.put { background: var(--put); color: #000; }
     
     .endpoint-path {
       font-family: 'Monaco', 'Menlo', monospace;
@@ -147,12 +135,6 @@
       font-size: 0.9rem;
     }
     
-    .endpoint-params {
-      padding: 0 1rem 1rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-    
     .tag {
       display: inline-block;
       background: var(--bg-tertiary);
@@ -163,15 +145,14 @@
       margin-right: 0.5rem;
     }
     
-    .auth-badge {
-      display: inline-block;
+    .tag.free {
+      background: #00d4aa20;
+      color: var(--accent);
+    }
+    
+    .tag.auth {
       background: #f59e0b20;
       color: #f59e0b;
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
     }
     
     footer {
@@ -184,7 +165,6 @@
     }
     
     footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -202,114 +182,15 @@
       </div>
     </header>
     
-    <!-- Core -->
-    <div class="section-title"><span>📊</span> Core</div>
+    <!-- Free Tier -->
+    <div class="section-title">📊 Free Endpoints (No API Key)</div>
     
     <div class="endpoint">
       <div class="endpoint-header">
         <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/rates</span>
+        <span class="endpoint-path">/health</span>
       </div>
-      <div class="endpoint-desc">Returns all available yield rates across supported protocols</div>
-      <div class="endpoint-params">
-        <span class="tag">Query</span> protocol (optional), chain (optional)
-      </div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/rates/etherfi</span>
-      </div>
-      <div class="endpoint-desc">EtherFi specific rates (weETH, weETHs) - cached 1hr</div>
-      <div class="endpoint-params">
-        <span class="tag">Response</span> { weETH: { apy, tvl, supply }, weETHs: { apy, tvl, supply }, ethPrice }
-      </div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/rates/protocols</span>
-      </div>
-      <div class="endpoint-desc">List all supported protocols</div>
-      <div class="endpoint-params">
-        <span class="tag">Response</span> [{ name, chain, apy, tvl, risk }]
-      </div>
-    </div>
-    
-    <!-- Execute -->
-    <div class="section-title"><span>⚡</span> Execute</div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method post">POST</span>
-        <span class="endpoint-path">/v1/execute</span>
-        <span class="auth-badge">AUTH</span>
-      </div>
-      <div class="endpoint-desc">Execute a yield transaction (stake, unstake, swap)</div>
-      <div class="endpoint-params">
-        <span class="tag">Headers</span> X-API-Key: your-api-key<br>
-        <span class="tag">Body</span> { action, protocol, amount, token, fromAddress, toAddress }
-      </div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/execute/status/:txId</span>
-      </div>
-      <div class="endpoint-desc">Check transaction status by tx hash</div>
-      <div class="endpoint-params">
-        <span class="tag">Response</span> { status, confirmations, blockNumber, gasUsed }
-      </div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/execute/simulate</span>
-      </div>
-      <div class="endpoint-desc">Simulate a transaction without executing</div>
-      <div class="endpoint-params">
-        <span class="tag">Query</span> action, protocol, amount, token
-      </div>
-    </div>
-    
-    <!-- Analytics -->
-    <div class="section-title"><span>📈</span> Analytics</div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/analytics</span>
-      </div>
-      <div class="endpoint-desc">Usage statistics and volume</div>
-      <div class="endpoint-params">
-        <span class="tag">Response</span> { requests, volumeUsd, uniqueUsers, avgResponseTime }
-      </div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/analytics/history</span>
-      </div>
-      <div class="endpoint-desc">Historical analytics data</div>
-      <div class="endpoint-params">
-        <span class="tag">Query</span> period (1d, 7d, 30d)
-      </div>
-    </div>
-    
-    <!-- Utility -->
-    <div class="section-title"><span>🔧</span> Utility</div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/health</span>
-      </div>
-      <div class="endpoint-desc">Health check endpoint</div>
+      <div class="endpoint-desc">Health check</div>
     </div>
     
     <div class="endpoint">
@@ -317,16 +198,125 @@
         <span class="method get">GET</span>
         <span class="endpoint-path">/v1/chains</span>
       </div>
-      <div class="endpoint-desc">List supported chains</div>
+      <div class="endpoint-desc">List supported blockchain networks</div>
     </div>
     
     <div class="endpoint">
       <div class="endpoint-header">
-        <span class="method put">PUT</span>
-        <span class="endpoint-path">/v1/keys</span>
-        <span class="auth-badge">AUTH</span>
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/rates</span>
       </div>
-      <div class="endpoint-desc">Generate new API key</div>
+      <div class="endpoint-desc">Yield rates across protocols</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/bridge/config</span>
+      </div>
+      <div class="endpoint-desc">Bridge configurations (Stargate, LayerZero, Wormhole, Axelar)</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/bridge/chains</span>
+      </div>
+      <div class="endpoint-desc">Supported bridge chains</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/swap/tokens</span>
+      </div>
+      <div class="endpoint-desc">Swap token list</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/staking/rates</span>
+      </div>
+      <div class="endpoint-desc">Staking APYs (stETH, rETH, jitoSOL, mSOL)</div>
+    </div>
+    
+    <!-- Protected -->
+    <div class="section-title">🔐 Protected Endpoints (API Key Required)</div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/v1/bridge/quote</span>
+      </div>
+      <div class="endpoint-desc">Get bridge quote</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/v1/swap/quote</span>
+      </div>
+      <div class="endpoint-desc">Get swap quote (Jupiter/1Inch)</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/v1/staking/deposit</span>
+      </div>
+      <div class="endpoint-desc">Get staking deposit transaction</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/v1/staking/withdraw</span>
+      </div>
+      <div class="endpoint-desc">Get staking withdraw transaction</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/v1/wallet/create</span>
+      </div>
+      <div class="endpoint-desc">Create MPC wallet (TurnKey)</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/v1/wallet/:walletId/sign</span>
+      </div>
+      <div class="endpoint-desc">Sign transaction</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/moonpay/buy-url</span>
+      </div>
+      <div class="endpoint-desc">Get MoonPay widget URL for buying crypto</div>
+    </div>
+    
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/moonpay/quote</span>
+      </div>
+      <div class="endpoint-desc">Get MoonPay buy quote</div>
+    </div>
+    
+    <!-- Usage -->
+    <div class="section-title">📖 Usage</div>
+    
+    <div class="endpoint">
+      <div class="endpoint-desc">
+        <p style="margin-bottom: 0.5rem;"><strong>Free tier:</strong> 10 requests/minute on public endpoints</p>
+        <p style="margin-bottom: 0.5rem;"><strong>With API key:</strong> Add header <code>X-API-Key: aab_cron_key_2026</code></p>
+        <p><strong>Example:</strong> <code>curl -H "X-API-Key: aab_cron_key_2026" https://aab.engineering/v1/wallet/create</code></p>
+      </div>
     </div>
     
     <footer>
