@@ -157,3 +157,54 @@ export function getChains() {
 }
 
 export { KNOWN_YIELDS };
+
+// DATA SOURCE DISCOVERY - Auto-discover new sources
+const DATA_SOURCES = {
+  yields: [
+    { name: 'DeFiLlama', url: 'https://yields.llama.fi/pools', status: 'testing' },
+    { name: 'Aave V3', url: 'https://api.aave.com/v3/protocol/data/overview', status: 'testing' },
+    { name: 'Compound', url: 'https://api.compound.finance/api/v3/ctoken', status: 'pending' }
+  ],
+  prices: [
+    { name: 'CoinGecko', url: 'https://api.coingecko.com/api/v3/simple/price', status: 'active' },
+    { name: 'Binance', url: 'https://api.binance.com/api/v3/ticker/price', status: 'pending' },
+    { name: 'CoinCap', url: 'https://api.coincap.io/v2/assets', status: 'pending' }
+  ],
+  staking: [
+    { name: 'Rocket Pool', url: 'https://api.rocketpool.net/api/node/apr', status: 'active' },
+    { name: 'Lido', url: 'https://api.lido.fi/v1/steth/apr', status: 'pending' },
+    { name: 'Ether.fi', url: 'https://api.ether.fi/v1/apr', status: 'pending' }
+  ]
+};
+
+// Discover and test new data sources
+export async function discoverDataSources() {
+  const results = { yields: [], prices: [], staking: [] };
+  
+  // Test each source
+  for (const [category, sources] of Object.entries(DATA_SOURCES)) {
+    for (const source of sources) {
+      try {
+        const start = Date.now();
+        const response = await axios.get(source.url, { timeout: 5000 });
+        const latency = Date.now() - start;
+        
+        results[category].push({
+          ...source,
+          status: response.data ? 'working' : 'empty',
+          latency
+        });
+      } catch (e) {
+        results[category].push({
+          ...source,
+          status: 'failed',
+          error: e.message
+        });
+      }
+    }
+  }
+  
+  return results;
+}
+
+export { DATA_SOURCES };
