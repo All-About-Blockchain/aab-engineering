@@ -29,13 +29,30 @@ const COINGECKO_IDS = {
 
 // Known yield rates (as fallback and for protocols without API)
 const KNOWN_YIELDS = {
-  // Ethereum
+  // Ethereum - Full DeFi Suite
   ethereum: {
+    // Lending
     aave_v3: { supply: 3.45, borrow: 5.82 },
     compound: { supply: 3.12, borrow: 4.85 },
     morpho: { supply: 3.65, borrow: 5.95 },
+    makerdao: { supply: 5.5, borrow: 6.5 },
+    // LSD (Liquid Staking)
     lido: { supply: 4.08, borrow: null },
-    rocketpool: { supply: 3.95, borrow: null }
+    rocketpool: { supply: 3.95, borrow: null },
+    etherfi: { supply: 4.2, borrow: null },
+    sweth: { supply: 4.15, borrow: null },
+    // Restaking (EigenLayer ecosystem)
+    eigenlayer: { supply: 8.5, borrow: null },
+    renzo: { supply: 7.5, borrow: null },
+    kelp: { supply: 6.5, borrow: null },
+    ssv: { supply: 5.5, borrow: null },
+    // Yield Aggregators
+    yearn: { supply: 5.0, borrow: null },
+    curve: { supply: 3.2, borrow: null },
+    convex: { supply: 4.5, borrow: null },
+    // DEX (for reference)
+    uniswap_v3: { supply: 2.5, borrow: null },
+    balancer: { supply: 2.8, borrow: null }
   },
   // Monad (Mainnet launched Nov 2025)
   monad: {
@@ -44,38 +61,75 @@ const KNOWN_YIELDS = {
     uniswap_v3: { supply: 2.5, borrow: null },
     curve: { supply: 3.2, borrow: null }
   },
-  // Solana
+  // BSC (Binance Smart Chain)
+  bsc: {
+    venus: { supply: 4.5, borrow: 6.2 },
+    pancakeswap: { supply: 2.5, borrow: null },
+    alpaca: { supply: 3.8, borrow: 5.5 },
+    biswap: { supply: 2.2, borrow: null },
+    apeswap: { supply: 2.0, borrow: null },
+    babydoge: { supply: 3.5, borrow: null }
+  },
+  // Solana - Full Suite
   solana: {
     kamino: { supply: 5.2, borrow: 7.8 },
     solend: { supply: 4.8, borrow: 7.2 },
     jito: { supply: 8.25, borrow: null },
-    marinade: { supply: 7.85, borrow: null }
+    marinade: { supply: 7.85, borrow: null },
+    raydium: { supply: 4.0, borrow: null },
+    orca: { supply: 3.5, borrow: null },
+    francium: { supply: 4.2, borrow: 6.5 },
+    apricot: { supply: 3.8, borrow: 5.8 },
+    port: { supply: 4.5, borrow: 6.8 }
   },
   // Arbitrum
   arbitrum: {
     aave_v3: { supply: 4.12, borrow: 6.45 },
-    compound: { supply: 3.85, borrow: 5.92 }
+    compound: { supply: 3.85, borrow: 5.92 },
+    gmx: { supply: 5.5, borrow: null },
+    radiant: { supply: 4.2, borrow: 6.0 },
+    camelot: { supply: 3.5, borrow: null },
+    tracer: { supply: 4.0, borrow: 6.2 },
+    sushi: { supply: 3.8, borrow: 5.5 },
+    uniswap_v3: { supply: 2.5, borrow: null },
+    curve: { supply: 3.2, borrow: null }
   },
   // Optimism
   optimism: {
     aave_v3: { supply: 4.55, borrow: 6.82 },
-    velodrome: { supply: 3.2, borrow: 5.5 }
+    velodrome: { supply: 3.2, borrow: 5.5 },
+    sushi: { supply: 3.0, borrow: 4.8 },
+    uniswap_v3: { supply: 2.2, borrow: null },
+    curve: { supply: 3.0, borrow: null },
+    pangolin: { supply: 2.5, borrow: null }
   },
   // Base
   base: {
     aave_v3: { supply: 4.25, borrow: 6.55 },
-    morpho: { supply: 4.15, borrow: 6.35 }
+    morpho: { supply: 4.15, borrow: 6.35 },
+    sushi: { supply: 3.5, borrow: 5.2 },
+    uniswap_v3: { supply: 2.5, borrow: null },
+    curve: { supply: 3.0, borrow: null },
+    balancer: { supply: 2.8, borrow: null }
   },
   // Polygon
   polygon: {
     aave_v3: { supply: 3.85, borrow: 5.92 },
-    compound: { supply: 3.45, borrow: 5.25 }
+    compound: { supply: 3.45, borrow: 5.25 },
+    quickswap: { supply: 2.5, borrow: null },
+    sushi: { supply: 2.8, borrow: 4.5 },
+    curve: { supply: 3.0, borrow: null },
+    balancer: { supply: 2.5, borrow: null }
   },
   // Avalanche
   avalanche: {
     aave_v3: { supply: 3.65, borrow: 5.55 },
     benqi: { supply: 3.25, borrow: 5.12 },
-    traderjoe: { supply: 4.15, borrow: 6.25 }
+    traderjoe: { supply: 4.15, borrow: 6.25 },
+    gmx: { supply: 5.0, borrow: null },
+    sushi: { supply: 3.0, borrow: 4.8 },
+    pangolin: { supply: 2.5, borrow: null },
+    curve: { supply: 2.8, borrow: null }
   },
   // Injective
   injective: {
@@ -151,14 +205,15 @@ export async function getRates(chain = null) {
 // Get supported chains
 export function getChains() {
   return [
-    { id: 'ethereum', name: 'Ethereum', protocols: ['aave_v3', 'compound', 'morpho', 'lido', 'rocketpool'] },
+    { id: 'ethereum', name: 'Ethereum', protocols: ['aave_v3', 'compound', 'morpho', 'makerdao', 'lido', 'rocketpool', 'etherfi', 'sweth', 'eigenlayer', 'renzo', 'kelp', 'ssv', 'yearn', 'curve', 'convex', 'uniswap_v3', 'balancer'] },
     { id: 'monad', name: 'Monad', protocols: ['aave_v3', 'sushi', 'uniswap_v3', 'curve'], rpc: 'https://rpc.monad.xyz', chainId: 143 },
-    { id: 'arbitrum', name: 'Arbitrum', protocols: ['aave_v3', 'compound'] },
-    { id: 'optimism', name: 'Optimism', protocols: ['aave_v3', 'velodrome'] },
-    { id: 'base', name: 'Base', protocols: ['aave_v3', 'morpho'] },
-    { id: 'polygon', name: 'Polygon', protocols: ['aave_v3', 'compound'] },
-    { id: 'solana', name: 'Solana', protocols: ['kamino', 'solend', 'jito', 'marinade'] },
-    { id: 'avalanche', name: 'Avalanche', protocols: ['aave_v3', 'benqi', 'traderjoe'] },
+    { id: 'bsc', name: 'BNB Chain', protocols: ['venus', 'pancakeswap', 'alpaca', 'biswap', 'apeswap'] },
+    { id: 'arbitrum', name: 'Arbitrum', protocols: ['aave_v3', 'compound', 'gmx', 'radiant', 'camelot', 'sushi', 'uniswap_v3', 'curve'] },
+    { id: 'optimism', name: 'Optimism', protocols: ['aave_v3', 'velodrome', 'sushi', 'uniswap_v3', 'curve', 'pangolin'] },
+    { id: 'base', name: 'Base', protocols: ['aave_v3', 'morpho', 'sushi', 'uniswap_v3', 'curve', 'balancer'] },
+    { id: 'polygon', name: 'Polygon', protocols: ['aave_v3', 'compound', 'quickswap', 'sushi', 'curve', 'balancer'] },
+    { id: 'solana', name: 'Solana', protocols: ['kamino', 'solend', 'jito', 'marinade', 'raydium', 'orca', 'francium', 'apricot', 'port'] },
+    { id: 'avalanche', name: 'Avalanche', protocols: ['aave_v3', 'benqi', 'traderjoe', 'gmx', 'sushi', 'pangolin', 'curve'] },
     { id: 'injective', name: 'Injective', protocols: ['neptune', 'hydro'] },
     { id: 'cosmos', name: 'Cosmos', protocols: ['stride', 'osmosis'] }
   ];
