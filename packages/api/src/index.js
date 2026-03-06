@@ -19,6 +19,7 @@ import moonpayRoutes from './routes/moonpay.js';
 
 // Middleware
 import { authMiddleware, freeTierLimiter } from './middleware/auth.js';
+import { getPriceList, getPrice } from './services/payment/index.js';
 
 dotenv.config();
 
@@ -62,6 +63,22 @@ app.use('/v1/swap', freeTierLimiter, authMiddleware, swapRoutes);
 app.use('/v1/staking', freeTierLimiter, authMiddleware, stakingRoutes);
 app.use('/v1/wallet', authMiddleware, walletRoutes);
 app.use('/v1/moonpay', moonpayRoutes);
+
+// x402 Pricing endpoint
+app.get('/v1/prices', (req, res) => {
+  const prices = getPriceList();
+  res.json({
+    success: true,
+    prices,
+    currency: 'USDC',
+    protocol: 'x402',
+    learnMore: 'https://x402.org',
+    headers: {
+      'x-payment': 'USDC:<amount>:<signature>',
+      'x-payer': '<optional payer identifier>'
+    }
+  });
+});
 
 // Root
 app.use('/v1', (req, res) => {
