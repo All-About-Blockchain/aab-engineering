@@ -37,7 +37,7 @@ const KNOWN_YIELDS = {
     morpho: { supply: 3.65, borrow: 5.95 },
     makerdao: { supply: 5.5, borrow: 6.5 },
     // LSD (Liquid Staking)
-    lido: { supply: 4.08, borrow: null },
+    lido: { supply: 3.3, borrow: null },
     rocketpool: { supply: 3.95, borrow: null },
     etherfi: { supply: 4.2, borrow: null },
     sweth: { supply: 4.15, borrow: null },
