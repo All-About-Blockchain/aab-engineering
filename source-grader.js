@@ -1,37 +1,46 @@
-// Source Grader - AAB Engineering Data Quality
-// Auto-optimized: 2026-03-05T22:01:00-07:00
+// Source Grader Configuration
+// Last updated: 2026-03-06 05:00
 
 const sources = {
-  rocket_pool: {
-    url: 'https://api.rocketpool.net/api/node/apr',
-    grade: 'A',
-    reliability: 100,
-    type: 'official'
+  staking: {
+    rocketpool: {
+      url: "https://api.rocketpool.net/api/node/apr",
+      grade: "A",
+      reliability: 98,
+      lastChecked: "2026-03-06T05:00:00Z",
+      value: 2.14
+    },
+    lido: {
+      url: "https://api.lido.fi/v1/steth/apr",
+      grade: "F",
+      reliability: 0,
+      lastChecked: "2026-03-06T05:00:00Z",
+      error: "Connection failed"
+    }
   },
-  coingecko: {
-    url: 'https://api.coingecko.com/api/v3/simple/price',
-    grade: 'B',
-    reliability: 95,
-    type: 'aggregator'
+  prices: {
+    coingecko: {
+      url: "https://api.coingecko.com/api/v3/simple/price",
+      grade: "B",
+      reliability: 95,
+      lastChecked: "2026-03-06T05:00:00Z",
+      params: { ids: "ethereum,solana", vs_currencies: "usd" }
+    },
+    binance: {
+      url: "https://api.binance.com/api/v3/ticker/price",
+      grade: "A",
+      reliability: 99,
+      lastChecked: "2026-03-06T05:00:00Z",
+      params: { symbol: "ETHUSDT" }
+    }
   },
-  lido: {
-    url: 'https://api.lido.fi/v1/steth/apr',
-    grade: 'F',
-    reliability: 0,
-    type: 'official',
-    needsRetry: true
-  },
-  binance: {
-    url: 'https://api.binance.com/api/v3/ticker/price',
-    grade: 'A',
-    reliability: 98,
-    type: 'exchange'
-  },
-  defillama: {
-    url: 'https://yields.llama.fi/pools',
-    grade: 'B',
-    reliability: 90,
-    type: 'aggregator'
+  yields: {
+    defillama: {
+      url: "https://yields.llama.fi/pools",
+      grade: "B",
+      reliability: 92,
+      lastChecked: "2026-03-06T05:00:00Z"
+    }
   }
 };
 
