@@ -7,7 +7,7 @@ export const BRIDGES = [
     name: 'Stargate',
     fee: '0.06%',
     time: '10-30min',
-    chains: ['ethereum', 'arbitrum', 'optimism', 'base', 'polygon', 'avalanche', 'bsc', 'injective', 'monad'],
+    chains: ['ethereum', 'arbitrum', 'optimism', 'base', 'polygon', 'avalanche', 'bsc', 'injective', 'monad', 'solana', 'fantom', 'cronos', 'klaytn', 'aurora'],
     url: 'https://stargate.finance',
     type: 'omnichain'
   },
@@ -15,7 +15,17 @@ export const BRIDGES = [
     name: 'LayerZero',
     fee: '0.05%',
     time: '5-20min',
-    chains: ['ethereum', 'arbitrum', 'optimism', 'base', 'polygon', 'avalanche', 'bsc', 'solana', 'injective', 'cosmos', 'monad'],
+    chains: [
+      // EVM
+      'ethereum', 'arbitrum', 'optimism', 'base', 'polygon', 'avalanche', 'bsc', 
+      'fantom', 'cronos', 'klaytn', 'aurora', 'celo', 'moonbeam', 'moonriver',
+      'harmony', 'algorand', 'aptos', 'scroll', 'zklink', 'linea', 'mantle',
+      'manta', 'blast', 'sei', 'ronin', 'tenet', 'metal', 'berachain', 'monad',
+      // Solana
+      'solana',
+      // Cosmos
+      'injective', 'cosmos', 'osmosis', 'stride', 'celestia', 'dymension', 'archway'
+    ],
     url: 'https://layerzero.network',
     type: 'messaging'
   },
@@ -23,7 +33,10 @@ export const BRIDGES = [
     name: 'Wormhole',
     fee: '0.1%',
     time: '15-45min',
-    chains: ['ethereum', 'solana', 'avalanche', 'polygon', 'bsc', 'injective', 'cosmos'],
+    chains: [
+      'ethereum', 'solana', 'avalanche', 'polygon', 'bsc', 'injective', 'cosmos', 
+      'algorand', 'aptos', 'osmosis', 'terra', 'fantom', 'karura', 'acala'
+    ],
     url: 'https://wormhole.com',
     type: 'messaging'
   },
@@ -31,7 +44,10 @@ export const BRIDGES = [
     name: 'Axelar',
     fee: '0.1%',
     time: '10-30min',
-    chains: ['ethereum', 'avalanche', 'polygon', 'bsc', 'injective', 'cosmos', 'osmosis'],
+    chains: [
+      'ethereum', 'avalanche', 'polygon', 'bsc', 'injective', 'cosmos', 'osmosis',
+      'moonbeam', 'fantom', 'arbitrum', 'optimism', 'base'
+    ],
     url: 'https://axelar.network',
     type: 'messaging'
   },
@@ -39,7 +55,7 @@ export const BRIDGES = [
     name: 'Hop',
     fee: '0.03%',
     time: '5-15min',
-    chains: ['ethereum', 'arbitrum', 'optimism', 'polygon'],
+    chains: ['ethereum', 'arbitrum', 'optimism', 'polygon', 'gnosis'],
     url: 'https://hop.exchange',
     type: 'amm'
   },
@@ -47,7 +63,7 @@ export const BRIDGES = [
     name: 'IBC',
     fee: '0.01%',
     time: '1-5min',
-    chains: ['cosmos', 'osmosis', 'injective', 'stride', 'celestia', 'dymension', 'sei', 'archway'],
+    chains: ['cosmos', 'osmosis', 'injective', 'stride', 'celestia', 'dymension', 'sei', 'archway', 'terra'],
     url: 'https://ibc.io',
     type: 'ibc'
   }
@@ -55,7 +71,7 @@ export const BRIDGES = [
 
 // Chain IDs for bridging
 export const CHAIN_IDS = {
-  // EVM
+  // EVM Mainnet
   ethereum: { id: 1, name: 'Ethereum', color: '#627EEA' },
   monad: { id: 143, name: 'Monad', color: '#6363FF' },
   arbitrum: { id: 110, name: 'Arbitrum', color: '#28A0F0' },
@@ -63,7 +79,29 @@ export const CHAIN_IDS = {
   base: { id: 184, name: 'Base', color: '#0052FF' },
   polygon: { id: 109, name: 'Polygon', color: '#8247E5' },
   avalanche: { id: 106, name: 'Avalanche', color: '#E84142' },
-  bsc: { id: 102, name: 'BNB Chain', color: '#F3BA2F' },
+  bsc: { id: 56, name: 'BNB Chain', color: '#F3BA2F' },
+  fantom: { id: 250, name: 'Fantom', color: '#1969FF' },
+  cronos: { id: 25, name: 'Cronos', color: '#002D74' },
+  klaytn: { id: 8217, name: 'Klaytn', color: '#FF4D4D' },
+  aurora: { id: 1313161554, name: 'Aurora', color: '#6E2DBC' },
+  celo: { id: 42220, name: 'Celo', color: '#35D07F' },
+  moonbeam: { id: 1284, name: 'Moonbeam', color: '#53CDFF' },
+  moonriver: { id: 1285, name: 'Moonriver', color: '#42D4E2' },
+  harmony: { id: 1666600000, name: 'Harmony', color: '#00AAFF' },
+  scroll: { id: 534352, name: 'Scroll', color: '#C4AEF5' },
+  linea: { id: 59144, name: 'Linea', color: '#121212' },
+  mantle: { id: 5000, name: 'Mantle', color: '#06B6D4' },
+  manta: { id: 169, name: 'Manta', color: '#000000' },
+  blast: { id: 81457, name: 'Blast', color: '#F6C413' },
+  sei: { id: 32, name: 'Sei', color: '#A238FF' },
+  ronin: { id: 2020, name: 'Ronin', color: '#0055FF' },
+  tenet: { id: 1559, name: 'Tenet', color: '#2E8BFF' },
+  metal: { id: 1750, name: 'Metal L2', color: '#4796D6' },
+  berachain: { id: 204, name: 'Berachain', color: '#F47F4D' },
+  // L2s
+  polygon_zkevm: { id: 1101, name: 'Polygon zkEVM', color: '#8247E5' },
+  zkSync: { id: 324, name: 'zkSync Era', color: '#21C6F4' },
+  starknet: { id: 5, name: 'Starknet', color: '#0A0A0A' },
   // Solana
   solana: { id: 1, name: 'Solana', color: '#14F195' },
   // Cosmos/IBC
@@ -73,7 +111,6 @@ export const CHAIN_IDS = {
   stride: { id: 191, name: 'Stride', color: '#A8F5FF' },
   celestia: { id: 394, name: 'Celestia', color: '#E8D3B9' },
   dymension: { id: 2340, name: 'Dymension', color: '#7B3AE8' },
-  sei: { id: 32, name: 'Sei', color: '#A238FF' },
   archway: { id: 158, name: 'Archway', color: '#7B3FD4' }
 };
 
