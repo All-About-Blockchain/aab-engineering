@@ -4,21 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aab.Engineering API</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.12/swagger-ui.css">
   <style>
     :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #141414;
-      --bg-tertiary: #1e1e1e;
-      --text-primary: #f0f0f0;
-      --text-secondary: #999999;
-      --text-muted: #666666;
-      --accent: #00d4aa;
-      --accent-hover: #00f5c4;
-      --border: #2a2a2a;
-      --get: #61affe;
-      --post: #49cc90;
-      --put: #fca130;
+      --bg-primary: #faf8f5;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f0ede8;
+      --text-primary: #1a2744;
+      --text-secondary: #4a5568;
+      --text-muted: #718096;
+      --accent: #1e3a5f;
+      --accent-light: #2c5282;
+      --border: #e2ddd8;
+      --get: #1e3a5f;
+      --post: #2d6a4f;
+      --put: #744210;
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +26,7 @@
       background: var(--bg-primary);
       color: var(--text-primary);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.5;
+      line-height: 1.6;
     }
     
     .container {
@@ -42,7 +41,7 @@
       justify-content: space-between;
       margin-bottom: 3rem;
       padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 2px solid var(--accent);
     }
     
     .logo {
@@ -54,20 +53,20 @@
     .logo-icon {
       width: 48px;
       height: 48px;
-      background: linear-gradient(135deg, var(--accent), #00f5c4);
-      border-radius: 12px;
+      background: var(--accent);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
       font-size: 1.3rem;
-      color: #000;
+      color: #fff;
     }
     
     .logo-text h1 {
       font-size: 1.5rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      color: var(--accent);
     }
     
     .logo-text p {
@@ -79,16 +78,14 @@
       color: var(--accent);
       text-decoration: none;
       font-size: 0.9rem;
+      font-weight: 500;
     }
-    
-    .header-links a:hover { text-decoration: underline; }
     
     .section-title {
       font-size: 1.1rem;
       font-weight: 600;
-      margin: 2rem 0 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
+      margin: 2.5rem 0 1rem;
+      color: var(--accent);
     }
     
     .endpoint {
@@ -99,60 +96,101 @@
       overflow: hidden;
     }
     
-    .endpoint:hover { border-color: var(--accent); }
-    
     .endpoint-header {
       display: flex;
       align-items: center;
       gap: 1rem;
       padding: 1rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    
+    .endpoint-header:hover {
+      background: var(--bg-tertiary);
     }
     
     .method {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       padding: 0.25rem 0.5rem;
       border-radius: 4px;
       text-transform: uppercase;
-      min-width: 60px;
+      min-width: 55px;
       text-align: center;
+      color: #fff;
     }
     
-    .method.get { background: var(--get); color: #000; }
-    .method.post { background: var(--post); color: #000; }
-    .method.put { background: var(--put); color: #000; }
+    .method.get { background: var(--get); }
+    .method.post { background: var(--post); }
+    .method.put { background: var(--put); }
     
     .endpoint-path {
       font-family: 'Monaco', 'Menlo', monospace;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--text-primary);
       flex: 1;
     }
     
+    .endpoint-toggle {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    
+    .endpoint-body {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: var(--bg-tertiary);
+    }
+    
+    .endpoint-body.open {
+      display: block;
+    }
+    
     .endpoint-desc {
-      padding: 0 1rem 1rem;
+      padding: 1rem;
+      font-size: 0.85rem;
       color: var(--text-secondary);
-      font-size: 0.9rem;
+    }
+    
+    .response-block {
+      margin-top: 0.75rem;
+      padding: 1rem;
+      background: var(--bg-primary);
+      border-radius: 6px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.75rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      color: var(--text-primary);
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .response-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    
+    .loading {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    
+    .error {
+      color: #c53030;
     }
     
     .tag {
       display: inline-block;
-      background: var(--bg-tertiary);
+      background: var(--bg-secondary);
       padding: 0.15rem 0.5rem;
       border-radius: 4px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       margin-right: 0.5rem;
-    }
-    
-    .tag.free {
-      background: #00d4aa20;
-      color: var(--accent);
-    }
-    
-    .tag.auth {
-      background: #f59e0b20;
-      color: #f59e0b;
     }
     
     footer {
@@ -165,6 +203,13 @@
     }
     
     footer a { color: var(--accent); text-decoration: none; }
+    
+    code {
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
   </style>
 </head>
 <body>
@@ -182,139 +227,181 @@
       </div>
     </header>
     
-    <!-- Free Tier -->
-    <div class="section-title">📊 Free Endpoints (No API Key)</div>
-    
-    <div class="endpoint">
+    <!-- Health -->
+    <div class="section-title">Status</div>
+    <div class="endpoint" onclick="toggleEndpoint(this)">
       <div class="endpoint-header">
         <span class="method get">GET</span>
         <span class="endpoint-path">/health</span>
+        <span class="endpoint-toggle">▼</span>
       </div>
-      <div class="endpoint-desc">Health check</div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          Health check endpoint
+          <div class="response-block loading" data-endpoint="/health">Loading...</div>
+        </div>
+      </div>
     </div>
     
-    <div class="endpoint">
+    <!-- Chains -->
+    <div class="section-title">Chains</div>
+    <div class="endpoint" onclick="toggleEndpoint(this)">
       <div class="endpoint-header">
         <span class="method get">GET</span>
         <span class="endpoint-path">/v1/chains</span>
+        <span class="endpoint-toggle">▼</span>
       </div>
-      <div class="endpoint-desc">List supported blockchain networks</div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          Supported blockchain networks
+          <div class="response-block loading" data-endpoint="/v1/chains">Loading...</div>
+        </div>
+      </div>
     </div>
     
-    <div class="endpoint">
+    <!-- Rates -->
+    <div class="section-title">Rates</div>
+    <div class="endpoint" onclick="toggleEndpoint(this)">
       <div class="endpoint-header">
         <span class="method get">GET</span>
         <span class="endpoint-path">/v1/rates</span>
+        <span class="endpoint-toggle">▼</span>
       </div>
-      <div class="endpoint-desc">Yield rates across protocols</div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          Yield rates across protocols
+          <div class="response-block loading" data-endpoint="/v1/rates">Loading...</div>
+        </div>
+      </div>
     </div>
     
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/bridge/config</span>
-      </div>
-      <div class="endpoint-desc">Bridge configurations (Stargate, LayerZero, Wormhole, Axelar)</div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/bridge/chains</span>
-      </div>
-      <div class="endpoint-desc">Supported bridge chains</div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/swap/tokens</span>
-      </div>
-      <div class="endpoint-desc">Swap token list</div>
-    </div>
-    
-    <div class="endpoint">
+    <!-- Staking -->
+    <div class="section-title">Staking</div>
+    <div class="endpoint" onclick="toggleEndpoint(this)">
       <div class="endpoint-header">
         <span class="method get">GET</span>
         <span class="endpoint-path">/v1/staking/rates</span>
+        <span class="endpoint-toggle">▼</span>
       </div>
-      <div class="endpoint-desc">Staking APYs (stETH, rETH, jitoSOL, mSOL)</div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          Liquid staking APYs
+          <div class="response-block loading" data-endpoint="/v1/staking/rates">Loading...</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bridge -->
+    <div class="section-title">Bridge</div>
+    <div class="endpoint" onclick="toggleEndpoint(this)">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/bridge/config</span>
+        <span class="endpoint-toggle">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          Bridge configurations
+          <div class="response-block loading" data-endpoint="/v1/bridge/config">Loading...</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="endpoint" onclick="toggleEndpoint(this)">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/bridge/chains</span>
+        <span class="endpoint-toggle">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          Supported bridge chains
+          <div class="response-block loading" data-endpoint="/v1/bridge/chains">Loading...</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Swap -->
+    <div class="section-title">Swap</div>
+    <div class="endpoint" onclick="toggleEndpoint(this)">
+      <div class="endpoint-header">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/v1/swap/tokens?chain=ethereum</span>
+        <span class="endpoint-toggle">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          Swap tokens for Ethereum
+          <div class="response-block loading" data-endpoint="/v1/swap/tokens?chain=ethereum">Loading...</div>
+        </div>
+      </div>
     </div>
     
     <!-- Protected -->
-    <div class="section-title">🔐 Protected Endpoints (API Key Required)</div>
+    <div class="section-title" style="margin-top: 3rem;">🔐 Protected (API Key Required)</div>
     
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method post">POST</span>
-        <span class="endpoint-path">/v1/bridge/quote</span>
-      </div>
-      <div class="endpoint-desc">Get bridge quote</div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method post">POST</span>
-        <span class="endpoint-path">/v1/swap/quote</span>
-      </div>
-      <div class="endpoint-desc">Get swap quote (Jupiter/1Inch)</div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method post">POST</span>
-        <span class="endpoint-path">/v1/staking/deposit</span>
-      </div>
-      <div class="endpoint-desc">Get staking deposit transaction</div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method post">POST</span>
-        <span class="endpoint-path">/v1/staking/withdraw</span>
-      </div>
-      <div class="endpoint-desc">Get staking withdraw transaction</div>
-    </div>
-    
-    <div class="endpoint">
+    <div class="endpoint" onclick="toggleEndpoint(this)">
       <div class="endpoint-header">
         <span class="method post">POST</span>
         <span class="endpoint-path">/v1/wallet/create</span>
+        <span class="endpoint-toggle">▼</span>
       </div>
-      <div class="endpoint-desc">Create MPC wallet (TurnKey)</div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          <span class="tag">Auth Required</span>
+          Create MPC wallet (example body)
+          <div class="response-block">{
+  "userId": "user-123"
+}</div>
+        </div>
+      </div>
     </div>
     
-    <div class="endpoint">
+    <div class="endpoint" onclick="toggleEndpoint(this)">
       <div class="endpoint-header">
         <span class="method post">POST</span>
-        <span class="endpoint-path">/v1/wallet/:walletId/sign</span>
+        <span class="endpoint-path">/v1/staking/deposit</span>
+        <span class="endpoint-toggle">▼</span>
       </div>
-      <div class="endpoint-desc">Sign transaction</div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          <span class="tag">Auth Required</span>
+          Stake tokens (example body)
+          <div class="response-block">{
+  "assetId": "steth",
+  "amount": "1.0",
+  "userAddress": "0x..."
+}</div>
+        </div>
+      </div>
     </div>
     
-    <div class="endpoint">
+    <div class="endpoint" onclick="toggleEndpoint(this)">
       <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/moonpay/buy-url</span>
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/v1/swap/quote</span>
+        <span class="endpoint-toggle">▼</span>
       </div>
-      <div class="endpoint-desc">Get MoonPay widget URL for buying crypto</div>
-    </div>
-    
-    <div class="endpoint">
-      <div class="endpoint-header">
-        <span class="method get">GET</span>
-        <span class="endpoint-path">/v1/moonpay/quote</span>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">
+          <span class="tag">Auth Required</span>
+          Get swap quote (example body)
+          <div class="response-block">{
+  "chain": "ethereum",
+  "fromToken": "USDC",
+  "toToken": "ETH",
+  "amount": "1000"
+}</div>
+        </div>
       </div>
-      <div class="endpoint-desc">Get MoonPay buy quote</div>
     </div>
     
     <!-- Usage -->
-    <div class="section-title">📖 Usage</div>
-    
+    <div class="section-title">Usage</div>
     <div class="endpoint">
       <div class="endpoint-desc">
         <p style="margin-bottom: 0.5rem;"><strong>Free tier:</strong> 10 requests/minute on public endpoints</p>
-        <p style="margin-bottom: 0.5rem;"><strong>With API key:</strong> Add header <code>X-API-Key: aab_cron_key_2026</code></p>
+        <p style="margin-bottom: 0.5rem;"><strong>API Key:</strong> Add header <code>X-API-Key: aab_cron_key_2026</code></p>
         <p><strong>Example:</strong> <code>curl -H "X-API-Key: aab_cron_key_2026" https://aab.engineering/v1/wallet/create</code></p>
       </div>
     </div>
@@ -325,5 +412,42 @@
       <a href="mailto:hello@aab.engineering">Contact</a></p>
     </footer>
   </div>
+  
+  <script>
+    const API_BASE = 'https://aab.engineering';
+    
+    function toggleEndpoint(el) {
+      const body = el.querySelector('.endpoint-body');
+      const toggle = el.querySelector('.endpoint-toggle');
+      
+      if (body.classList.contains('open')) {
+        body.classList.remove('open');
+        toggle.textContent = '▼';
+      } else {
+        body.classList.add('open');
+        toggle.textContent = '▲';
+        
+        // Fetch data if not yet loaded
+        const responseBlock = body.querySelector('.response-block');
+        if (responseBlock && responseBlock.classList.contains('loading')) {
+          const endpoint = responseBlock.dataset.endpoint;
+          fetchData(endpoint, responseBlock);
+        }
+      }
+    }
+    
+    async function fetchData(endpoint, el) {
+      try {
+        const res = await fetch(API_BASE + endpoint);
+        const data = await res.json();
+        el.classList.remove('loading');
+        el.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        el.classList.remove('loading');
+        el.classList.add('error');
+        el.textContent = 'Error: ' + err.message;
+      }
+    }
+  </script>
 </body>
 </html>
