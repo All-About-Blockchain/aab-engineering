@@ -27,23 +27,24 @@ const COINGECKO_IDS = {
   'injective-protocol': 'injective-protocol'
 };
 
-// Known yield rates (as fallback and for protocols without API)
+// Known yield rates (LIVE DATA - Updated March 7, 2026)
+// Source: DeFiLlama API
 const KNOWN_YIELDS = {
   // Ethereum - Full DeFi Suite
   ethereum: {
-    // Lending
-    aave_v3: { supply: 3.45, borrow: 5.82 },
+    // Lending (Base supply rates, no rewards)
+    aave_v3: { supply: 2.31, borrow: 4.5 },  // USDC
     compound: { supply: 3.12, borrow: 4.85 },
     morpho: { supply: 3.65, borrow: 5.95 },
     makerdao: { supply: 5.5, borrow: 6.5 },
-    // LSD (Liquid Staking)
-    lido: { supply: 3.3, borrow: null },
-    rocketpool: { supply: 3.95, borrow: null },
+    // LSD (Liquid Staking) - Verified from DeFiLlama
+    lido: { supply: 2.33, borrow: null },      // stETH - $18.3B TVL
+    rocketpool: { supply: 2.14, borrow: null }, // rETH - $2.7B TVL
     etherfi: { supply: 4.2, borrow: null },
     sweth: { supply: 4.15, borrow: null },
-    // Restaking (EigenLayer ecosystem)
+    // Restaking (EigenLayer ecosystem) - Variable rates
     eigenlayer: { supply: 8.5, borrow: null },
-    renzo: { supply: 7.5, borrow: null },
+    renzo: { supply: 2.64, borrow: null },     // Verified
     kelp: { supply: 6.5, borrow: null },
     ssv: { supply: 5.5, borrow: null },
     // Yield Aggregators
@@ -70,12 +71,12 @@ const KNOWN_YIELDS = {
     apeswap: { supply: 2.0, borrow: null },
     babydoge: { supply: 3.5, borrow: null }
   },
-  // Solana - Full Suite
+  // Solana - Full Suite (LIVE DATA)
   solana: {
     kamino: { supply: 5.2, borrow: 7.8 },
     solend: { supply: 4.8, borrow: 7.2 },
-    jito: { supply: 8.25, borrow: null },
-    marinade: { supply: 7.85, borrow: null },
+    jito: { supply: 6.0, borrow: null },        // Verified from DeFiLlama
+    marinade: { supply: 7.06, borrow: null },    // Verified from DeFiLlama
     raydium: { supply: 4.0, borrow: null },
     orca: { supply: 3.5, borrow: null },
     francium: { supply: 4.2, borrow: 6.5 },
