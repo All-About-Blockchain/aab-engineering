@@ -1,12 +1,125 @@
-// Real rates service with live data from CoinGecko and known yields
+// Real rates service with live data from DeFiLlama and protocol APIs
 import axios from 'axios';
 
-// Cache for rates (5 minutes)
+// Cache for rates (1 hour - hourly updates as requested)
 let ratesCache = {
   data: null,
   timestamp: 0
 };
-const CACHE_TTL = 5 * 60 * 1000;
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
+// LIVE API SOURCES - On-chain data
+const RATE_SOURCES = {
+  // DeFiLlama - comprehensive yield data
+  defillama: {
+    url: 'https://yields.llama.fi/pools',
+    parse: (data) => {
+      const pools = data.data || [];
+      const results = {};
+      
+      for (const pool of pools) {
+        const project = pool.project;
+        const chain = pool.chain;
+        const symbol = pool.symbol;
+        const apy = pool.apy || 0;
+        const apyBase = pool.apyBase || 0;
+        const apyReward = pool.apyReward || 0;
+        const tvl = pool.tvlUsd || 0;
+        
+        // Map to our format
+        const key = `${chain}-${project}`;
+        if (!results[key]) {
+          results[key] = { supply: apy, borrow: 0, tvl, symbols: new Set() };
+        }
+        
+        if (apy > results[key].supply) {
+          results[key].supply = apy;
+          results[key].tvl = tvl;
+        }
+        results[key].symbols.add(symbol);
+      }
+      
+      return results;
+    }
+  },
+  
+  // Lido API - direct on-chain
+  lido: {
+    url: 'https://api.lido.fi/v1/steth/apr',
+    parse: (data) => {
+      return { lido: { supply: data.smaApr || 0, borrow: null } };
+    }
+  },
+  
+  // Rocket Pool API
+  rocketpool: {
+    url: 'https://api.rocketpool.net/api/node/apr',
+    parse: (data) => {
+      return { rocketpool: { supply: data.nodeApr || 0, borrow: null } };
+    }
+  },
+  
+  // Aave V3 - on-chain
+  aave: {
+    url: 'https://api.aave.com/v3/protocolData/assetPrices',
+    parse: (data) => {
+      // Aave returns asset prices, not yields
+      return {};
+    }
+  }
+};
+
+// Fetch live yields from DeFiLlama
+async function fetchLiveYields() {
+  try {
+    const response = await axios.get(RATE_SOURCES.defillama.url, {
+      timeout: 10000,
+      headers: { 'Accept': 'application/json' }
+    });
+    
+    const parsed = RATE_SOURCES.defillama.parse(response.data);
+    console.log(`[Rates] Fetched live yields from DeFiLlama: ${Object.keys(parsed).length} pools`);
+    
+    return parsed;
+  } catch (error) {
+    console.error('[Rates] DeFiLlama fetch failed:', error.message);
+    return null;
+  }
+}
+
+// Fetch Lido APR
+async function fetchLidoAPR() {
+  try {
+    const response = await axios.get(RATE_SOURCES.lido.url, { timeout: 5000 });
+    const apr = response.data.smaApr || 0;
+    console.log(`[Rates] Lido APR: ${apr}%`);
+    return apr;
+  } catch (error) {
+    console.error('[Rates] Lido fetch failed:', error.message);
+    return null;
+  }
+}
+
+// Fetch Rocket Pool APR
+async function fetchRocketPoolAPR() {
+  try {
+    const response = await axios.get(RATE_SOURCES.rocketpool.url, { timeout: 5000 });
+    const apr = response.data.nodeApr || 0;
+    console.log(`[Rates] Rocket Pool APR: ${apr}%`);
+    return apr;
+  } catch (error) {
+    console.error('[Rates] Rocket Pool fetch failed:', error.message);
+    return null;
+  }
+}
+
+// Get live rate for a specific protocol
+function getLiveRate(liveData, chain, protocol) {
+  if (!liveData) return null;
+  
+  const key = `${chain}-${protocol}`;
+  return liveData[key] || null;
+}
 
 // Token IDs for CoinGecko
 const COINGECKO_IDS = {
@@ -144,35 +257,76 @@ const KNOWN_YIELDS = {
   }
 };
 
-// Fetch token prices
-async function fetchPrices() {
-  const ids = Object.values(COINGECKO_IDS).join(',');
-  try {
-    const response = await axios.get(
-      `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`,
-      { timeout: 10000 }
-    );
-    return response.data;
-  } catch (e) {
-    console.log('Price fetch failed:', e.message);
-    return {};
-  }
-}
 
-// Fetch rates for a chain
-async function fetchChainRates(chain) {
-  // For now, return known yields (would need protocol-specific APIs for real-time)
-  return KNOWN_YIELDS[chain] || {};
-}
 
-// Get all rates
+// Get all rates - LIVE DATA with fallback
 export async function getRates(chain = null) {
   const now = Date.now();
   
-  // Check cache
+  // Check cache (1 hour)
   if (ratesCache.data && (now - ratesCache.timestamp) < CACHE_TTL) {
+    console.log('[Rates] Using cached data');
     return chain ? ratesCache.data[chain] || {} : ratesCache.data;
   }
+  
+  console.log('[Rates] Fetching fresh live data...');
+  
+  // Fetch live yields from DeFiLlama
+  const liveYields = await fetchLiveYields();
+  
+  // Fetch specific protocol APRs
+  const [lidoAPR, rocketAPR] = await Promise.all([
+    fetchLidoAPR(),
+    fetchRocketPoolAPR()
+  ]);
+  
+  // Build response - prioritize live data, fallback to static
+  const result = {};
+  
+  for (const [chainName, protocols] of Object.entries(KNOWN_YIELDS)) {
+    if (chain && chainName !== chain) continue;
+    
+    result[chainName] = {};
+    
+    for (const [protocol, staticRates] of Object.entries(protocols)) {
+      // Try to get live rate
+      let supply = staticRates.supply;
+      let borrow = staticRates.borrow;
+      let source = 'static';
+      
+      // Override with live data if available
+      if (protocol === 'lido' && lidoAPR) {
+        supply = lidoAPR;
+        source = 'live:lido';
+      } else if (protocol === 'rocketpool' && rocketAPR) {
+        supply = rocketAPR;
+        source = 'live:rocketpool';
+      } else if (liveYields) {
+        // Check DeFiLlama data
+        const liveRate = getLiveRate(liveYields, chainName, protocol);
+        if (liveRate && liveRate.supply > 0) {
+          supply = liveRate.supply;
+          source = 'live:defillama';
+        }
+      }
+      
+      result[chainName][protocol] = {
+        supply: Math.round(supply * 100) / 100,
+        borrow: borrow ? Math.round(borrow * 100) / 100 : null,
+        source,
+        updatedAt: new Date().toISOString()
+      };
+    }
+  }
+  
+  // Cache the result
+  ratesCache.data = result;
+  ratesCache.timestamp = now;
+  
+  console.log('[Rates] Cached new data, TTL: 1 hour');
+  
+  return chain ? result[chain] || {} : result;
+}
   
   // Fetch prices
   const prices = await fetchPrices();
