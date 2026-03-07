@@ -426,3 +426,23 @@ export async function discoverDataSources() {
 }
 
 export { DATA_SOURCES };
+
+// Get cache/status info
+export function getRatesStatus() {
+  const now = Date.now();
+  const age = now - ratesCache.timestamp;
+  const isStale = age >= CACHE_TTL;
+  
+  return {
+    cached: ratesCache.data !== null,
+    lastUpdated: ratesCache.timestamp > 0 ? new Date(ratesCache.timestamp).toISOString() : null,
+    ageSeconds: Math.floor(age / 1000),
+    cacheTTL: CACHE_TTL / 1000,
+    isStale,
+    sources: [
+      { name: 'DeFiLlama', url: 'https://yields.llama.fi/pools', type: 'yields' },
+      { name: 'Lido', url: 'https://api.lido.fi/v1/steth/apr', type: 'staking' },
+      { name: 'Rocket Pool', url: 'https://api.rocketpool.net/api/node/apr', type: 'staking' }
+    ]
+  };
+}

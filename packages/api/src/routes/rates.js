@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getRates } from '../services/rates.service.js';
+import { getRates, getRatesStatus } from '../services/rates.service.js';
 
 const router = Router();
 
@@ -11,6 +11,17 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.error('Error fetching rates:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch rates' });
+  }
+});
+
+// Status endpoint - shows last updated times
+router.get('/status', async (req, res) => {
+  try {
+    const status = getRatesStatus();
+    res.json({ success: true, ...status });
+  } catch (error) {
+    console.error('Error fetching status:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch status' });
   }
 });
 
