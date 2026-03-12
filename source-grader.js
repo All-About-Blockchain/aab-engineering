@@ -1,5 +1,5 @@
 // Source Grader Configuration
-// Last updated: 2026-03-11T12:20:00-07:00 (HOURLY AUDIT)
+// Last updated: 2026-03-12T05:49:00-07:00 (HOURLY AUDIT)
 
 const sources = {
   staking: {
@@ -7,37 +7,37 @@ const sources = {
       url: "https://api.rocketpool.net/api/node/apr",
       grade: "A",
       reliability: 95,
-      lastChecked: "2026-03-11T12:20:00-07:00",
-      apr: "2.11%",
+      lastChecked: "2026-03-12T05:49:00-07:00",
+      apr: "2.09%",
       note: "OPERATIONAL - Official Rocket Pool API, on-chain verified"
     },
     lido: {
       url: "https://api.lido.fi/v1/steth/apr",
       grade: "F",
       reliability: 0,
-      lastChecked: "2026-03-11T12:20:00-07:00",
-      error: "FAILED - Exit code 6 (connection failed)",
-      note: "OFFLINE - Endpoint failing persistently, investigate alternative or wait for recovery"
+      lastChecked: "2026-03-12T05:49:00-07:00",
+      error: "FAILED - Exit code 6 (connection/resolve failed)",
+      note: "OFFLINE - Endpoint failing for 2+ hours, investigate alternative"
     }
   },
   prices: {
     coingecko: {
       url: "https://api.coingecko.com/api/v3/simple/price",
       grade: "B",
-      reliability: 95,
-      lastChecked: "2026-03-11T12:20:00-07:00",
+      reliability: 88,
+      lastChecked: "2026-03-12T05:49:00-07:00",
       params: { ids: "ethereum,solana", vs_currencies: "usd" },
-      values: { ETH: 2068.74, SOL: 87.78 },
-      note: "Trusted aggregator - operational, prices updated"
+      values: { eth: 2073.42, sol: 86.97 },
+      note: "RECOVERED - Working again, provides multi-asset prices"
     },
     binance: {
       url: "https://api.binance.com/api/v3/ticker/price",
       grade: "A",
       reliability: 98,
-      lastChecked: "2026-03-11T12:20:00-07:00",
+      lastChecked: "2026-03-12T05:49:00-07:00",
       params: { symbol: "ETHUSDT" },
-      value: 2071.70,
-      note: "Real-time exchange price - primary price source"
+      value: 2070.46,
+      note: "Real-time exchange price - PRIMARY price source"
     }
   },
   yields: {
@@ -45,9 +45,9 @@ const sources = {
       url: "https://yields.llama.fi/pools",
       grade: "B",
       reliability: 92,
-      lastChecked: "2026-03-11T12:20:00-07:00",
+      lastChecked: "2026-03-12T05:49:00-07:00",
       poolCount: "~600+ pools returned",
-      note: "Large dataset - operational, returns comprehensive yield data"
+      note: "Large dataset - operational, Lido STETH at 2.43% APY"
     }
   },
   aab_api: {
@@ -55,7 +55,7 @@ const sources = {
       url: "https://aab.engineering/v1/rates",
       grade: "A",
       reliability: 95,
-      lastChecked: "2026-03-11T12:20:00-07:00",
+      lastChecked: "2026-03-12T05:49:00-07:00",
       status: "operational",
       note: "Internal API working - yield data available for multiple tokens/chains"
     },
@@ -63,9 +63,9 @@ const sources = {
       url: "https://aab.engineering/v1/staking/rates",
       grade: "F",
       reliability: 0,
-      lastChecked: "2026-03-11T12:20:00-07:00",
+      lastChecked: "2026-03-12T05:49:00-07:00",
       error: "Requires API key - endpoint protected",
-      note: "Public endpoint exists but requires X-API-Key header"
+      note: "Public endpoint now requires X-API-Key - broken for public access"
     }
   }
 };
