@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-03-14T12:28:00-07:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "success",
+      "grade": "A",
+      "reliability": 95,
+      "value": "1.99%",
+      "response_time_ms": null
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "status": "success",
+      "grade": "B",
+      "reliability": 95,
+      "values": { "ETH": 2074.15, "SOL": 86.86 },
+      "response_time_ms": null
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Exit code 6 - Couldn't resolve host"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "status": "success",
+      "grade": "A",
+      "reliability": 99,
+      "value": 2074.76
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "success",
+      "grade": "B",
+      "reliability": 90,
+      "pool_count": "~600+"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "success",
+      "grade": "A",
+      "reliability": 95
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "failed",
+      "grade": "F",
+      "reliability": 0,
+      "error": "401 - Missing API key"
+    }
+  },
+  "best_sources": {
+    "staking_apr": { "source": "rocketpool", "grade": "A", "value": "1.99%" },
+    "eth_price": { "source": "binance", "grade": "A", "value": 2074.76 },
+    "sol_price": { "source": "coingecko", "grade": "B", "value": 86.86 },
+    "yield_data": { "source": "aab_api", "grade": "A", "note": "Internal /v1/rates endpoint" }
+  },
+  "improvements_made": [
+    "Updated source-grader.js with latest price data (ETH: $2074.15, SOL: $86.86)",
+    "Confirmed Rocket Pool API stable at 1.99% APR",
+    "Lido API still failing - continue using cached stETH rate ~4.08% from aab API"
+  ],
+  "notes": "All critical sources operational. No auto-improvement needed this cycle."
+}

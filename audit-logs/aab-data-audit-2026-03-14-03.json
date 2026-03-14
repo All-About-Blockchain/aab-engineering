@@ -1,0 +1,84 @@
+{
+  "timestamp": "2026-03-14T03:07:00-07:00",
+  "audit_hour": 3,
+  "sources_tested": {
+    "aab_engineering_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 95,
+      "data": {
+        "ETH_lido_steth_supply": 4.08,
+        "ETH_rocketpool_reth_supply": 3.95,
+        "SOL_jito_supply": 8.25
+      }
+    },
+    "aab_engineering_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED",
+      "error": "401 Missing API key",
+      "grade": "F",
+      "reliability": 0
+    },
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 100,
+      "value": "1.99%"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability": 85,
+      "values": {
+        "ETH": 2076.74,
+        "SOL": 87.21
+      },
+      "note": "Working now - rate limit resolved"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "error": "Exit code 6 - Couldn't resolve host",
+      "grade": "F",
+      "reliability": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 99,
+      "value": "ETHUSDT: 2076.84"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability": 90,
+      "pools_returned": 600,
+      "sample": {
+        "STETH": "4.568%"
+      }
+    }
+  },
+  "grades_summary": {
+    "A": ["rocketpool", "binance", "aab_engineering_rates"],
+    "B": ["coingecko", "defillama"],
+    "C": [],
+    "F": ["lido", "aab_engineering_staking_rates"]
+  },
+  "best_sources": {
+    "staking_apr": "rocketpool (1.99%)",
+    "eth_price": "binance ($2076.84)",
+    "yield_data": "defillama (STETH 4.568%)",
+    "aggregated_rates": "aab.engineering /v1/rates"
+  },
+  "improvements": [
+    "CoinGecko recovered from rate limiting - now operational",
+    "Lido API still failing (DNS resolution) - keep using aab cached values"
+  ],
+  "changes_made": false,
+  "commit_hash": null
+}

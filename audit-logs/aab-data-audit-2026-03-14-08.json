@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-03-14T08:17:00-07:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "online",
+      "grade": "C",
+      "value_returned": "1.99%",
+      "reliability_score": 70,
+      "notes": "APr unusually low compared to internal data (3.95%). May be node APR only, not protocol APR."
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "online",
+      "grade": "B",
+      "values": {"ETH": 2074.62, "SOL": 87.01},
+      "reliability_score": 95,
+      "notes": "Trusted aggregator - operational"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "error": "Exit code 6 - DNS resolution failure",
+      "reliability_score": 0,
+      "notes": "Failed - use cached ~4.08% or aab internal"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "online",
+      "grade": "A",
+      "value": 2074.88,
+      "reliability_score": 99,
+      "notes": "Real-time exchange price - primary source"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "online",
+      "grade": "B",
+      "reliability_score": 90,
+      "notes": "Large dataset returned - operational"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "online",
+      "grade": "A",
+      "reliability_score": 95,
+      "notes": "Public API operational"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "failed",
+      "grade": "F",
+      "error": "401 Missing API key",
+      "reliability_score": 0,
+      "notes": "Protected endpoint - use /v1/rates"
+    }
+  },
+  "best_sources": {
+    "staking_yield": "aab_api (lido_steth: 4.08%, rocketpool_reth: 3.95%)",
+    "price_eth": "binance ($2074.88)",
+    "price_sol": "coingecko ($87.01)",
+    "yields": "defillama (operational)"
+  },
+  "improvements_made": [
+    "Downgraded Rocket Pool from A to C (APR value mismatch)",
+    "Confirmed Lido still failing (Grade F)",
+    "All other sources operational"
+  ],
+  "recommendations": [
+    "Investigate Rocket Pool API - returned 1.99% vs 3.95% expected",
+    "Consider adding fallback for Lido (use aab internal data)",
+    "Current best staking source: aab /v1/rates"
+  ]
+}

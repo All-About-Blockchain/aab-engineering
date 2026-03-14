@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-03-14T09:19:00-07:00",
+  "audit_type": "HOURLY",
+  "sources_tested": [
+    {
+      "name": "Rocket Pool",
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "ONLINE",
+      "value": "1.99% APR",
+      "reliability": 95,
+      "type": "Official API (on-chain verified)"
+    },
+    {
+      "name": "CoinGecko",
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "status": "ONLINE",
+      "values": { "ETH": 2077.21, "SOL": 86.86 },
+      "reliability": 95,
+      "type": "Trusted aggregator"
+    },
+    {
+      "name": "Lido",
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "FAILED",
+      "error": "Exit code 6 - DNS/CORS failure",
+      "reliability": 0,
+      "type": "Official API"
+    },
+    {
+      "name": "Binance",
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "status": "ONLINE",
+      "value": { "ETHUSDT": 2077.45 },
+      "reliability": 99,
+      "type": "Exchange API"
+    },
+    {
+      "name": "DeFiLlama",
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "ONLINE",
+      "pool_count": "~600+",
+      "reliability": 90,
+      "type": "Trusted aggregator"
+    }
+  ],
+  "aab_api": {
+    "/v1/rates": { "grade": "A", "status": "operational" },
+    "/v1/staking/rates": { "grade": "F", "status": "401 - Requires API key" }
+  },
+  "best_sources": {
+    "eth_price": { "source": "Binance", "value": "$2,077.45", "grade": "A" },
+    "sol_price": { "source": "CoinGecko", "value": "$86.86", "grade": "B" },
+    "reth_apr": { "source": "Rocket Pool", "value": "1.99%", "grade": "A" },
+    "steth_apr": { "source": "aab API (cached)", "value": "~4.08%", "grade": "B" },
+    "yield_data": { "source": "DeFiLlama", "grade": "B" }
+  },
+  "improvements": [
+    "Rocket Pool grade upgraded from C to A (now verified as on-chain official API)",
+    "Lido remains FAILED - continue using cached value ~4.08%",
+    "All other sources operational"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-03-14T13:29:00-06:00",
+  "sources": {
+    "aab.engineering/v1/staking/rates": {"status": "A", "reliability": 100, "data": "OK"},
+    "aab.engineering/v1/rates": {"status": "A", "reliability": 100, "data": "OK"},
+    "rocketpool": {"status": "A", "reliability": 100, "yearlyAPR": 1.99},
+    "coingecko": {"status": "B", "reliability": 100, "prices": {"eth": 2077.37, "sol": 87.0}},
+    "lido": {"status": "F", "reliability": 0, "error": "curl exit code 6"},
+    "binance": {"status": "B", "reliability": 100, "eth_price": 2077.62},
+    "defillama": {"status": "B", "reliability": 100, "pools_returned": "large dataset"}
+  },
+  "grades": {
+    "A": ["aab.engineering APIs", "rocketpool"],
+    "B": ["coingecko", "binance", "defillama"],
+    "C": [],
+    "F": ["lido"]
+  },
+  "best_sources": {
+    "eth_staking": "rocketpool (1.99% APR)",
+    "eth_price": "binance ($2077.62)",
+    "sol_price": "coingecko ($87.00)",
+    "defi_yields": "defillama"
+  },
+  "improvements": [
+    "lido API endpoint may have changed - needs investigation",
+    "all other sources operating normally"
+  ]
+}

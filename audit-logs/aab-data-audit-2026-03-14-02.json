@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-03-14T02:05:00-07:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "ONLINE",
+      "reliability": 100,
+      "value": "1.99% APR"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "status": "ONLINE",
+      "reliability": 95,
+      "values": { "ETH": "$2,077.44", "SOL": "$87.33" }
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "FAILED",
+      "reliability": 0,
+      "error": "Exit code 6 - could not resolve host"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "status": "ONLINE",
+      "reliability": 99,
+      "value": "$2,078.76"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "ONLINE",
+      "reliability": 90
+    }
+  },
+  "best_sources": {
+    "staking_apr": "rocketpool (A, 1.99%)",
+    "eth_price": "binance (A, $2,078.76)",
+    "yields": "defillama (B)"
+  },
+  "improvements_made": ["Lido API remains DOWN"]
+}

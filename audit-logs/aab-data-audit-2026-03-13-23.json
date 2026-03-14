@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-03-13T23:59:00-07:00",
+  "audit_hour": 23,
+  "sources_tested": {
+    "aab_engineering_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED",
+      "error": "401 - Missing API key",
+      "grade": "F",
+      "reliability": 0
+    },
+    "aab_engineering_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "SUCCESS",
+      "data_sample": {
+        "ETH": { "lido_steth": { "supply": 4.08 }, "rocketpool_reth": { "supply": 3.95 } },
+        "SOL": { "jito": { "supply": 8.25 } }
+      },
+      "grade": "A",
+      "reliability": 95
+    },
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "value": "2.004%",
+      "grade": "A",
+      "reliability": 100
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "SUCCESS",
+      "values": { "ETH": 2091.67, "SOL": 88.05 },
+      "grade": "B",
+      "reliability": 95
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "error": "Exit code 6 - connection/SSL error",
+      "grade": "F",
+      "reliability": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "SUCCESS",
+      "value": 2092.27,
+      "grade": "A",
+      "reliability": 99
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "pool_count": "~600+",
+      "grade": "B",
+      "reliability": 90
+    }
+  },
+  "improvements_made": [],
+  "notes": "Hourly audit - all sources consistent with previous checks. Lido API still failing (SSL issue). Use Rocket Pool for staking APR, Binance for ETH price."
+}

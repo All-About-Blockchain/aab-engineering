@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-03-14T05:12:00-07:00",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "ONLINE",
+      "value": "1.99% APR",
+      "reliability": 100,
+      "responseTime": "< 500ms"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "status": "ONLINE",
+      "values": { "ETH": 2070.11, "SOL": 86.78 },
+      "reliability": 95,
+      "note": "Trusted aggregator"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "FAILED",
+      "error": "Exit code 6 - DNS resolution failed",
+      "reliability": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "grade": "A",
+      "status": "ONLINE",
+      "value": "$2070.10",
+      "reliability": 99,
+      "note": "Primary price source"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "ONLINE",
+      "poolCount": 600,
+      "reliability": 90,
+      "note": "Large dataset returned successfully"
+    }
+  },
+  "bestSources": {
+    "stakingAPR": { source: "rocketpool", value: "1.99%", grade: "A" },
+    "ethPrice": { source: "binance", value: "$2070.10", grade: "A" },
+    "solPrice": { source: "coingecko", value: "$86.78", grade: "B" },
+    "yields": { source: "defillama", status: "operational", grade: "B" }
+  },
+  "improvements": [],
+  "summary": "All primary sources operational. Lido API remains failed (DNS issue). Using cached Lido stETH value (~4.08%) from internal API."
+}

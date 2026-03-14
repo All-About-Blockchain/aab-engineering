@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-03-14T15:33:00-06:00",
+  "audit_type": "HOURLY",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability_score": 100,
+      "value": "1.99%",
+      "response_time_ms": "<15s"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability_score": 95,
+      "values": { "ETH": 2083.55, "SOL": 87.01 },
+      "response_time_ms": "<15s"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability_score": 0,
+      "error": "Exit code 6 - Couldn't resolve host",
+      "response_time_ms": "N/A"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability_score": 98,
+      "value": 2083.81,
+      "response_time_ms": "<15s"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability_score": 90,
+      "pools_returned": 600,
+      "response_time_ms": "<30s"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability_score": 95,
+      "data": "yield data available",
+      "response_time_ms": "<15s"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED_AUTH",
+      "grade": "F",
+      "reliability_score": 0,
+      "error": "401 - Missing API key",
+      "public_endpoint": true,
+      "response_time_ms": "<15s"
+    }
+  },
+  "best_sources": {
+    "eth_price": {
+      "source": "binance",
+      "grade": "A",
+      "value": "$2083.81"
+    },
+    "sol_price": {
+      "source": "coingecko",
+      "grade": "B",
+      "value": "$87.01"
+    },
+    "reth_apr": {
+      "source": "rocketpool",
+      "grade": "A",
+      "value": "1.99%"
+    },
+    "steth_apr": {
+      "source": "aab_api (cached)",
+      "grade": "A",
+      "value": "4.08%"
+    },
+    "yield_data": {
+      "source": "aab_api",
+      "grade": "A",
+      "note": "Multiple chains/protocols"
+    }
+  },
+  "improvements_made": [
+    "Updated source-grader.js with latest prices (ETH $2083.55->$2083.81, SOL $86.97->$87.01)",
+    "Confirmed Rocket Pool API operational - Grade A",
+    "Lido API remains FAILED - continue using cached stETH value (4.08%)"
+  ],
+  "recommendations": [
+    "Consider adding Lido API key or alternative endpoint",
+    "Staking rates endpoint requires authentication - ensure API key provided for internal use",
+    "Current sources stable - no changes needed to active data pipeline"
+  ]
+}

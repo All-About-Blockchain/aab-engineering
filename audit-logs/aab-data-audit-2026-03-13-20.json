@@ -1,0 +1,78 @@
+{
+  "timestamp": "2026-03-13T20:53:00-06:00",
+  "auditHour": 20,
+  "summary": {
+    "totalSources": 7,
+    "operational": 5,
+    "failed": 2,
+    "uptime": "71%"
+  },
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "operational",
+      "grade": "A",
+      "reliability": 100,
+      "value": "2.004% APR",
+      "latencyMs": "<100"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "operational",
+      "grade": "B",
+      "reliability": 95,
+      "values": { "ETH": 2093.14, "SOL": 88.11 },
+      "latencyMs": "<200"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Exit code 6 - connection error",
+      "fallback": "Use Rocket Pool ~2.0% or cached ~3.06%"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "operational",
+      "grade": "A",
+      "reliability": 99,
+      "values": { "ETHUSDT": 2093.97 },
+      "latencyMs": "<50"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "operational",
+      "grade": "B",
+      "reliability": 90,
+      "poolCount": "~600+",
+      "latencyMs": "<500"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "operational",
+      "grade": "A",
+      "reliability": 95,
+      "data": "yield rates for USDC, ETH, USDT, SOL, etc.",
+      "latencyMs": "<100"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "failed",
+      "grade": "F",
+      "reliability": 0,
+      "error": "401 Missing API key",
+      "note": "Protected endpoint - requires X-API-Key"
+    }
+  },
+  "bestSources": {
+    "stakingApr": "rocketpool (A, 2.004%)",
+    "ethPrice": "binance (A, $2093.97)",
+    "yieldData": "defillama (B) or aab.engineering (A)"
+  },
+  "improvements": [],
+  "recommendations": [
+    "Lido API remains down - continue using Rocket Pool as primary staking source",
+    "aab.engineering staking/rates requires authentication - consider making public or using alternative"
+  ]
+}
