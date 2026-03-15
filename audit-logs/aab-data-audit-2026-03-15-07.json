@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-03-15T07:56:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability_score": 100,
+      "response": {
+        "yearlyAPR": "1.9651441405913049%"
+      },
+      "notes": "Official Rocket Pool node API - on-chain verified APR"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability_score": 95,
+      "response": {
+        "ethereum": { "usd": 2095.03 },
+        "solana": { "usd": 87.66 }
+      },
+      "notes": "Trusted price aggregator - operational"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability_score": 0,
+      "error": "Exit code 6 - Could not resolve host",
+      "notes": "Lido API still failing - use cached stETH APR ~4.08% from aab API"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability_score": 100,
+      "response": {
+        "symbol": "ETHUSDT",
+        "price": "2094.30"
+      },
+      "notes": "Real-time exchange price - highest reliability"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability_score": 90,
+      "response": {
+        "pool_count": "600+",
+        "sample": "Euler V2 USDC 3.96% APY"
+      },
+      "notes": "Yield aggregator - operational"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability_score": 100,
+      "response": {
+        "timestamp": 1773583019430,
+        "rates": {
+          "USDC": { "ethereum": { "aave_v3": { "supply": 4.12, "borrow": 5.68 } } },
+          "ETH": { "ethereum": { "lido_steth": { "supply": 4.08 }, "rocketpool_reth": { "supply": 3.95 } } },
+          "SOL": { "solana": { "jito": { "supply": 8.25, "borrow": 12.5 }, "marinade": { "supply": 7.85 } } }
+        }
+      },
+      "notes": "Internal API - primary data source for multi-chain yields"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability_score": 0,
+      "error": "401 Missing API key",
+      "notes": "Protected endpoint - requires X-API-Key header"
+    }
+  },
+  "summary": {
+    "total_sources": 7,
+    "grade_a": 3,
+    "grade_b": 2,
+    "grade_c": 0,
+    "grade_f": 2
+  },
+  "best_sources": {
+    "staking_apr": "rocketpool (Grade A, 1.965%)",
+    "eth_price": "binance (Grade A, $2094.30)",
+    "yield_data": "aab.engineering/v1/rates (Grade A)",
+    "price_reference": "coingecko (Grade B)"
+  },
+  "improvements_made": [
+    "Updated source-grader.js with latest reliability scores",
+    "Confirmed Rocket Pool API operational (1.965% APR)",
+    "Confirmed Binance price feed operational ($2094.30)",
+    "Confirmed DeFiLlama yields operational",
+    "Lido API still failing - using cached stETH ~4.08% from aab API",
+    "aab.engineering/v1/rates is primary public endpoint (all-chain yields)",
+    "aab.engineering/v1/staking/rates requires API key - not suitable for public use"
+  ],
+  "recommendations": [
+    "Continue using aab.engineering/v1/rates as primary yield source",
+    "Use Binance for ETH price (Grade A)",
+    "Use Rocket Pool for staking APR (Grade A)",
+    "Monitor Lido API - consider alternative if persistent failure"
+  ]
+}
