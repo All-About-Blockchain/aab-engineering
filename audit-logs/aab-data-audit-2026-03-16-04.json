@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-03-16T04:32:00-07:00",
+  "audit_type": "HOURLY",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 98,
+      "status": "ONLINE",
+      "value": "1.957%",
+      "error": null
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "reliability": 88,
+      "status": "ONLINE",
+      "value": { "ETH": 2265.13, "SOL": 93.55 },
+      "error": null
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "status": "FAILED",
+      "value": null,
+      "error": "exit code 6 - could not resolve host"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "reliability": 99,
+      "status": "ONLINE",
+      "value": 2261.29,
+      "error": null
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "reliability": 92,
+      "status": "ONLINE",
+      "pool_count": "~600+",
+      "error": null
+    }
+  },
+  "best_sources": {
+    "staking": "rocketpool (A, 98%)",
+    "prices_eth": "binance (A, 99%)",
+    "prices_crypto": "coingecko (B, 88%)",
+    "yields": "defillama (B, 92%)"
+  },
+  "improvements": [
+    "No new improvements needed this hour",
+    "Lido API remains down - backup (DeFiLlama STETH ~4.08%) in use"
+  ],
+  "changes_made": []
+}

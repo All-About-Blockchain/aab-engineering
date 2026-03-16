@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-03-15T11:00:00-06:00",
+  "audit_type": "HOURLY",
+  "sources_tested": [
+    {
+      "name": "Rocket Pool",
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "PASS",
+      "value": "1.965% APR",
+      "reliability_score": 100
+    },
+    {
+      "name": "CoinGecko",
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "grade": "B",
+      "status": "PASS",
+      "values": { "ETH": 2093.72, "SOL": 87.59 },
+      "reliability_score": 95
+    },
+    {
+      "name": "Lido",
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "FAIL",
+      "error": "Exit code 6 - Could not resolve host",
+      "reliability_score": 0
+    },
+    {
+      "name": "Binance",
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "grade": "A",
+      "status": "PASS",
+      "value": "$2095.11",
+      "reliability_score": 100
+    },
+    {
+      "name": "DeFiLlama",
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "PASS",
+      "pool_count": 600,
+      "reliability_score": 90
+    },
+    {
+      "name": "aab.engineering/v1/rates",
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "status": "PASS",
+      "reliability_score": 100
+    },
+    {
+      "name": "aab.engineering/v1/staking/rates",
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "status": "FAIL",
+      "error": "401 - Missing API key",
+      "reliability_score": 0
+    }
+  ],
+  "best_sources": {
+    "staking_apr": { "source": "Rocket Pool", "grade": "A", "value": "1.965%" },
+    "eth_price": { "source": "Binance", "grade": "A", "value": "$2095.11" },
+    "yield_data": { "source": "aab.engineering/v1/rates", "grade": "A" }
+  },
+  "improvements_made": [
+    "Updated source-grader.js with current audit results",
+    "Lido remains failed - using cached Lido stETH value (~4.08%) from aab API as fallback",
+    "No new sources discovered"
+  ],
+  "summary": {
+    "total_sources": 7,
+    "passed": 5,
+    "failed": 2,
+    "average_reliability": "70%"
+  }
+}

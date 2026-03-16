@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-03-15T23:00:00-06:00",
+  "auditHour": 23,
+  "summary": {
+    "totalSources": 8,
+    "gradeA": 4,
+    "gradeB": 2,
+    "gradeF": 2
+  },
+  "sources": {
+    "rocketpool": {
+      "grade": "A",
+      "status": "online",
+      "value": "1.965%",
+      "reliability": 100,
+      "change": "none"
+    },
+    "lido": {
+      "grade": "F",
+      "status": "offline",
+      "value": null,
+      "reliability": 0,
+      "error": "Could not resolve host",
+      "change": "none"
+    },
+    "coingecko": {
+      "grade": "B",
+      "status": "online",
+      "values": { "ETH": 2263.4, "SOL": 93.71 },
+      "reliability": 95,
+      "change": "price_updated"
+    },
+    "binance": {
+      "grade": "A",
+      "status": "online",
+      "value": 2267.64,
+      "reliability": 100,
+      "change": "price_updated"
+    },
+    "defillama": {
+      "grade": "B",
+      "status": "online",
+      "poolCount": "~600+",
+      "reliability": 90,
+      "change": "none"
+    },
+    "aab_rates": {
+      "grade": "A",
+      "status": "online",
+      "reliability": 100,
+      "change": "none"
+    },
+    "aab_staking_rates": {
+      "grade": "F",
+      "status": "protected",
+      "reliability": 0,
+      "error": "Missing API key",
+      "change": "none"
+    }
+  },
+  "improvements": [],
+  "bestSources": {
+    "staking": "rocketpool (A)",
+    "prices": "binance (A)",
+    "yields": "aab_api (A)",
+    "backup_prices": "coingecko (B)"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-03-16T06:35:00-06:00",
+  "audit_type": "hourly_data_quality",
+  "sources_tested": [
+    {
+      "name": "rocketpool",
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "success",
+      "grade": "A",
+      "value": "1.957% APR",
+      "reliability_score": 100
+    },
+    {
+      "name": "coingecko",
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "status": "success",
+      "grade": "B",
+      "values": { "ETH": 2294.85, "SOL": 93.95 },
+      "reliability_score": 95
+    },
+    {
+      "name": "lido",
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "error": "Exit code 6 - Could not resolve host",
+      "reliability_score": 0
+    },
+    {
+      "name": "binance",
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "status": "success",
+      "grade": "A",
+      "value": 2286.18,
+      "reliability_score": 100
+    },
+    {
+      "name": "defillama",
+      "url": "https://yields.llama.fi/pools",
+      "status": "success",
+      "grade": "B",
+      "pool_count": "~600+",
+      "reliability_score": 90
+    }
+  ],
+  "aab_api": {
+    "rates": "operational",
+    "staking_rates": "requires_api_key"
+  },
+  "best_sources": {
+    "staking_eth": "rocketpool (A, 100%)",
+    "prices": "binance (A, 100%)",
+    "yields": "defillama (B, 90%)"
+  },
+  "improvements_made": [
+    "Updated source-grader.js with latest test results",
+    "CoinGecko ETH price updated to $2294.85 (was $2254.83)",
+    "Binance ETH price updated to $2286.18 (was $2253.95)"
+  ]
+}

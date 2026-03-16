@@ -1,0 +1,80 @@
+{
+  "timestamp": "2026-03-16T14:49:00-06:00",
+  "audit_type": "hourly_data_quality",
+  "sources_tested": [
+    {
+      "name": "Rocket Pool",
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "operational",
+      "value": "1.957% APR",
+      "reliability": 100,
+      "notes": "Official on-chain verified API"
+    },
+    {
+      "name": "CoinGecko",
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "status": "operational",
+      "values": { "ETH": 2340.40, "SOL": 95.66 },
+      "reliability": 95,
+      "notes": "Trusted price aggregator"
+    },
+    {
+      "name": "Lido",
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "failed",
+      "error": "Exit code 6 - Could not resolve host",
+      "reliability": 0,
+      "notes": "Persistent failure - using cached value"
+    },
+    {
+      "name": "Binance",
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "status": "operational",
+      "value": "ETHUSDT: 2341.08",
+      "reliability": 100,
+      "notes": "Real-time exchange price - primary source"
+    },
+    {
+      "name": "DeFiLlama",
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "operational",
+      "pool_count": 600,
+      "reliability": 90,
+      "notes": "Yield data aggregator - operational"
+    },
+    {
+      "name": "aab.engineering/v1/rates",
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "status": "operational",
+      "reliability": 100,
+      "notes": "Public endpoint working"
+    },
+    {
+      "name": "aab.engineering/v1/staking/rates",
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "status": "failed",
+      "error": "401 - Missing API key",
+      "reliability": 0,
+      "notes": "Protected endpoint - requires API key"
+    }
+  ],
+  "best_sources": {
+    "staking_apr": { "source": "Rocket Pool", "grade": "A" },
+    "eth_price": { "source": "Binance", "grade": "A" },
+    "sol_price": { "source": "CoinGecko", "grade": "B" },
+    "yield_data": { "source": "DeFiLlama", "grade": "B" }
+  },
+  "improvements_made": [
+    "Updated price values in source-grader.js (ETH: $2340.40, SOL: $95.66)",
+    "Lido remains failed (F grade) - continue using cached value",
+    "All other sources operational"
+  ],
+  "git_commit": "2026-03-16-14"
+}

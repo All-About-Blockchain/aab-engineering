@@ -1,0 +1,81 @@
+{
+  "timestamp": "2026-03-16T11:44:00-06:00",
+  "audit_type": "hourly_data_quality",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "ONLINE",
+      "grade": "A",
+      "reliability": 100,
+      "value": "1.957% APR",
+      "category": "staking"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "ONLINE",
+      "grade": "B",
+      "reliability": 95,
+      "values": { "ETH": 2313.11, "SOL": 94.07 },
+      "category": "prices"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Exit code 6 - Could not resolve host",
+      "category": "staking"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "ONLINE",
+      "grade": "A",
+      "reliability": 100,
+      "value": { "ETHUSDT": 2312.67 },
+      "category": "prices"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "ONLINE",
+      "grade": "B",
+      "reliability": 90,
+      "pool_count": "~600+",
+      "category": "yields"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "ONLINE",
+      "grade": "A",
+      "reliability": 100,
+      "category": "internal"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED_AUTH",
+      "grade": "F",
+      "reliability": 0,
+      "error": "401 Missing API key",
+      "category": "internal"
+    }
+  },
+  "summary": {
+    "total_sources": 7,
+    "grade_a": 3,
+    "grade_b": 2,
+    "grade_c": 0,
+    "grade_f": 2
+  },
+  "best_sources": {
+    "staking_apr": "rocketpool (Grade A, 1.957%)",
+    "eth_price": "binance (Grade A, $2312.67)",
+    "yield_data": "aab_engineering (Grade A, multi-chain)",
+    "price_aggregator": "coingecko (Grade B, ETH $2313.11)"
+  },
+  "improvements_made": [
+    "Updated source-grader.js with latest reliability scores",
+    "Confirmed Rocket Pool API stable at 1.957% APR",
+    "Lido remains failed - using cached 4.08% stETH rate from aab API",
+    "Binance price feed operational at $2312.67",
+    "Coingecko operational - slight price increase from $2294.85 to $2313.11"
+  ]
+}

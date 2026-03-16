@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-03-16T01:25:00-06:00",
+  "sources": {
+    "aab.engineering": {
+      "v1/staking/rates": { "status": "FAILED", "error": "Missing API key", "grade": "F" },
+      "v1/rates": { "status": "SUCCESS", "grade": "A" }
+    },
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "data": { "yearlyAPR": "1.957%" },
+      "grade": "A",
+      "reliability": 100
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "SUCCESS",
+      "data": { "ETH": 2266.99, "SOL": 93.60 },
+      "grade": "B",
+      "reliability": 95
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "error": "curl exit code 6 (Could not resolve host)",
+      "grade": "F",
+      "reliability": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "SUCCESS",
+      "data": { "ETHUSDT": 2264.66 },
+      "grade": "B",
+      "reliability": 98
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "data": "large dataset (pools)",
+      "grade": "B",
+      "reliability": 90
+    }
+  },
+  "summary": {
+    "totalSources": 7,
+    "gradeA": 2,
+    "gradeB": 3,
+    "gradeF": 2
+  },
+  "bestSources": {
+    "stakingAPR": "rocketpool (A)",
+    "ethPrice": "binance (B)",
+    "solPrice": "coingecko (B)",
+    "yieldData": "defillama (B)"
+  },
+  "improvements": [
+    "Lido API endpoint appears to be down or blocked - consider using alternative RPC",
+    "aab.engineering /v1/staking/rates requires API key authentication"
+  ]
+}

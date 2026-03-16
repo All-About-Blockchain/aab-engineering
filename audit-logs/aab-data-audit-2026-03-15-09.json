@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-03-15T09:00:00-06:00",
+  "auditHour": 9,
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 100,
+      "status": "OPERATIONAL",
+      "value": "1.965% APR",
+      "responseTime": "<100ms"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "reliability": 95,
+      "status": "OPERATIONAL",
+      "values": { "ETH": 2096.46, "SOL": 87.94 },
+      "responseTime": "<200ms"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "status": "FAILED",
+      "error": "Exit code 6 - curl: (6) Could not resolve host",
+      "fallback": "Use cached stETH APR ~4.08% from aab.engineering"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "reliability": 100,
+      "status": "OPERATIONAL",
+      "values": { "ETHUSDT": 2096.34 },
+      "responseTime": "<100ms"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "reliability": 90,
+      "status": "OPERATIONAL",
+      "poolCount": 600,
+      "responseTime": "~500ms"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "reliability": 100,
+      "status": "OPERATIONAL",
+      "data": "multi-chain yield data available"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "reliability": 0,
+      "status": "FAILED",
+      "error": "401 - Missing API key required"
+    }
+  },
+  "summary": {
+    "totalSources": 7,
+    "gradeA": 3,
+    "gradeB": 2,
+    "gradeC": 0,
+    "gradeF": 2
+  },
+  "bestSources": {
+    "staking": "rocketpool (A)",
+    "prices_eth": "binance (A)",
+    "prices_sol": "coingecko (B)",
+    "yields": "defillama (B)",
+    "internal_api": "aab.engineering/v1/rates (A)"
+  },
+  "improvements": [],
+  "notes": "Lido API still down - using cached values. All other sources operational."
+}
