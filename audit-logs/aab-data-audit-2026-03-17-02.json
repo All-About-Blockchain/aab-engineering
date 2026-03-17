@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-03-17T02:08:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "ONLINE",
+      "grade": "A",
+      "value": "1.972%",
+      "reliability": 100
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "ONLINE",
+      "grade": "B",
+      "value": { "ethereum": 2329.6, "solana": 94.65 },
+      "reliability": 80,
+      "note": "Recovered from rate limiting"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "grade": "F",
+      "error": "Exit code 6",
+      "reliability": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "ONLINE",
+      "grade": "A",
+      "value": 2331.00,
+      "reliability": 100
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "ONLINE",
+      "grade": "B",
+      "pool_count": "~600+",
+      "reliability": 95
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "ONLINE",
+      "grade": "A",
+      "reliability": 100
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED",
+      "grade": "F",
+      "error": "401 Missing API key",
+      "reliability": 0
+    }
+  },
+  "improvements": [
+    "CoinGecko recovered - upgraded from Grade C to B (was failing, now working)",
+    "All primary sources operational except Lido and protected staking endpoint"
+  ],
+  "best_sources": {
+    "eth_price": "Binance (Grade A, $2331.00)",
+    "sol_price": "CoinGecko (Grade B, $94.65)",
+    "staking_apr": "Rocket Pool (Grade A, 1.97%)",
+    "yields": "DeFiLlama (Grade B)",
+    "internal_rates": "aab.engineering/v1/rates (Grade A)"
+  },
+  "recommendations": [
+    "Continue using Binance as primary ETH price source",
+    "Continue using Rocket Pool for staking APR",
+    "Lido API remains unreliable - continue using cached stETH value (~4.08%)",
+    "Protected endpoints require API key - use public /v1/rates for yield data"
+  ]
+}
