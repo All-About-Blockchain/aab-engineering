@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-03-17T12:27:00-06:00",
+  "audit_type": "hourly",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 98,
+      "status": "operational",
+      "value": "1.97%",
+      "response_time_ms": null
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "status": "failed",
+      "error": "HTTP 404 - Exit code 6",
+      "note": "API endpoint not found - may have changed"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "reliability": 90,
+      "status": "operational",
+      "value": { "ETH": 2334.6, "SOL": 95.08 }
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "reliability": 99,
+      "status": "operational",
+      "value": { "ETH": 2334.40 }
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "reliability": 92,
+      "status": "operational",
+      "pool_count": "~600+"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "reliability": 100,
+      "status": "operational",
+      "note": "Multi-chain yield data available"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "reliability": 0,
+      "status": "failed",
+      "error": "401 - Missing API key"
+    }
+  },
+  "best_sources": {
+    "staking_apr": "rocketpool (A, 1.97%)",
+    "eth_price": "binance (A, $2334.40)",
+    "sol_price": "coingecko (B, $95.08)",
+    "yields": "defillama (B, 600+ pools)"
+  },
+  "improvements": [],
+  "notes": "Lido API still failing - using cached values. CoinGecko recovered from previous rate limit."
+}

@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-03-16T15:51:00-06:00",
+  "audit_type": "HOURLY",
+  "sources_tested": {
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "success",
+      "grade": "A",
+      "reliability": 98,
+      "data": {
+        "USDC_ETH_aave_v3_supply": 4.12,
+        "ETH_lido_steth_supply": 4.08,
+        "ETH_rocketpool_reth_supply": 3.95,
+        "SOL_jito_supply": 8.25
+      }
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "failed",
+      "grade": "F",
+      "reliability": 0,
+      "error": "401 - Missing API key"
+    },
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "success",
+      "grade": "A",
+      "reliability": 100,
+      "value": "1.957% APR"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "success",
+      "grade": "A",
+      "reliability": 95,
+      "data": { "ETH": 2364.81, "SOL": 96.55 }
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Command exited with code 6"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "success",
+      "grade": "A",
+      "reliability": 99,
+      "data": { "ETHUSDT": 2367.75 }
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "success",
+      "grade": "B",
+      "reliability": 85,
+      "data": "~600+ pools returned"
+    }
+  },
+  "summary": {
+    "total_sources": 7,
+    "operational": 6,
+    "failed": 1,
+    "best_price_source": "Binance (A, 99%)",
+    "best_staking_source": "Rocket Pool (A, 100%)",
+    "best_yield_source": "aab.engineering/v1/rates (A, 98%)"
+  },
+  "improvements": [
+    "Rocket Pool API restored - updated from F to A grade",
+    "Lido API still down - maintaining F grade, use DeFiLlama STETH pool as backup"
+  ]
+}

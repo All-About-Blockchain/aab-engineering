@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-03-17T19:44:00-06:00",
+  "auditType": "hourly",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 98,
+      "status": "operational",
+      "value": "1.97%",
+      "data": {"yearlyAPR": "1.9726231424953621%"},
+      "note": "On-chain verified - primary staking APR source"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "grade": "B",
+      "reliability": 90,
+      "status": "operational",
+      "value": {"ETH": 2331.29, "SOL": 94.76},
+      "note": "Trusted price aggregator"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "status": "failed",
+      "error": "Connection failed (exit code 6)",
+      "note": "Using cached ~4.08% from aab API"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "grade": "A",
+      "reliability": 99,
+      "status": "operational",
+      "value": 2331.63,
+      "note": "Real-time exchange price - primary ETH source"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "reliability": 92,
+      "status": "operational",
+      "poolCount": "~600+",
+      "note": "Comprehensive yield data aggregator"
+    }
+  },
+  "bestSources": {
+    "stakingAPR": "rocketpool (1.97%, Grade A)",
+    "ethPrice": "binance ($2331.63, Grade A)",
+    "yields": "defillama (Grade B)"
+  },
+  "improvements": [
+    "All sources operational except Lido (still failing)",
+    "Binance remains most reliable for ETH price",
+    "Rocket Pool stable at ~1.97% APR"
+  ],
+  "aab_api": {
+    "rates": "operational (Grade A)",
+    "staking_rates": "requires API key (Grade F)"
+  }
+}

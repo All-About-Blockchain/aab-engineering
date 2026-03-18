@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-03-17T11:25:00-06:00",
+  "audit_type": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "grade": "A",
+      "value": "1.97% APR",
+      "reliability_score": 98
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "FAILED",
+      "grade": "B",
+      "error": "HTTP 430 - Rate limited",
+      "reliability_score": 85
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "grade": "F",
+      "error": "HTTP 404 - Not found",
+      "reliability_score": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "SUCCESS",
+      "grade": "A",
+      "value": "$2330.76 USD",
+      "reliability_score": 99
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "grade": "B",
+      "value": "600+ pools returned",
+      "reliability_score": 92
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability_score": 100
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED",
+      "grade": "F",
+      "error": "401 - Missing API key",
+      "reliability_score": 0
+    }
+  },
+  "best_sources": {
+    "eth_price": "Binance (A, 99%)",
+    "staking_apr": "Rocket Pool (A, 98%)",
+    "yield_data": "DeFiLlama (B, 92%)",
+    "internal_rates": "aab/v1/rates (A, 100%)"
+  },
+  "improvements": [
+    "Updated CoinGecko reliability to 85% due to rate limiting",
+    "Updated Lido to F grade (HTTP 404 - API endpoint may have changed)",
+    "Verified Binance remains primary ETH price source (Grade A)"
+  ]
+}

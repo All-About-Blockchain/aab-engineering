@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-03-17T07:18:00-06:00",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": { "grade": "A", "status": "operational", "reliability": 98, "value": "1.97%", "change": "UPGRADED from F to A" },
+    "lido": { "grade": "F", "status": "offline", "reliability": 0, "error": "host unreachable", "change": "unchanged" },
+    "coingecko": { "grade": "B", "status": "operational", "reliability": 95, "value": { "ETH": 2317.44, "SOL": 93.62 }, "change": "unchanged" },
+    "binance": { "grade": "A", "status": "operational", "reliability": 99, "value": 2320.18, "change": "unchanged" },
+    "defillama": { "grade": "B", "status": "operational", "reliability": 92, "value": "600+ pools", "change": "unchanged" },
+    "aab_rates": { "grade": "A", "status": "operational", "reliability": 100, "change": "unchanged" },
+    "aab_staking_rates": { "grade": "F", "status": "protected", "reliability": 0, "error": "requires API key", "change": "unchanged" }
+  },
+  "bestSources": {
+    "ETH_price": "binance (A)",
+    "SOL_price": "coingecko (B)",
+    "rETH_staking": "rocketpool (A)",
+    "stETH_staking": "aab_api cache (F lido unreachable)",
+    "yields": "defillama (B)",
+    "multi_chain_rates": "aab_api (A)"
+  },
+  "improvements": [
+    "Rocket Pool API recovered - upgraded from F to A (1.97% APR)",
+    "Lido API remains unreachable from this environment - using cached values"
+  ],
+  "deployed": true
+}

@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-03-18T02:54:00-06:00",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "grade": "A",
+      "status": "operational",
+      "value": "1.95% APR",
+      "reliability": 98,
+      "latency_ms": null
+    },
+    "lido": {
+      "grade": "F",
+      "status": "failed",
+      "error": "Exit code 6 - connection issue",
+      "reliability": 0,
+      "note": "Persistent failure - using cached ~4.08%"
+    },
+    "coingecko": {
+      "grade": "B",
+      "status": "operational",
+      "value": { "ETH": 2324.44, "SOL": 94.14 },
+      "reliability": 90
+    },
+    "binance": {
+      "grade": "A",
+      "status": "operational",
+      "value": { "ETHUSDT": 2321.90 },
+      "reliability": 99
+    },
+    "defillama": {
+      "grade": "B",
+      "status": "operational",
+      "pools": "~600+",
+      "reliability": 92
+    },
+    "aab_rates": {
+      "grade": "A",
+      "status": "operational",
+      "reliability": 100
+    },
+    "aab_staking_rates": {
+      "grade": "F",
+      "status": "protected",
+      "error": "401 Missing API key",
+      "reliability": 0
+    }
+  },
+  "bestSources": {
+    "staking_eth": "rocketpool (A, 1.95%)",
+    "prices_eth": "binance (A, $2321.90)",
+    "prices_sol": "coingecko (B, $94.14)",
+    "yields": "defillama (B, 600+ pools)"
+  },
+  "improvements": [],
+  "issues": [
+    "Lido API persistent failure - investigate connection/host issue",
+    "aab /v1/staking/rates requires API key - document as protected endpoint"
+  ]
+}

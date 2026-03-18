@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-03-18T00:51:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "operational",
+      "reliability": 98,
+      "value": "1.95%",
+      "response_time_ms": null
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "status": "operational",
+      "reliability": 90,
+      "value": { "ETH": 2325.24, "SOL": 94.38 },
+      "response_time_ms": null
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "failed",
+      "reliability": 0,
+      "error": "Could not resolve host (exit code 6)",
+      "value": null,
+      "response_time_ms": null
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "status": "operational",
+      "reliability": 99,
+      "value": 2325.82,
+      "response_time_ms": null
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "operational",
+      "reliability": 92,
+      "value": "600+ pools",
+      "response_time_ms": null
+    }
+  },
+  "best_sources": {
+    "staking_apr": { "source": "rocketpool", "grade": "A", "value": "1.95%" },
+    "eth_price": { "source": "binance", "grade": "A", "value": "$2325.82" },
+    "sol_price": { "source": "coingecko", "grade": "B", "value": "$94.38" },
+    "yields": { "source": "defillama", "grade": "B", "value": "600+ pools" }
+  },
+  "improvements_made": [
+    "No new improvements needed",
+    "Lido API confirmed offline - using cached aab API value"
+  ],
+  "aab_api_status": {
+    "/v1/rates": "operational",
+    "/v1/staking/rates": "requires_api_key"
+  }
+}

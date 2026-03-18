@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-03-17T04:13:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": [
+    {
+      "name": "aab.engineering /v1/staking/rates",
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "status": "failed",
+      "error": "401 Missing API key",
+      "reliability": 0
+    },
+    {
+      "name": "aab.engineering /v1/rates",
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "status": "operational",
+      "data": "multi-chain yield data returned",
+      "reliability": 100
+    },
+    {
+      "name": "Rocket Pool",
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "F",
+      "status": "failed",
+      "error": "403 Forbidden",
+      "reliability": 0
+    },
+    {
+      "name": "CoinGecko",
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "grade": "B",
+      "status": "operational",
+      "values": { "ethereum": 2314.79, "solana": 93.89 },
+      "reliability": 95
+    },
+    {
+      "name": "Lido",
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "failed",
+      "error": "403 Forbidden",
+      "reliability": 0
+    },
+    {
+      "name": "Binance",
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "grade": "A",
+      "status": "operational",
+      "value": 2313.47,
+      "reliability": 99
+    },
+    {
+      "name": "DeFiLlama",
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "operational",
+      "data": "600+ pools returned",
+      "reliability": 92
+    }
+  ],
+  "best_sources": {
+    "eth_price": { "source": "Binance", "value": 2313.47, "grade": "A" },
+    "sol_price": { "source": "CoinGecko", "value": 93.89, "grade": "B" },
+    "yields": { "source": "aab.engineering /v1/rates", "grade": "A" },
+    "staking_apr": { "source": "cached", "value": "~1.97% rETH, ~4.08% stETH" }
+  },
+  "improvements_made": [
+    "Updated Rocket Pool grade from A to F (API returning 403)",
+    "Updated Lido grade from F (confirmed still failing)",
+    "Updated CoinGecko values with current prices",
+    "Updated Binance values with current ETH price"
+  ],
+  "recommendations": [
+    "Continue using cached values for Rocket Pool (~1.97%) and Lido (~4.08%)",
+    "Binance remains primary for ETH price",
+    "CoinGecko remains reliable for SOL and backup ETH"
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "timestamp": "2026-03-17T00:04:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": 7,
+  "results": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 100,
+      "value": "1.957% APR",
+      "response_time_ms": "N/A"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "FAILED",
+      "grade": "C",
+      "reliability": 50,
+      "error": "Exit code 6 - Rate limited/unreachable",
+      "note": "Downgraded from B to C due to failures"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Empty response",
+      "note": "Persistent failure - use cached data"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 100,
+      "value": "$2300.91"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability": 90,
+      "pool_count": "~600+"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 100,
+      "note": "Public endpoint working"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability": 0,
+      "error": "401 - Missing API key"
+    }
+  },
+  "best_sources": {
+    "staking": "rocketpool (A, 100%)",
+    "prices": "binance (A, 100%)",
+    "yields": "defillama (B, 90%)",
+    "internal_rates": "aab/v1/rates (A, 100%)"
+  },
+  "improvements_made": [
+    "Downgraded CoinGecko from B to C (reliability 95→50) due to rate limiting",
+    "Confirmed Rocket Pool remains Grade A - on-chain verified",
+    "Confirmed Binance remains Grade A - real-time price feed",
+    "Lido confirmed F - persistent failure, use cached ~4.08%",
+    "aab/v1/staking/rates confirmed F - requires API key"
+  ],
+  "recommendations": [
+    "Use Binance as primary ETH price source",
+    "Use Rocket Pool for staking APR",
+    "Use aab/v1/rates for internal yield data",
+    "Monitor CoinGecko for recovery"
+  ]
+}

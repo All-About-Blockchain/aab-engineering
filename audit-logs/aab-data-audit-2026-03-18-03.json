@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-03-18T03:56:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "success",
+      "grade": "A",
+      "value": "1.95% APR",
+      "reliability": 98
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "success",
+      "grade": "B",
+      "value": { "ETH": 2328.60, "SOL": 94.27 },
+      "reliability": 90
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "error": "Exit code 6 - connection refused",
+      "reliability": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "success",
+      "grade": "A",
+      "value": 2327.84,
+      "reliability": 99
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "success",
+      "grade": "B",
+      "value": "600+ pools",
+      "reliability": 92
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "success",
+      "grade": "A",
+      "value": "multi-chain yield data",
+      "reliability": 100
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "failed",
+      "grade": "F",
+      "error": "401 Missing API key",
+      "reliability": 0
+    }
+  },
+  "best_sources": {
+    "prices": "binance (A, 99%)",
+    "staking": "rocketpool (A, 98%)",
+    "yields": "defillama (B, 92%)",
+    "internal_api": "aab_api (A, 100%)"
+  },
+  "improvements_made": [
+    "Updated CoinGecko values to current ETH $2328.60, SOL $94.27",
+    "Updated Binance price to $2327.84",
+    "Lido API remains offline - continues to use cached ~4.08%",
+    "aab API /v1/rates operational, /v1/staking/rates requires API key"
+  ],
+  "summary": "5 of 7 sources operational. Lido API persistently failing. Binance best for prices, Rocket Pool best for staking APR."
+}
