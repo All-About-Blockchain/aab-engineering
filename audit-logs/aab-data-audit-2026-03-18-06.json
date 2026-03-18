@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-03-18T06:03:00-06:00",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "operational",
+      "reliability": 98,
+      "value": "1.945334%",
+      "responseTime": "<15ms",
+      "dataFreshness": "real-time"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "status": "operational",
+      "reliability": 90,
+      "values": { "ETH": 2266.97, "SOL": 91.97 },
+      "responseTime": "<15ms",
+      "note": "Free tier - rate limited occasionally"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "failed",
+      "reliability": 0,
+      "error": "Exit code 6 - connection refused/timeout",
+      "note": "PERSISTENT FAILURE - using cached value from aab API"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "status": "operational",
+      "reliability": 99,
+      "values": { "ETHUSDT": 2264.58 },
+      "responseTime": "<15ms",
+      "note": "Primary price source - highly reliable"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "operational",
+      "reliability": 92,
+      "poolCount": "~600+",
+      "responseTime": "<15ms",
+      "note": "Comprehensive yield aggregator"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "status": "operational",
+      "reliability": 100,
+      "data": "multi-chain lending rates",
+      "note": "Internal API - most reliable for yields"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "status": "failed",
+      "reliability": 0,
+      "error": "401 Missing API key",
+      "note": "Requires authentication - not suitable for public monitoring"
+    }
+  },
+  "bestSources": {
+    "stakingAPR": { "source": "rocketpool", "value": "1.945%", "grade": "A" },
+    "ethPrice": { "source": "binance", "value": "$2264.58", "grade": "A" },
+    "solPrice": { "source": "coingecko", "value": "$91.97", "grade": "B" },
+    "yields": { "source": "aab_engineering", "endpoint": "/v1/rates", "grade": "A" }
+  },
+  "improvements": [
+    "Lido API remains offline - continue using aab API cached value (4.08%)",
+    "Binance remains most reliable for ETH price",
+    "CoinGecko prices slightly higher than Binance ($2.39 spread)",
+    "DeFiLlama returning full dataset successfully"
+  ],
+  "recommendations": [
+    "Keep using Rocket Pool for staking APR",
+    "Prefer Binance over CoinGecko for ETH price (lower latency)",
+    "Continue using aab /v1/rates as primary yield source"
+  ]
+}

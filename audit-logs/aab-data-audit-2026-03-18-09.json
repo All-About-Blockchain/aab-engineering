@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-03-18T09:11:00-06:00",
+  "sources": {
+    "rocketpool_api": { "grade": "A", "status": "working", "value": "1.945%", "reliability": 100 },
+    "coingecko": { "grade": "B", "status": "working", "eth": 2190.9, "sol": 89.13, "reliability": 95 },
+    "lido_api": { "grade": "F", "status": "failed", "error": "curl exit 6 - host resolution failed", "reliability": 0 },
+    "binance": { "grade": "B", "status": "working", "eth": 2186.85, "reliability": 90 },
+    "defillama": { "grade": "B", "status": "working", "pools": 1384, "reliability": 92 },
+    "aab_rates": { "grade": "A", "status": "working", "endpoints": 15, "reliability": 100 },
+    "aab_staking_rates": { "grade": "C", "status": "needs_key", "reliability": 50 }
+  },
+  "improvements": [
+    "Added Binance as fallback price source",
+    "Lido API endpoint failed - marked as unreliable",
+    "DeFiLlama shows most comprehensive yield data (1384 pools)"
+  ],
+  "best_sources": {
+    "eth_price": "CoinGecko (trusted aggregator)",
+    "eth_staking_apr": "Rocket Pool (on-chain verified)",
+    "defi_yields": "DeFiLlama (comprehensive pool data)"
+  }
+}
