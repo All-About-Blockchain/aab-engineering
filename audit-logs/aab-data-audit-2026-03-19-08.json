@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-03-19T08:58:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "aab_engineering_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "status": "failed",
+      "error": "401 Missing API key"
+    },
+    "aab_engineering_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "status": "success",
+      "data": "multi-chain yield rates"
+    },
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "success",
+      "value": "1.942%"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "status": "success",
+      "value": { "ETH": 2122.44, "SOL": 88.06 }
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "A",
+      "status": "success",
+      "value": "2.456%",
+      "note": "RECOVERED - previously marked F"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "A",
+      "status": "success",
+      "value": 2125.44
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "success",
+      "value": "200+ pools"
+    }
+  },
+  "improvements": [
+    "Lido API recovered - upgraded from F to A (was failing on 2026-03-19T05, now operational)",
+    "Updated source-grader.js with new Lido APR value (2.456%)"
+  ],
+  "best_sources": {
+    "staking_eth": "lido (2.456%)",
+    "prices_eth": "binance ($2125.44)",
+    "prices_sol": "coingecko ($88.06)",
+    "yields": "defillama"
+  },
+  "action_taken": "Updated source-grader.js - Lido upgraded from F to A"
+}

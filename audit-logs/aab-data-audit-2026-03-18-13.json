@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-03-18T13:21:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 95,
+      "response": "1.945% APR",
+      "latency_ms": 150
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability": 85,
+      "response": { "ETH": 2194.07, "SOL": 89.87 },
+      "latency_ms": 120
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Exit code 6 - connection refused",
+      "note": "Using cached value from aab API"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 98,
+      "response": { "symbol": "ETHUSDT", "price": "2192.24" },
+      "latency_ms": 80
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability": 82,
+      "pool_count": 200,
+      "latency_ms": 450
+    }
+  },
+  "aab_api_status": {
+    "/v1/rates": "OPERATIONAL",
+    "/v1/staking/rates": "AUTH_REQUIRED"
+  },
+  "improvements_made": [
+    "Rocket Pool grade upgraded from F to A (now operational)",
+    "Updated ETH price from Binance: $2192.24",
+    "CoinGecko ETH: $2194.07 (spread: $1.83)"
+  ],
+  "best_sources": {
+    "ethereum_price": "Binance (A, 98% reliability)",
+    "solana_price": "CoinGecko (B, 85% reliability)",
+    "rocket_pool_apr": "Rocket Pool API (A, 95% reliability)",
+    "yield_data": "DeFiLlama (B, 82% reliability)"
+  },
+  "recommendations": [
+    "Lido API still down - continue using cached stETH APR ~4.08%",
+    "All primary sources operational except Lido"
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-03-19T03:42:00-06:00",
+  "audit_type": "HOURLY_DATA_QUALITY_AUDIT",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 95,
+      "value": "1.942%",
+      "response_time_ms": "N/A"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability": 85,
+      "value": { "ETH": 2183.1, "SOL": 89.73 },
+      "response_time_ms": "N/A"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Exit code 6 - could not resolve host",
+      "note": "Persistent failure - using cached values"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 98,
+      "value": 2183.76,
+      "response_time_ms": "N/A"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "SUCCESS",
+      "grade": "B",
+      "reliability": 82,
+      "pool_count": "200+",
+      "response_time_ms": "N/A"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "SUCCESS",
+      "grade": "A",
+      "reliability": 95,
+      "note": "Public endpoint operational"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "FAILED",
+      "grade": "F",
+      "reliability": 0,
+      "error": "401 - Missing API key"
+    }
+  },
+  "best_sources": {
+    "eth_price": { "source": "binance", "value": 2183.76, "grade": "A" },
+    "sol_price": { "source": "coingecko", "value": 89.73, "grade": "B" },
+    "staking_apr": { "source": "rocketpool", "value": "1.942%", "grade": "A" },
+    "yields": { "source": "defillama", "grade": "B" }
+  },
+  "improvements_made": [
+    "Updated CoinGecko ETH price to $2183.10 (was $2167.95)",
+    "Updated Binance ETH price to $2183.76 (was $2171.72)",
+    "Updated SOL price to $89.73 (was $89.33)",
+    "No source changes needed - all currently operational sources maintained"
+  ],
+  "recommendations": [
+    "Lido API remains offline - continue using aab API cached value (4.08%)",
+    "aab staking/rates endpoint requires authentication - using public /rates endpoint"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-03-19T12:08:00-06:00",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 95,
+      "status": "operational",
+      "value": "1.942%",
+      "notes": "Official Rocket Pool node API - on-chain verified"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "status": "failed",
+      "error": "curl exit code 6 - Could not resolve host",
+      "notes": "API unreachable - connection failure"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "reliability": 85,
+      "status": "operational",
+      "value": { "ETH": 2124.05, "SOL": 88.12 },
+      "notes": "Trusted price aggregator - minor spread vs Binance"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "B",
+      "reliability": 90,
+      "status": "operational",
+      "value": { "ETHUSDT": 2122.41 },
+      "notes": "Exchange price - primary price source"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "reliability": 82,
+      "status": "operational",
+      "poolCount": "200+",
+      "notes": "Yield aggregator - comprehensive data"
+    }
+  },
+  "aab_api": {
+    "/v1/rates": {
+      "grade": "A",
+      "status": "operational",
+      "data": "Multi-chain yield rates available"
+    },
+    "/v1/staking/rates": {
+      "grade": "F",
+      "status": "requires_auth",
+      "error": "401 Missing API key"
+    }
+  },
+  "improvements": [
+    "Updated Lido source grade from A to F (API failure detected)",
+    "Lido staking APR no longer available - using Rocket Pool as primary"
+  ],
+  "bestSources": {
+    "ETH_staking_APR": "rocketpool (1.942%)",
+    "ETH_price": "binance ($2122.41)",
+    "SOL_price": "coingecko ($88.12)",
+    "yield_data": "defillama"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-03-19T06:49:00-06:00",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": { "grade": "A", "reliability": 95, "value": "1.942%", "status": "PASS" },
+    "lido": { "grade": "F", "reliability": 0, "value": "FAILED", "status": "FAIL", "error": "Exit code 6" },
+    "coingecko": { "grade": "B", "reliability": 85, "value": "ETH: $2151.43, SOL: $88.86", "status": "PASS" },
+    "binance": { "grade": "A", "reliability": 98, "value": "ETH: $2148.23", "status": "PASS" },
+    "defillama": { "grade": "B", "reliability": 82, "value": "200+ pools", "status": "PASS" }
+  },
+  "bestSources": {
+    "staking": "rocketpool (A)",
+    "prices": "binance (A)",
+    "yields": "defillama (B)"
+  },
+  "improvements": [],
+  "notes": "Lido API persistently failing - continue using cached stETH value from aab API"
+}

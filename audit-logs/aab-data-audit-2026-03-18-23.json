@@ -1,0 +1,80 @@
+{
+  "timestamp": "2026-03-18T23:37:00-06:00",
+  "audit_type": "hourly",
+  "sources_tested": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "success",
+      "grade": "A",
+      "reliability": 95,
+      "value": "1.945%",
+      "response_time_ms": null
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "status": "success",
+      "grade": "B",
+      "reliability": 85,
+      "value": { "ETH": 2188.09, "SOL": 89.85 },
+      "response_time_ms": null
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Exit code 6 - could not resolve host",
+      "fallback": "Using cached value ~4.08% from aab API lido_steth"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "status": "success",
+      "grade": "A",
+      "reliability": 98,
+      "value": 2188.30,
+      "response_time_ms": null
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "success",
+      "grade": "B",
+      "reliability": 82,
+      "pool_count": "200+",
+      "response_time_ms": null
+    }
+  },
+  "best_sources": {
+    "eth_price": {
+      "source": "binance",
+      "grade": "A",
+      "value": 2188.30,
+      "reason": "Real-time exchange price, highest reliability"
+    },
+    "sol_price": {
+      "source": "coingecko",
+      "grade": "B",
+      "value": 89.85,
+      "reason": "Best available for SOL"
+    },
+    "staking_eth": {
+      "source": "rocketpool",
+      "grade": "A",
+      "value": "1.945%",
+      "reason": "On-chain verified node APR"
+    },
+    "yields": {
+      "source": "defillama",
+      "grade": "B",
+      "reason": "Comprehensive multi-pool data"
+    }
+  },
+  "improvements": [],
+  "summary": {
+    "total_sources": 5,
+    "operational": 4,
+    "failed": 1,
+    "grade_a": 2,
+    "grade_b": 2,
+    "grade_f": 1
+  }
+}
