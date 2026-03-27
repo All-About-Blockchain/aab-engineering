@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-03-26T06:58:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": { "grade": "A", "reliability": 95, "value": "2.088% APR", "status": "operational" },
+    "coingecko": { "grade": "B", "reliability": 90, "value": { "ETH": 2120.87, "SOL": 89.02 }, "status": "operational" },
+    "lido_direct": { "grade": "F", "reliability": 0, "error": "Connection failed", "status": "failed" },
+    "lido_defillama": { "grade": "A", "reliability": 90, "value": "2.425% APY", "status": "operational" },
+    "binance": { "grade": "B", "reliability": 90, "value": { "ETH": 2122.08 }, "status": "operational" },
+    "defillama": { "grade": "A", "reliability": 88, "poolCount": "6000+", "status": "operational" },
+    "aab_rates": { "grade": "A", "reliability": 95, "status": "operational" },
+    "aab_staking_rates": { "grade": "F", "reliability": 0, "status": "auth_required" }
+  },
+  "bestPerCategory": {
+    "staking_eth": "rocketpool (2.088% APR, Grade A)",
+    "staking_lido": "defillama_lido (2.425% APY, Grade A)",
+    "prices_eth": "binance (Grade B, $2122.08)",
+    "prices_sol": "coingecko (Grade B, $89.02)"
+  },
+  "improvements": [],
+  "gitChanges": false,
+  "note": "No changes from previous audit. All sources stable."
+}

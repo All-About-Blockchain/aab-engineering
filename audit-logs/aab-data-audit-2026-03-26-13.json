@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-03-26T13:14:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "aab_engineering": {
+      "staking_rates": {
+        "url": "https://aab.engineering/v1/staking/rates",
+        "status": "auth_required",
+        "httpStatus": 401,
+        "grade": "F",
+        "reliability": 0,
+        "value": null,
+        "error": "Missing API key. Use X-API-Key header or Authorization: Bearer <key>"
+      },
+      "rates": {
+        "url": "https://aab.engineering/v1/rates",
+        "status": "operational",
+        "httpStatus": 200,
+        "grade": "A",
+        "reliability": 95,
+        "value": "Full multi-chain rate data returned",
+        "data": {
+          "USDC": {"ethereum": {"aave_v3": {"supply": 4.12, "borrow": 5.68}}},
+          "ETH": {"ethereum": {"aave_v3": {"supply": 2.45}, "lido_steth": {"supply": 4.08}, "rocketpool_reth": {"supply": 3.95}}},
+          "SOL": {"solana": {"jito": {"supply": 8.25}}}
+        }
+      }
+    },
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "operational",
+      "httpStatus": 200,
+      "grade": "A",
+      "reliability": 95,
+      "value": "2.088% APR"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "operational",
+      "httpStatus": 200,
+      "grade": "B",
+      "reliability": 90,
+      "value": {"ETH": 2077.72, "SOL": 87.7}
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "httpStatus": null,
+      "grade": "F",
+      "reliability": 0,
+      "value": null,
+      "error": "Connection failed (exit code 6)"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "operational",
+      "httpStatus": 200,
+      "grade": "B",
+      "reliability": 90,
+      "value": {"ETH": 2078.27}
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "partial_timeout",
+      "httpStatus": 200,
+      "grade": "A",
+      "reliability": 85,
+      "value": "Partial data returned (timeout on full fetch)",
+      "note": "Returned 200 OK, partial pool data. Timeout limit may need adjustment."
+    }
+  },
+  "summary": {
+    "totalSources": 7,
+    "gradeA": 4,
+    "gradeB": 2,
+    "gradeC": 0,
+    "gradeF": 1
+  },
+  "bestSources": {
+    "staking_rates": "rocketpool (2.088% APR)",
+    "prices": "binance (ETH $2078.27)",
+    "yields": "defillama (6000+ pools)",
+    "multi_chain_rates": "aab.engineering/v1/rates"
+  },
+  "improvements": [],
+  "actions": []
+}

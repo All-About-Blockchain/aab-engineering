@@ -1,0 +1,96 @@
+{
+  "timestamp": "2026-03-21T07:18:00Z",
+  "cycle": "hourly",
+  "sources": {
+    "staking": {
+      "rocketpool": {
+        "url": "https://api.rocketpool.net/api/node/apr",
+        "grade": "A",
+        "reliability": 95,
+        "value": "1.955% APR",
+        "prevValue": "1.945% APR",
+        "delta": "+0.010%",
+        "note": "Stable Grade A. Direct Rocket Pool node APR endpoint."
+      },
+      "lido": {
+        "url": "https://api.lido.fi/v1/steth/apr",
+        "grade": "F",
+        "reliability": 0,
+        "error": "EXIT:6 - connection failed",
+        "note": "DOWN 8+ consecutive cycles. DeFiLlama Lido STETH pool is primary fallback (Grade A, 2.447% APY, $19.83B TVL)."
+      },
+      "lido_defillama": {
+        "url": "https://yields.llama.fi/pools (Lido STETH pool)",
+        "grade": "A",
+        "reliability": 90,
+        "value": "2.447% APY",
+        "tvlUsd": 19825479433,
+        "note": "DeFiLlama Lido STETH pool. APY: 2.447%, TVL: ~$19.83B. Primary Lido staking data source."
+      },
+      "etherfi": {
+        "url": "https://yields.llama.fi/pools (ether.fi weETH pool)",
+        "grade": "B",
+        "reliability": 85,
+        "value": "2.774% APY",
+        "tvlUsd": 6189510588,
+        "note": "DeFiLlama ether.fi-stake WEETH: APY 2.774%. TVL: ~$6.19B."
+      }
+    },
+    "prices": {
+      "coingecko": {
+        "url": "https://api.coingecko.com/api/v3/simple/price",
+        "grade": "A",
+        "reliability": 92,
+        "value": { "ETH": 2155.40, "SOL": 90.21 },
+        "prevValue": { "ETH": 2152.45, "SOL": 90.09 },
+        "note": "ETH +$2.95, SOL +$0.12 from previous cycle."
+      },
+      "binance": {
+        "url": "https://api.binance.com/api/v3/ticker/price",
+        "grade": "A",
+        "reliability": 94,
+        "value": { "ETH": 2157.43 },
+        "prevValue": { "ETH": 2152.29 },
+        "crossValidation": "CoinGecko ETH $2155.40, spread: $2.03 (0.09%). Within normal range."
+      }
+    },
+    "yields": {
+      "defillama": {
+        "url": "https://yields.llama.fi/pools",
+        "grade": "A",
+        "reliability": 88,
+        "status": "operational",
+        "note": "6000+ pools returned. Lido STETH: 2.447% APY / $19.83B TVL. Ether.fi weETH: 2.774% APY / $6.19B TVL."
+      }
+    },
+    "aab_api": {
+      "rates": {
+        "url": "https://aab.engineering/v1/rates",
+        "grade": "A",
+        "reliability": 95,
+        "status": "operational",
+        "note": "Internal rates API fully operational. USDC ETH Aave V3: 2.45%/4.12%. Kamino SOL: 5.2%/7.5%. Morpho: 4.25%/5.82%. Jito SOL: 8.25%/12.5%. Neptune INJ: 8.5%/12.5%."
+      },
+      "staking_rates": {
+        "url": "https://aab.engineering/v1/staking/rates",
+        "grade": "F",
+        "reliability": 0,
+        "error": "403 Missing API key",
+        "note": "BUG PERSISTS (8+ cycles): Listed in publicEndpoints but requires auth. Needs backend fix."
+      }
+    }
+  },
+  "improvements": [],
+  "bestSources": {
+    "ETH_price": "binance (Grade A, $2157.43)",
+    "SOL_price": "coingecko (Grade A, $90.21)",
+    "staking_ETH": "lido_defillama (Grade A, 2.447% APY, $19.83B TVL)",
+    "staking_RETH": "rocketpool (Grade A, 1.955% APR)",
+    "yields_comprehensive": "defillama (Grade A, 6000+ pools)",
+    "yields_internal": "aab.engineering/v1/rates (Grade A)"
+  },
+  "openIssues": [
+    "aab.engineering/v1/staking/rates: 403 auth bug — 8+ cycles, needs backend fix",
+    "api.lido.fi: DOWN 8+ cycles — DeFiLlama fallback used"
+  ]
+}

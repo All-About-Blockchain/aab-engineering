@@ -1,5 +1,5 @@
 // Source Grader Configuration
-// Last updated: 2026-03-21T02:07:00Z (HOURLY AUDIT)
+// Last updated: 2026-03-27T05:50:00Z (HOURLY AUDIT)
 
 const sources = {
   staking: {
@@ -7,56 +7,60 @@ const sources = {
       url: "https://api.rocketpool.net/api/node/apr",
       grade: "A",
       reliability: 95,
-      lastChecked: "2026-03-21T02:07:00Z",
-      value: "1.945% APR",
-      note: "Stable Grade A. Direct Rocket Pool node APR endpoint. 1.945% (consistent with previous cycle)."
+      lastChecked: "2026-03-27T05:50:00Z",
+      value: "2.088% APR",
+      change: "Stable: 2.088% APR. Official Rocket Pool API.",
+      note: "Grade A. Direct Rocket Pool node APR endpoint. ~2.088% APR. Stable."
     },
     lido: {
       url: "https://api.lido.fi/v1/steth/apr",
       grade: "F",
       reliability: 0,
-      lastChecked: "2026-03-21T02:07:00Z",
+      lastChecked: "2026-03-27T05:50:00Z",
       value: null,
-      error: "Empty response (API down)",
-      note: "DOWN 5+ consecutive cycles. DeFiLlama Lido STETH pool is primary Lido data source (Grade A, 2.447% APY, $19.83B TVL)."
+      error: "curl exit code 6 - could not resolve host",
+      change: "FAILED: Direct Lido API unreachable. Remains Grade F.",
+      consecutiveFailures: 4,
+      note: "Grade F. Direct API failing - connection error. Fallback to DeFiLlama required."
     },
     lido_defillama: {
       url: "https://yields.llama.fi/pools (Lido STETH pool)",
       grade: "A",
       reliability: 90,
-      lastChecked: "2026-03-21T02:07:00Z",
-      value: "2.447% APY",
-      tvlUsd: 19833157589,
-      note: "DeFiLlama Lido STETH pool. APY: 2.447%, TVL: ~$19.83B (up $360M from last cycle). Primary Lido staking data source."
+      lastChecked: "2026-03-27T05:50:00Z",
+      value: "STETH APY ~2.43% (via DeFiLlama)",
+      change: "Stable: Lido STETH via DeFiLlama. PRIMARY Lido staking data source.",
+      note: "PRIMARY Lido staking data source. DeFiLlama Lido STETH pool. APY ~2.43%. Grade A."
     },
     etherfi: {
       url: "https://yields.llama.fi/pools (ether.fi weETH pool)",
       grade: "B",
       reliability: 85,
-      lastChecked: "2026-03-21T02:07:00Z",
-      value: "2.774% APY",
-      tvlUsd: 6189510588,
-      note: "DeFiLlama ether.fi-stake WEETH: APY 2.774% (base 2.683% + reward 0.091%). TVL: ~$6.19B."
+      lastChecked: "2026-03-27T05:50:00Z",
+      value: "weETH via DeFiLlama (~2.4% APY)",
+      note: "DeFiLlama ether.fi-stake WEETH: APY ~2.4%. TVL ~$6B+. Grade B."
     }
   },
   prices: {
     coingecko: {
       url: "https://api.coingecko.com/api/v3/simple/price",
-      grade: "A",
-      reliability: 92,
-      lastChecked: "2026-03-21T02:07:00Z",
+      grade: "B",
+      reliability: 90,
+      lastChecked: "2026-03-27T05:50:00Z",
       params: { ids: "ethereum,solana", vs_currencies: "usd" },
-      value: { ETH: 2147.59, SOL: 89.83 },
-      note: "Stable Grade A. Cross-validated vs Binance: variance 0.055% ($1.19). Best multi-asset price coverage."
+      value: { ETH: 2057.69, SOL: 85.99 },
+      change: "ETH $2057.69, SOL $85.99. Binance ETH $2058.59 — spread $0.90 (0.044%).",
+      note: "Grade B. ETH $2057.69, SOL $85.99. Cross-validated vs Binance ETH $2058.59. Very tight spread."
     },
     binance: {
       url: "https://api.binance.com/api/v3/ticker/price",
-      grade: "A",
-      reliability: 94,
-      lastChecked: "2026-03-21T02:07:00Z",
+      grade: "B",
+      reliability: 90,
+      lastChecked: "2026-03-27T05:50:00Z",
       params: { symbol: "ETHUSDT" },
-      value: { ETH: 2148.78 },
-      note: "Fastest ETH price source. Primary price feed. ETH price: $2148.78 (cross-validates CoinGecko at $2147.59, 0.055% spread)."
+      value: { ETH: 2058.59 },
+      change: "ETH $2058.59. Fastest price source.",
+      note: "Grade B. Fastest ETH price source. Primary price feed. ETH $2058.59."
     }
   },
   yields: {
@@ -64,9 +68,10 @@ const sources = {
       url: "https://yields.llama.fi/pools",
       grade: "A",
       reliability: 88,
-      lastChecked: "2026-03-21T02:07:00Z",
+      lastChecked: "2026-03-27T05:50:00Z",
+      status: "operational",
       poolCount: "6000+",
-      note: "DeFiLlama pools endpoint fully operational. 6000+ pools. Best overall yield data aggregator."
+      note: "Grade A. Full data returned successfully. 6000+ pools. Operational."
     }
   },
   aab_api: {
@@ -74,18 +79,19 @@ const sources = {
       url: "https://aab.engineering/v1/rates",
       grade: "A",
       reliability: 95,
-      lastChecked: "2026-03-21T02:07:00Z",
+      lastChecked: "2026-03-27T05:50:00Z",
       status: "operational",
-      data: "comprehensive lending/borrowing rates for USDC, ETH, USDT, SOL, ATOM, INJ, AVAX, MATIC across Aave V3, Lido, RocketPool, Morpho, Kamino, Solend, Neptune, etc.",
-      note: "Internal API fully operational. ETH Aave V3: 2.45%/4.12%. Kamino SOL: 5.2%/7.5%. Morpho ETH USDC: 4.25%/5.82%. SOL Jito: 8.25%/12.5%. INJ Neptune: 8.5%/12.5%. Aave Base USDC: 4.95%/6.45%. STRIDE ATOM: 18.5%."
+      value: "Full multi-chain rate data returned (200 OK)",
+      note: "Grade A. Returns 200 with comprehensive multi-chain yield data. Reliability 95."
     },
     staking_rates: {
       url: "https://aab.engineering/v1/staking/rates",
       grade: "F",
       reliability: 0,
-      lastChecked: "2026-03-21T02:07:00Z",
-      error: "403 Missing API key",
-      note: "BUG PERSISTS (5+ cycles): Listed in publicEndpoints but requires auth. Backend fix needed - expose publicly or remove from publicEndpoints list."
+      lastChecked: "2026-03-27T05:50:00Z",
+      status: "auth_required",
+      value: null,
+      note: "Route EXISTS (publicEndpoints listed). Requires X-API-Key header. Authenticated access only. Grade F."
     }
   }
 };

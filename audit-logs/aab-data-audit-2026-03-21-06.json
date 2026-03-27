@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-03-21T06:15:00Z",
+  "cycle": "hourly",
+  "sources": {
+    "rocketpool": { "grade": "A", "reliability": 95, "value": "1.945% APR", "status": "operational" },
+    "lido": { "grade": "F", "reliability": 0, "error": "DNS resolution failure - api.lido.fi unreachable", "status": "down" },
+    "lido_defillama": { "grade": "A", "reliability": 90, "value": "2.447% APY", "tvlUsd": 19844427161, "status": "operational" },
+    "coingecko": { "grade": "A", "reliability": 92, "value": { "ETH": 2152.45, "SOL": 90.09 }, "status": "operational" },
+    "binance": { "grade": "A", "reliability": 94, "value": { "ETH": 2152.29 }, "status": "operational" },
+    "defillama": { "grade": "A", "reliability": 88, "poolCount": "6000+", "status": "operational" }
+  },
+  "aab_api": {
+    "/v1/rates": { "grade": "A", "reliability": 95, "status": "operational" },
+    "/v1/staking/rates": { "grade": "F", "reliability": 0, "error": "Missing API key (403)", "status": "broken" }
+  },
+  "price_cross_validation": {
+    "binance_vs_coingecko_eth": { "diff_pct": 0.007, "status": "tight" },
+    "note": "ETH price dropped ~$1 from previous cycle ($2153 → $2152), SOL dropped ~$0.20 ($90.29 → $90.09)"
+  },
+  "improvements": [
+    "Lido direct API remains down (DNS failure). DeFiLlama Lido STETH pool remains primary Grade A fallback.",
+    "All Grade A sources operational.",
+    "/v1/staking/rates bug persists (requires auth despite being in publicEndpoints)."
+  ],
+  "best_sources": {
+    "eth_price": "binance (Grade A, $2152.29, fastest)",
+    "multi_asset_price": "coingecko (Grade A, ETH $2152.45, SOL $90.09)",
+    "staking_eth_rocketpool": "rocketpool (Grade A, 1.945% APR)",
+    "staking_eth_lido": "defillama_lido (Grade A, 2.447% APY, $19.84B TVL)",
+    "yields": "defillama (Grade A, 6000+ pools)"
+  }
+}

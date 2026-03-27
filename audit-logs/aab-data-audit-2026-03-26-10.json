@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-03-26T10:06:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "staking": {
+      "rocketpool": {
+        "url": "https://api.rocketpool.net/api/node/apr",
+        "grade": "A",
+        "reliability": 95,
+        "value": "2.088% APR",
+        "status": "operational"
+      },
+      "lido": {
+        "url": "https://api.lido.fi/v1/steth/apr",
+        "grade": "F",
+        "reliability": 0,
+        "error": "Connection failed (code 6)",
+        "status": "failed"
+      },
+      "lido_defillama": {
+        "url": "https://yields.llama.fi/pools",
+        "grade": "A",
+        "reliability": 90,
+        "value": "Lido STETH pool available via DeFiLlama",
+        "status": "operational"
+      }
+    },
+    "prices": {
+      "coingecko": {
+        "url": "https://api.coingecko.com/api/v3/simple/price",
+        "grade": "B",
+        "reliability": 90,
+        "value": { "ETH": 2079.37, "SOL": 88.04 },
+        "status": "operational"
+      },
+      "binance": {
+        "url": "https://api.binance.com/api/v3/ticker/price",
+        "grade": "B",
+        "reliability": 90,
+        "value": { "ETH": 2079.74 },
+        "status": "operational"
+      }
+    },
+    "yields": {
+      "defillama": {
+        "url": "https://yields.llama.fi/pools",
+        "grade": "A",
+        "reliability": 88,
+        "status": "operational",
+        "poolCount": "6000+"
+      }
+    },
+    "aab_api": {
+      "rates": {
+        "url": "https://aab.engineering/v1/rates",
+        "grade": "A",
+        "reliability": 95,
+        "status": "operational"
+      },
+      "staking_rates": {
+        "url": "https://aab.engineering/v1/staking/rates",
+        "grade": "F",
+        "reliability": 0,
+        "status": "auth_required",
+        "note": "Requires X-API-Key header"
+      }
+    }
+  },
+  "improvements": [],
+  "summary": "All sources stable. No changes required."
+}

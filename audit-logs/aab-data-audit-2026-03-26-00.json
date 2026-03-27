@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-03-26T00:06:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "staking": {
+      "rocketpool": { "grade": "A", "reliability": 95, "value": "2.093% APR", "status": "operational" },
+      "lido": { "grade": "F", "reliability": 0, "error": "Connection failed (code 6)", "status": "failed" },
+      "lido_defillama": { "grade": "A", "reliability": 90, "value": "2.425% APY", "status": "operational" },
+      "etherfi_defillama": { "grade": "B", "reliability": 85, "status": "operational" }
+    },
+    "prices": {
+      "coingecko": { "grade": "B", "reliability": 90, "value": { "ETH": 2167.05, "SOL": 91.63 }, "status": "operational" },
+      "binance": { "grade": "B", "reliability": 90, "value": { "ETH": 2167.72 }, "status": "operational" }
+    },
+    "yields": {
+      "defillama": { "grade": "A", "reliability": 88, "poolCount": "6000+", "status": "operational" }
+    },
+    "aab_api": {
+      "rates": { "grade": "A", "reliability": 95, "status": "operational" },
+      "staking_rates": { "grade": "F", "reliability": 0, "error": "auth_required", "status": "requires_auth" }
+    }
+  },
+  "bestSources": {
+    "staking_eth": "rocketpool (2.093% APR) / lido_defillama (2.425% APY)",
+    "prices_eth": "binance ($2167.72)",
+    "prices_sol": "coingecko ($91.63)",
+    "yields": "defillama (6000+ pools)"
+  },
+  "improvements": [],
+  "summary": "All sources operational. Lido direct API still failing. AAB rates endpoint operational (requires auth for staking/rates)."
+}
