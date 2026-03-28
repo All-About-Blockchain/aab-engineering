@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-03-27T13:11:00Z",
+  "auditType": "HOURLY",
+  "sourcesGraded": {
+    "staking": {
+      "rocketpool": { "grade": "A", "reliability": 95, "value": "2.097% APR", "status": "operational" },
+      "lido": { "grade": "F", "reliability": 0, "value": null, "status": "failed", "error": "exit code 6" },
+      "lido_defillama": { "grade": "A", "reliability": 90, "value": "STETH ~2.43% APY", "status": "operational" },
+      "etherfi": { "grade": "B", "reliability": 85, "value": "weETH ~2.4% APY", "status": "operational" }
+    },
+    "prices": {
+      "coingecko": { "grade": "B", "reliability": 90, "value": "ETH $1987.48, SOL $83.06", "status": "operational" },
+      "binance": { "grade": "B", "reliability": 90, "value": "ETH $1989.71", "status": "operational" }
+    },
+    "yields": {
+      "defillama": { "grade": "A", "reliability": 88, "value": "6000+ pools", "status": "operational" }
+    },
+    "aab_api": {
+      "rates": { "grade": "A", "reliability": 95, "value": "multi-chain yield data", "status": "operational" },
+      "staking_rates": { "grade": "F", "reliability": 0, "value": null, "status": "auth_required" }
+    }
+  },
+  "bestSources": {
+    "staking_eth": "rocketpool (A, 95%)",
+    "staking_lido": "defillama lido pool (A, 90%)",
+    "prices_eth": "binance (B, 90%)",
+    "prices_sol": "coingecko (B, 90%)",
+    "yields": "defillama (A, 88%)"
+  },
+  "improvements": [],
+  "changes": [
+    "Updated ETH price: $1987.48 (CoinGecko), $1989.71 (Binance)",
+    "Updated SOL price: $83.06",
+    "Lido direct API: 6 consecutive failures - still Grade F, fallback to DeFiLlama"
+  ]
+}

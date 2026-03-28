@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-03-27T17:19:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 95,
+      "status": "operational",
+      "value": "2.097% APR",
+      "error": null
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "status": "failed",
+      "value": null,
+      "error": "curl exit code 6 - could not resolve host"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "reliability": 90,
+      "status": "operational",
+      "value": { "ETH": 1990.36, "SOL": 83.12 }
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "B",
+      "reliability": 90,
+      "status": "operational",
+      "value": { "ETH": 1987.55 }
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "A",
+      "reliability": 88,
+      "status": "operational",
+      "value": "6000+ pools returned"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "reliability": 95,
+      "status": "operational",
+      "value": "Full multi-chain rate data returned"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "reliability": 0,
+      "status": "auth_required",
+      "value": null,
+      "error": "Missing API key - requires X-API-Key header"
+    }
+  },
+  "bestSources": {
+    "staking": {
+      "rocketpool": "2.097% APR (Grade A)",
+      "lido_fallback": "DeFiLlama STETH ~2.43% APY (Grade A)"
+    },
+    "prices": {
+      "coingecko": "ETH $1990.36, SOL $83.12 (Grade B)",
+      "binance": "ETH $1987.55 (Grade B)"
+    },
+    "yields": "DeFiLlama (Grade A)"
+  },
+  "improvements": [],
+  "notes": "Lido direct API remains failed (6 consecutive). AAB /v1/staking/rates requires authentication."
+}

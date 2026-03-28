@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-03-27T14:13:00Z",
+  "auditNumber": 27,
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 95,
+      "value": "2.097% APR",
+      "status": "operational",
+      "responseTime": "fast"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "reliability": 90,
+      "value": { "ETH": 1985.19, "SOL": 83.16 },
+      "status": "operational",
+      "responseTime": "fast"
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "value": null,
+      "error": "curl exit code 6 - could not resolve host",
+      "status": "failed",
+      "consecutiveFailures": 7
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "grade": "B",
+      "reliability": 90,
+      "value": { "ETH": 1986.66 },
+      "status": "operational",
+      "responseTime": "fast"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "A",
+      "reliability": 88,
+      "value": "Lido STETH 2.462% APY, 6000+ pools",
+      "status": "operational",
+      "responseTime": "medium"
+    }
+  },
+  "improvements": [],
+  "bestSources": {
+    "staking_eth": "rocketpool (2.097% APR) + lido_defillama (2.462% APY)",
+    "prices_eth": "binance ($1986.66)",
+    "prices_sol": "coingecko ($83.16)",
+    "yields": "defillama (6000+ pools)"
+  }
+}
