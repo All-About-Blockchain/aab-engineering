@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-03-31T06:51:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 95,
+      "status": "operational",
+      "value": "2.032% APR",
+      "responseTime": "<15s"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "grade": "B",
+      "reliability": 90,
+      "status": "operational",
+      "value": { "ETH": 2059.49, "SOL": 83.2 }
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "status": "failed",
+      "error": "Command exited with code 6 (connection/cert issue)",
+      "consecutiveFailures": 14
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "grade": "A",
+      "reliability": 92,
+      "status": "operational",
+      "value": { "ETH": 2060.91 }
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "reliability": 85,
+      "status": "timeout",
+      "note": "Large response - partial data shows pools returning"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "reliability": 95,
+      "status": "operational"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "reliability": 0,
+      "status": "auth_required",
+      "error": "Missing API key"
+    }
+  },
+  "bestPerCategory": {
+    "staking_eth": "rocketpool (2.032% APR) - Grade A",
+    "price_eth": "binance ($2060.91) - Grade A",
+    "liquidity_yields": "defillama (pools operational) - Grade B"
+  },
+  "improvements": [
+    "Rocket Pool API stable at 2.032% APR (was ~2.08%)",
+    "Lido direct API still failing - continue using DeFiLlama fallback",
+    "Binance/CoinGecko price spread within normal range ($1.42, 0.07%)"
+  ],
+  "issues": [
+    "Lido direct API: 14 consecutive failures - use DeFiLlama fallback",
+    "aab.engineering /v1/staking/rates requires auth - endpoint exists but protected"
+  ]
+}

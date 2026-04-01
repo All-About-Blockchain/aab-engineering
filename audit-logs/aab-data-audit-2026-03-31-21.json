@@ -1,0 +1,81 @@
+{
+  "timestamp": "2026-03-31T21:05:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "reliability": 95,
+      "value": "2.032% APR",
+      "status": "operational",
+      "lastChecked": "2026-03-31T21:05:00Z"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "grade": "B",
+      "reliability": 90,
+      "value": { "ETH": 2098.56, "SOL": 82.93 },
+      "status": "operational",
+      "lastChecked": "2026-03-31T21:05:00Z"
+    },
+    "lido_direct": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "reliability": 0,
+      "error": "curl exit code 6 - connection failed",
+      "status": "failed",
+      "lastChecked": "2026-03-31T21:05:00Z",
+      "consecutiveFailures": 15
+    },
+    "lido_defillama": {
+      "url": "https://yields.llama.fi/pools (Lido STETH)",
+      "grade": "A",
+      "reliability": 90,
+      "value": "STETH APY 2.421%",
+      "status": "operational",
+      "lastChecked": "2026-03-31T21:05:00Z"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "grade": "A",
+      "reliability": 92,
+      "value": { "ETH": 2100.09 },
+      "status": "operational",
+      "lastChecked": "2026-03-31T21:05:00Z"
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "reliability": 85,
+      "value": "6000+ pools returned",
+      "status": "operational",
+      "lastChecked": "2026-03-31T21:05:00Z"
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "reliability": 95,
+      "status": "operational",
+      "lastChecked": "2026-03-31T21:05:00Z"
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "reliability": 0,
+      "error": "Missing API key - auth required",
+      "status": "auth_required",
+      "lastChecked": "2026-03-31T21:05:00Z"
+    }
+  },
+  "bestSources": {
+    "staking_ETH": "rocketpool (2.032% APR, Grade A)",
+    "staking_Lido": "defillama (2.421% APY, Grade A)",
+    "price_ETH": "binance ($2100.09, Grade A)",
+    "price_SOL": "coingecko ($82.93, Grade B)",
+    "yields": "defillama (Grade B)"
+  },
+  "improvements": [
+    "No changes needed - all sources performing at expected grades"
+  ],
+  "notes": "Lido direct API still failing (15 consecutive failures). Continue using DeFiLlama fallback. AAB /v1/staking/rates requires authentication."
+}

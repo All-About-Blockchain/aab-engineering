@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-04-01T00:10:00Z",
+  "hour": "00",
+  "sources": {
+    "aab-staking-rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "F",
+      "grade": "F",
+      "error": "Missing API key - requires X-API-Key header",
+      "reliability": 0
+    },
+    "aab-rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "success",
+      "grade": "A",
+      "data": "Full DeFi rates for ETH, USDC, USDT, SOL, ATOM, INJ, AVAX, MATIC across multiple chains",
+      "reliability": 95
+    },
+    "rocket-pool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "success",
+      "grade": "A",
+      "data": "2.032% APR",
+      "reliability": 98
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "success",
+      "grade": "B",
+      "data": "ETH: $2103.12, SOL: $83.09",
+      "reliability": 90
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "error": "curl exit code 6 (connection failed/timeout)",
+      "reliability": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price",
+      "status": "success",
+      "grade": "A",
+      "data": "ETHUSDT: $2101.66",
+      "reliability": 95
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "success",
+      "grade": "B",
+      "data": "Extensive pool yield data (large response)",
+      "reliability": 85
+    }
+  },
+  "bestSources": {
+    "ethPrice": "Binance (A) - $2101.66",
+    "solPrice": "CoinGecko (B) - $83.09",
+    "rethAPR": "Rocket Pool (A) - 2.032%",
+    "stethAPR": "N/A - Lido API failed",
+    "generalRates": "aab.engineering/v1/rates (A)"
+  },
+  "improvements": [
+    "Lido API endpoint needs investigation - may have changed endpoint or be experiencing downtime",
+    "aab.engineering /v1/staking/rates requires API key - consider documenting required auth"
+  ]
+}

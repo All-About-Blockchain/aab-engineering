@@ -1,5 +1,5 @@
 // Source Grader Configuration
-// Last updated: 2026-03-31T01:06:00Z (HOURLY AUDIT)
+// Last updated: 2026-03-31T21:05:00Z (HOURLY AUDIT)
 
 const sources = {
   staking: {
@@ -7,10 +7,10 @@ const sources = {
       url: "https://api.rocketpool.net/api/node/apr",
       grade: "A",
       reliability: 95,
-      lastChecked: "2026-03-30T21:58:00Z",
-      value: "2.086% APR",
-      change: "Stable: 2.086% APR. Official Rocket Pool API. Grade A.",
-      note: "Grade A. Direct Rocket Pool node APR endpoint. ~2.086% APR. Stable."
+      lastChecked: "2026-03-31T17:57:00Z",
+      value: "2.032% APR",
+      change: "Stable: 2.032% APR. Official Rocket Pool API. Grade A.",
+      note: "Grade A. Direct Rocket Pool node APR endpoint. ~2.032% APR. Stable."
     },
     lido: {
       url: "https://api.lido.fi/v1/steth/apr",
@@ -20,7 +20,7 @@ const sources = {
       value: null,
       error: "No output (empty response or silent failure)",
       change: "FAILED: Direct Lido API still returning no output. Remains Grade F.",
-      consecutiveFailures: 13,
+      consecutiveFailures: 14,
       note: "Grade F. Direct Lido API unreachable (13 consecutive failures). Use DeFiLlama fallback."
     },
     lido_defillama: {
@@ -46,21 +46,21 @@ const sources = {
       url: "https://api.coingecko.com/api/v3/simple/price",
       grade: "B",
       reliability: 90,
-      lastChecked: "2026-03-30T21:58:00Z",
+      lastChecked: "2026-03-31T17:57:00Z",
       params: { ids: "ethereum,solana", vs_currencies: "usd" },
-      value: { ETH: 2037.46, SOL: 83.25 },
-      change: "ETH $2037.46, SOL $83.25. Binance ETH $2036.59 — spread $0.87 (0.04%). Normal spread.",
-      note: "Grade B. ETH $2029.51, SOL $82.62. Cross-validated vs Binance ETH $2030.90. Spread 0.07%."
+      value: { ETH: 2092.09, SOL: 82.31 },
+      change: "ETH $2092.09, SOL $82.31. Binance ETH $2091.54 — spread $0.55 (0.03%). Normal spread.",
+      note: "Grade B. ETH $2092.09, SOL $82.31. Cross-validated vs Binance ETH $2091.54. Spread 0.03%."
     },
     binance: {
       url: "https://api.binance.com/api/v3/ticker/price",
       grade: "A",
       reliability: 92,
-      lastChecked: "2026-03-30T18:53:00Z",
+      lastChecked: "2026-03-31T17:57:00Z",
       params: { symbol: "ETHUSDT" },
-      value: { ETH: 2073.07 },
-      change: "ETH $2073.07. Fastest price source. Grade A. Spread vs CoinGecko: $0.12 (0.006%).",
-      note: "Grade A. Fastest ETH price source. Primary price feed. ETH $2073.07. High reliability."
+      value: { ETH: 2091.54 },
+      change: "ETH $2091.54. Fastest price source. Grade A. Spread vs CoinGecko: $0.55 (0.03%).",
+      note: "Grade A. Fastest ETH price source. Primary price feed. ETH $2091.54. High reliability."
     }
   },
   yields: {

@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-03-31T15:53:00Z",
+  "auditHour": 15,
+  "sources": {
+    "staking": {
+      "rocketpool": {
+        "url": "https://api.rocketpool.net/api/node/apr",
+        "grade": "A",
+        "reliability": 95,
+        "status": "success",
+        "value": "2.032% APR",
+        "responseTime": "< 1s"
+      },
+      "lido": {
+        "url": "https://api.lido.fi/v1/steth/apr",
+        "grade": "F",
+        "reliability": 0,
+        "status": "failed",
+        "error": "curl exit code 6 (could not resolve host)",
+        "consecutiveFailures": 14
+      },
+      "lido_defillama": {
+        "url": "https://yields.llama.fi/pools",
+        "grade": "A",
+        "reliability": 90,
+        "status": "success",
+        "note": "DeFiLlama yields API operational - fallback for Lido data"
+      }
+    },
+    "prices": {
+      "coingecko": {
+        "url": "https://api.coingecko.com/api/v3/simple/price",
+        "grade": "B",
+        "reliability": 90,
+        "status": "success",
+        "value": { "ETH": 2062.28, "SOL": 81.1 }
+      },
+      "binance": {
+        "url": "https://api.binance.com/api/v3/ticker/price",
+        "grade": "A",
+        "reliability": 92,
+        "status": "success",
+        "value": { "ETH": 2062.15 }
+      }
+    },
+    "yields": {
+      "defillama": {
+        "url": "https://yields.llama.fi/pools",
+        "grade": "B",
+        "reliability": 85,
+        "status": "success",
+        "note": "Large dataset returned (~4000+ pools)"
+      }
+    },
+    "aab_api": {
+      "rates": {
+        "url": "https://aab.engineering/v1/rates",
+        "grade": "A",
+        "reliability": 95,
+        "status": "success",
+        "data": {
+          "ETH": { "lido_steth": 4.08, "rocketpool_reth": 3.95, "aave_v3": 2.45 },
+          "SOL": { "jito": 8.25, "marinade": 7.85 }
+        }
+      },
+      "staking_rates": {
+        "url": "https://aab.engineering/v1/staking/rates",
+        "grade": "F",
+        "reliability": 0,
+        "status": "auth_required",
+        "error": "Missing API key"
+      }
+    }
+  },
+  "crossValidation": {
+    "ETH_price_spread": {
+      "coingecko": 2062.28,
+      "binance": 2062.15,
+      "spread": 0.13,
+      "spread_pct": "0.006%"
+    }
+  },
+  "improvements": [],
+  "summary": {
+    "totalSources": 9,
+    "gradeA": 4,
+    "gradeB": 2,
+    "gradeC": 0,
+    "gradeF": 3,
+    "bestPerCategory": {
+      "staking": "rocketpool (A)",
+      "prices": "binance (A)",
+      "yields": "defillama (B)",
+      "api": "aab-engineering/rates (A)"
+    }
+  }
+}
