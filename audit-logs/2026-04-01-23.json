@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-04-01T23:07:00Z",
+  "audit": "HOURLY",
+  "sources": {
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "success",
+      "grade": "A",
+      "reliability": 98,
+      "value": "2.027% APR"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "status": "success",
+      "grade": "B",
+      "reliability": 95,
+      "value": { "ETH": 2143.3, "SOL": 81.23 }
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "reliability": 0,
+      "error": "exit code 6"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "status": "success",
+      "grade": "A",
+      "reliability": 95,
+      "value": { "ETH": 2143.34 }
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "success",
+      "grade": "B",
+      "reliability": 85,
+      "pools": "large response"
+    }
+  },
+  "improvements": [],
+  "notes": "All grade A/B sources operational. Lido direct API still failing (Grade F). Use DeFiLlama fallback."
+}

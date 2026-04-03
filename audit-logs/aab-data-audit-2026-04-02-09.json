@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-04-02T09:28:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "rocketpool": { "grade": "A", "reliability": 96, "value": "2.011% APR", "status": "operational" },
+    "coingecko": { "grade": "A", "reliability": 94, "value": { "ETH": 2046.53, "SOL": 79.15 }, "status": "operational" },
+    "lido": { "grade": "F", "reliability": 10, "value": null, "status": "failed_empty_response", "consecutiveFailures": 19 },
+    "binance": { "grade": "A", "reliability": 92, "value": { "ETH": 2046.45 }, "status": "operational" },
+    "defillama": { "grade": "A", "reliability": 88, "value": "yield_pools_data", "status": "operational" },
+    "aab_rates": { "grade": "A", "reliability": 97, "value": "full_multi_chain_data", "status": "operational" },
+    "aab_staking_rates": { "grade": "F", "reliability": 0, "value": null, "status": "auth_required", "consecutiveFailures": 11 }
+  },
+  "bestSources": {
+    "staking": "rocketpool (2.011% APR) via direct API",
+    "prices": "coingecko + binance dual-verification (spread 0.04%)",
+    "yields": "defillama (Lido STETH 2.41%, ether.fi WEETH 2.428%)"
+  },
+  "improvements": [],
+  "notes": "Lido direct API continues to fail (19 consecutive). Using DeFiLlama for Lido data. AAB /v1/rates operational with no auth."
+}

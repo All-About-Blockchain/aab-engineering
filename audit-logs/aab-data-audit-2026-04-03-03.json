@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-04-03T03:05:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "staking": {
+      "rocketpool": { "grade": "A", "reliability": 95, "value": "2.01% APR", "status": "success" },
+      "lido": { "grade": "F", "reliability": 0, "error": "connection refused (exit code 6)", "status": "failed" },
+      "lido_defillama": { "grade": "A", "reliability": 90, "value": "STETH APY ~2.38%", "status": "fallback_active" },
+      "etherfi": { "grade": "B", "reliability": 85, "value": "~2.4% APY via DeFiLlama", "status": "operational" }
+    },
+    "prices": {
+      "coingecko": { "grade": "B", "reliability": 90, "value": { "ETH": 2050.63, "SOL": 79.28 }, "status": "success" },
+      "binance": { "grade": "A", "reliability": 92, "value": { "ETH": 2052.61 }, "status": "success" }
+    },
+    "yields": {
+      "defillama": { "grade": "B", "reliability": 90, "poolCount": "6000+", "status": "success" }
+    },
+    "aab_api": {
+      "rates": { "grade": "A", "reliability": 95, "status": "operational" },
+      "staking_rates": { "grade": "F", "reliability": 0, "error": "auth_required", "status": "requires_key" }
+    }
+  },
+  "bestSources": {
+    "stakingAPR": "rocketpool (2.01% APR, Grade A)",
+    "ethPrice": "binance ($2052.61, Grade A)",
+    "yieldData": "defillama (6000+ pools, Grade B)",
+    "lidoStaking": "lido_defillama (2.38% APY, Grade A fallback)"
+  },
+  "improvements": []
+}

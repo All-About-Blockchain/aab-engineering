@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-01T16:53:00Z",
+  "audit": "hourly",
+  "sources": {
+    "aab_rates": { "grade": "A", "status": "operational", "reliability": 95 },
+    "aab_staking_rates": { "grade": "F", "status": "auth_required", "reliability": 0 },
+    "rocketpool": { "grade": "A", "value": "2.027% APR", "reliability": 95 },
+    "coingecko": { "grade": "B", "value": "ETH $2145.83, SOL $85.14", "reliability": 90 },
+    "lido": { "grade": "F", "error": "curl exit code 6 - host unreachable", "reliability": 0 },
+    "binance": { "grade": "A", "value": "ETH $2146.73", "reliability": 92 },
+    "defillama": { "grade": "B", "status": "operational", "reliability": 85 }
+  },
+  "best_sources": {
+    "staking": "rocketpool (2.027% APR)",
+    "prices": "binance (ETH $2146.73)",
+    "yields": "defillama (Lido STETH 2.434%)"
+  },
+  "improvements": []
+}

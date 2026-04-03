@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-03T07:13:00Z",
+  "cycle": "hourly",
+  "sources": {
+    "rocketpool": { "grade": "A", "reliability": 96, "value": "2.025% APR", "status": "working" },
+    "coingecko": { "grade": "A", "reliability": 94, "value": { "ETH": 2063.82, "SOL": 79.57 }, "status": "working" },
+    "lido_direct": { "grade": "F", "reliability": 10, "value": null, "status": "failed", "error": "Connection refused (exit code 6)" },
+    "binance": { "grade": "A", "reliability": 92, "value": { "ETH": 2064.26 }, "status": "working" },
+    "defillama": { "grade": "B", "reliability": 88, "value": "partial_data", "status": "timeout" },
+    "aab_rates": { "grade": "A", "reliability": 97, "value": "multi-chain_yield_data", "status": "working" },
+    "aab_staking_rates": { "grade": "F", "reliability": 0, "value": null, "status": "auth_required" }
+  },
+  "improvements": [],
+  "notes": "All current grades accurate. Lido direct still failing (22 consecutive). DeFiLlama partial timeout."
+}

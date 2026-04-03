@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-04-01T07:24:00Z",
+  "auditType": "HOURLY",
+  "sources": {
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "status": "success",
+      "grade": "A",
+      "reliability": 95,
+      "data": {
+        "ETH": { "lido_steth": "4.08%", "rocketpool_reth": "3.95%", "aave_v3": "2.45%" },
+        "SOL": { "jito": "8.25%", "marinade": "7.85%" },
+        "USDC": { "ethereum_aave_v3": "4.12%" }
+      }
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "status": "failed",
+      "grade": "F",
+      "error": "Missing API key. Requires X-API-Key header."
+    },
+    "rocketpool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "status": "success",
+      "grade": "A",
+      "reliability": 95,
+      "value": "2.027% APR"
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price",
+      "status": "success",
+      "grade": "B",
+      "reliability": 90,
+      "value": { "ETH": 2138.66, "SOL": 84.32 }
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "status": "failed",
+      "grade": "F",
+      "error": "No output (exit code 6)"
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "status": "success",
+      "grade": "A",
+      "reliability": 92,
+      "value": 2141.34
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "status": "success",
+      "grade": "B",
+      "reliability": 85,
+      "note": "Large response, returned valid data"
+    }
+  },
+  "bestSources": {
+    "stakingAPR": "rocketpool (2.027%, Grade A)",
+    "ethPrice": "binance ($2141.34, Grade A)",
+    "solPrice": "coingecko ($84.32, Grade B)",
+    "yields": "defillama (Grade B)"
+  },
+  "improvements": []
+}

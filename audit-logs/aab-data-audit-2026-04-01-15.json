@@ -1,0 +1,64 @@
+{
+  "audit_time": "2026-04-01T15:03:00-06:00",
+  "utc_time": "2026-04-01T21:03:00Z",
+  "sources_tested": {
+    "rocket_pool": {
+      "url": "https://api.rocketpool.net/api/node/apr",
+      "grade": "A",
+      "status": "success",
+      "data": { "yearlyAPR": "2.027%" },
+      "reliability_score": 95
+    },
+    "coingecko": {
+      "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,solana&vs_currencies=usd",
+      "grade": "B",
+      "status": "success",
+      "data": { "ethereum": 2143.71, "solana": 82.55 },
+      "reliability_score": 90
+    },
+    "lido": {
+      "url": "https://api.lido.fi/v1/steth/apr",
+      "grade": "F",
+      "status": "failed",
+      "error": "curl exit code 6",
+      "reliability_score": 0
+    },
+    "binance": {
+      "url": "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+      "grade": "B",
+      "status": "success",
+      "data": { "price": 2149.95 },
+      "reliability_score": 92
+    },
+    "defillama": {
+      "url": "https://yields.llama.fi/pools",
+      "grade": "B",
+      "status": "success",
+      "data": "large dataset received",
+      "reliability_score": 88
+    },
+    "aab_staking_rates": {
+      "url": "https://aab.engineering/v1/staking/rates",
+      "grade": "F",
+      "status": "failed",
+      "error": "requires API key (but publicEndpoints lists it)",
+      "reliability_score": 50
+    },
+    "aab_rates": {
+      "url": "https://aab.engineering/v1/rates",
+      "grade": "A",
+      "status": "success",
+      "data": "comprehensive rates for multiple chains",
+      "reliability_score": 98
+    }
+  },
+  "best_sources": {
+    "staking_apr": "rocket_pool (2.027%)",
+    "eth_price": "binance ($2149.95)",
+    "defi_yields": "defillama"
+  },
+  "improvements": [
+    "Lido API endpoint appears broken - needs investigation",
+    "aab.engineering staking/rates endpoint requires key despite publicEndpoints listing"
+  ]
+}
